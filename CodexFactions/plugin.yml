@@ -1,0 +1,9 @@
+name: CodexFactions
+version: 1.0
+main: org.codex.factions.FactionsMain
+description: A modern solution to an old problem
+api-version: 1.8.8
+commands:
+  f:
+        aliases: [faction, fac]
+        description: Main faction plugin

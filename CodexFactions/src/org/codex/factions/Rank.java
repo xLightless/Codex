@@ -1,7 +1,15 @@
-package Factions;
+package org.codex.factions;
 
 public enum Rank {
-	Leader(4), CoLeader(3), Moderater(2), Member(1), Recruit(0);
+	LEADER(4),
+	
+	COLEADER(3),
+	
+	MODERATOR(2),
+	
+	MEMBER(1),
+	
+	RECRUIT(0);
 
 	int Level;
 

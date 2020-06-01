@@ -1,14 +1,27 @@
-package Factions;
+package org.codex.factions;
 
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
 public class FactionObject {
-	String FactionName;
+	private String FactionName;
 	private UUID Leader;
 	private Set<UUID> Players = new HashSet<>();
 
+	public Set<UUID> getPlayers() {
+		return Players;
+	}
+
+
+	public FactionObject(String name, UUID uUID) {
+		this.setFactionName(name);
+		this.Leader = uUID;
+		Players.add(uUID);
+		FactionsMain.Players.put(uUID, new FactionPlayer(uUID, Rank.LEADER, this));
+	}
+	
+	
 	public UUID getLeaderUUID() {
 		return Leader;
 	}
@@ -42,5 +55,15 @@ public class FactionObject {
 			throw new Throwable("Player not in faction");
 		}
 	}
+
+	public String getFactionName() {
+		return FactionName;
+	}
+
+	public void setFactionName(String factionName) {
+		FactionName = factionName;
+	}
+	
+
 
 }
