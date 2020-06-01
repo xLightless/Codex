@@ -19,7 +19,7 @@ public class FactionsMain extends JavaPlugin implements CommandExecutor {
 	static File JarLocation;
 	public static Map<String, FactionObject> Factions = new HashMap<>();
 	public static Map<UUID, FactionPlayer> Players = new HashMap<>();
-	public Map<Long, String> ClaimedChunks = new HashMap<>();
+	public static Map<Long, String> ClaimedChunks = new HashMap<>();
 	static File FactionsDir;
 	static File FactionsData;
 	static File PlayersData;
@@ -46,7 +46,7 @@ public class FactionsMain extends JavaPlugin implements CommandExecutor {
 	}
 
 	@SuppressWarnings("unchecked")
-	public void loadData() {
+	public static void loadData() {
 		try {
 			if (!FactionsData.exists()) {
 				FactionsData.createNewFile();
@@ -64,7 +64,7 @@ public class FactionsMain extends JavaPlugin implements CommandExecutor {
 			e.printStackTrace();
 		}
 	}
-	public void saveData() {
+	public static void saveData() {
 		try {
 			if (!FactionsData.exists()) {
 				FactionsData.createNewFile();
@@ -80,6 +80,24 @@ public class FactionsMain extends JavaPlugin implements CommandExecutor {
 			oos.close();
 		} catch (Throwable e) {
 			e.printStackTrace();
+		}
+	}
+	
+	public static boolean isChunkWilderness(int x, int z) {
+		long posz = z;
+		long posx = x << 32;
+		long result = posx | posz;
+		return !ClaimedChunks.containsKey(result);
+	}
+	//returns null if wilderness
+	public static FactionObject getChunkOwner(int x, int z) {
+		long posz = z;
+		long posx = x << 32;
+		long result = posx | posz;
+		if(ClaimedChunks.containsKey(result)) {
+			return Factions.get(ClaimedChunks.get(result));
+		}else {
+			return null;
 		}
 	}
 
