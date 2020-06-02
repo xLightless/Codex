@@ -28,26 +28,13 @@ public class FactionsMain extends JavaPlugin implements CommandExecutor {
 	 */
 	public static Map<UUID, FactionPlayer> Players = new HashMap<>(); 
 	public static Map<Long, String> ClaimedChunks = new HashMap<>();
-	static File FactionsDir;
 	static File FactionsData;
 	static File PlayersData;
 
-	static {
-		String urlString = ClassLoader.getSystemClassLoader().getResource("Factions/FactionsMain.class").toString();
-		urlString = urlString.substring(urlString.indexOf("file:"), urlString.length());
-		urlString = urlString.replaceAll("!", "");
-		try {
-			URL url = new URL(urlString);
-			JarLocation = new File(url.toURI()).getParentFile().getParentFile();
-			FactionsDir = new File(JarLocation.getParentFile() + "/CodexFactions");
-			FactionsData = new File(FactionsDir + "/fdata.txt");
-			PlayersData = new File(PlayersData + "/pdata.txt");
 
-		} catch (Throwable e) {
-			e.printStackTrace();
-		}
 
-	}
+	
+	
 
 	public FactionsMain() {
 
@@ -57,18 +44,25 @@ public class FactionsMain extends JavaPlugin implements CommandExecutor {
 	public static void loadData() {
 		try {
 			if (!FactionsData.exists()) {
+				FactionsData.getParentFile().mkdirs();
 				FactionsData.createNewFile();
 			}
 			if (!PlayersData.exists()) {
+				FactionsData.getParentFile().mkdirs();
 				PlayersData.createNewFile();
 			}
+			try {
 			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(FactionsData));
 			Factions  = (Map<String, FactionObject>) ois.readObject();
 			ois.close();
 			ois = new ObjectInputStream(new FileInputStream(PlayersData));
 			Players = (Map<UUID, FactionPlayer>) ois.readObject();
 			ois.close();
+			}catch(Exception e) {
+				System.out.println("Ois stream is empty");
+			}
 		} catch (Throwable e) {
+			System.out.println(e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -111,17 +105,36 @@ public class FactionsMain extends JavaPlugin implements CommandExecutor {
 
 	@Override
 	public void onEnable() {
+		loadSaveFolders();
 		getCommand("f").setExecutor(this);
+	}
+
+	private void loadSaveFolders() {
+		String urlString = FactionsMain.class.getClassLoader().getResource("org/codex/factions/FactionsMain.class").toString();
+		urlString = urlString.substring(urlString.indexOf("file:"), urlString.length());
+		urlString = urlString.replaceAll("!", "");
+		try {
+			URL url = new URL(urlString);
+			JarLocation = new File(url.toURI()).getParentFile().getParentFile();
+			FactionsData = new File(this.getDataFolder() + "/fdata.txt");
+			PlayersData = new File(this.getDataFolder() + "/pdata.txt");
+			Bukkit.broadcastMessage(FactionsData.getPath().toString());
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+		FactionsMain.loadData();
+
+		
 	}
 
 	@Override
 	public void onDisable() {
-
+		FactionsMain.saveData();
 	}
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-		if (command.getName().equals("/f")) {
+
 			if (args.length != 0) {
 				switch (args[0]) {
 				case "create":
@@ -171,9 +184,8 @@ public class FactionsMain extends JavaPlugin implements CommandExecutor {
 					break;
 				}
 
-			}
 
-		}
+		}else sender.sendMessage(ChatColor.RED + "That command is not valid. Try /f help");
 		return false;
 	}
 	
@@ -199,7 +211,7 @@ public class FactionsMain extends JavaPlugin implements CommandExecutor {
 		FactionObject fac = Players.get(uuid).getFaction();
 		for(UUID u: fac.getPlayers())Players.remove(u);
 		Factions.remove(fac.getFactionName());
-		Bukkit.broadcastMessage(ChatColor.GRAY + fac.getFactionName() + " has been disbanded by " + Bukkit.getPlayer(uuid));
+		Bukkit.broadcastMessage(ChatColor.GRAY + fac.getFactionName() + " has been disbanded by " + Bukkit.getPlayer(uuid).getName());
 	}
 	
 }
