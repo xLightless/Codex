@@ -37,6 +37,7 @@ public class FactionObject implements Serializable{
 
 	public void kickPlayer(FactionPlayer fp) {
 		Players.remove(fp.getUUID());
+		FactionsMain.Players.remove(fp.getUUID());
 	}
 
 	public void promotePlayer(UUID player) throws Throwable {

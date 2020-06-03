@@ -16,6 +16,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.codex.factions.Executors.Kicker;
 
 import net.md_5.bungee.api.ChatColor;
 
@@ -30,6 +31,7 @@ public class FactionsMain extends JavaPlugin implements CommandExecutor {
 	public static Map<Long, String> ClaimedChunks = new HashMap<>();
 	static File FactionsData;
 	static File PlayersData;
+	Kicker kick;
 
 	public FactionsMain() {
 
@@ -159,6 +161,7 @@ public class FactionsMain extends JavaPlugin implements CommandExecutor {
 			case "invite":
 				break;
 			case "kick":
+				kick.onCommand(sender, args);
 				break;
 			case "leave":
 				break;
@@ -218,5 +221,20 @@ public class FactionsMain extends JavaPlugin implements CommandExecutor {
 		Bukkit.broadcastMessage(
 				ChatColor.GRAY + fac.getFactionName() + " has been disbanded by " + Bukkit.getPlayer(uuid).getName());
 	}
+	public static FactionObject getPlayerFaction(UUID id) throws Throwable{
+		FactionPlayer fp = Players.get(id);
+		if(fp == null) {
+			throw new Throwable("Your not in a faction");
+		}
+		return fp.getFaction();
+	}
+	public static FactionPlayer getPlayer(UUID id) throws Throwable{
+		FactionPlayer fp = Players.get(id);
+		if(fp == null) {
+			throw new Throwable("Your not in a faction");
+		}
+		return fp;
+	}
+	
 
 }

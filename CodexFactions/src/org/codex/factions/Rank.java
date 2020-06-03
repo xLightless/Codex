@@ -11,7 +11,7 @@ public enum Rank {
 	
 	RECRUIT(0);
 
-	int Level;
+	public int Level;
 
 	private Rank(int Level) {
 		this.Level = Level;
