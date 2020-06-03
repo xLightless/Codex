@@ -7,3 +7,6 @@ commands:
   f:
         aliases: [faction, fac]
         description: Main faction plugin
+  givechunkbuster: 
+        aliases: [gbuster, gchunkbuster, gbust]
+        description: gives a player a chunk buster.
