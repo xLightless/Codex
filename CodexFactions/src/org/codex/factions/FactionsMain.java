@@ -10,18 +10,14 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-import org.bukkit.Bukkit;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.codex.chunkbusters.ChunkBusterMain;
-import org.codex.factions.Executors.Kicker;
+import org.codex.factions.commands.FactionCommand;
+import org.codex.factions.commands.GiveChunkBusterCommand;
 
-import net.md_5.bungee.api.ChatColor;
 
-public class FactionsMain extends JavaPlugin implements CommandExecutor {
+
+public class FactionsMain extends JavaPlugin{
 	static File JarLocation;
 	public static Map<String, FactionObject> Factions = new HashMap<>();
 	/**
@@ -32,8 +28,8 @@ public class FactionsMain extends JavaPlugin implements CommandExecutor {
 	public static Map<Long, String> ClaimedChunks = new HashMap<>();
 	static File FactionsData;
 	static File PlayersData;
-	Kicker kick;
 
+	
 	public FactionsMain() {
 		//getServer().getPluginManager().enablePlugin(new ChunkBusterMain());
 	}
@@ -104,7 +100,8 @@ public class FactionsMain extends JavaPlugin implements CommandExecutor {
 	@Override
 	public void onEnable() {
 		loadSaveFolders();
-		getCommand("f").setExecutor(this);
+		getCommand("f").setExecutor(new FactionCommand());
+		getCommand("givechunkbuster").setExecutor(new GiveChunkBusterCommand());
 		ChunkBusterMain cb = new ChunkBusterMain();
 		getServer().getPluginManager().registerEvents(cb, this);
 	}
@@ -135,95 +132,13 @@ public class FactionsMain extends JavaPlugin implements CommandExecutor {
 		FactionsMain.saveData();
 	}
 
-	@Override
-	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-
-		if (args.length != 0) {
-			switch (args[0]) {
-			case "create":
-				if (args.length >= 2 && sender instanceof Player) {
-					Player p = (Player) sender;
-					try {
-						this.createFaction(args[1], p.getUniqueId());
-						p.sendMessage(ChatColor.GREEN + "you have created the faction " + args[1]);
-					} catch (Throwable e) {
-						p.sendMessage(e.getMessage());
-					}
-				}
-				break;
-			case "disband":
-				if (!(sender instanceof Player))
-					break;
-				Player p = (Player) sender;
-				try {
-					this.clearFaction(p.getUniqueId());
-				} catch (Throwable e) {
-					p.sendMessage(e.getMessage());
-				}
-				break;
-			case "invite":
-				break;
-			case "kick":
-				kick.onCommand(sender, args);
-				break;
-			case "leave":
-				break;
-			case "mod":
-				break;
-			case "coleader":
-				break;
-			case "leader":
-				break;
-			case "help":
-				break;
-			case "tag":
-				break;
-			case "rename":
-				break;
-			case "claim":
-				break;
-			case "info":
-				break;
-			default:
-				sender.sendMessage(ChatColor.RED + "That command is not valid. Try /f help");
-				break;
-			}
-
-		} else
-			sender.sendMessage(ChatColor.RED + "That command is not valid. Try /f help");
-		return false;
-	}
+	
 
 	public static FactionObject getFactionFromName(String facName) {
 		return FactionsMain.Factions.get(facName);
 	}
 
-	private void createFaction(String facName, UUID uuid) throws Throwable {
-
-		if (!Factions.containsKey(facName)) {
-			if (Players.containsKey(uuid))
-				throw new Throwable(ChatColor.RED + "You are already inside of a Faction");
-			FactionObject fac = new FactionObject(facName, uuid);
-			Factions.put(facName, fac);
-			saveData();
-			return;
-		} else {
-			throw new Throwable(ChatColor.RED + "This faction name has already been taken");
-		}
-	}
-
-	private void clearFaction(UUID uuid) throws Throwable {
-		if (!Players.containsKey(uuid))
-			throw new Throwable(ChatColor.RED + "You are not inside of a Faction");
-		if (!Factions.get(Players.get(uuid).getFactionName()).getLeaderUUID().equals(uuid))
-			throw new Throwable(ChatColor.RED + "You are not the leader of this Faction");
-		FactionObject fac = Players.get(uuid).getFaction();
-		for (UUID u : fac.getPlayers())
-			Players.remove(u);
-		Factions.remove(fac.getFactionName());
-		Bukkit.broadcastMessage(
-				ChatColor.GRAY + fac.getFactionName() + " has been disbanded by " + Bukkit.getPlayer(uuid).getName());
-	}
+	
 	public static FactionObject getPlayerFaction(UUID id) throws Throwable{
 		FactionPlayer fp = Players.get(id);
 		if(fp == null) {

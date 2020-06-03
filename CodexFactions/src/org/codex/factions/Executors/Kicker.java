@@ -12,14 +12,14 @@ import org.codex.factions.FactionsMain;
 public class Kicker implements Execute {
 
 	@Override
-	public void onCommand(CommandSender sender, String[] args) {
+	public boolean onCommand(CommandSender sender, String[] args) {
 		if(args.length > 1) {
 			if(sender instanceof Player) {
 				@SuppressWarnings("deprecation")
 				OfflinePlayer target = Bukkit.getOfflinePlayer(args[1]);
 				if(target == null) {
 					sender.sendMessage("Could not find player");
-					return;
+					return false;
 				}
 				Player p = (Player) sender;
 				UUID id = p.getUniqueId();
@@ -32,16 +32,19 @@ public class Kicker implements Execute {
 								if(tuuid.getRank().Level < fp.getRank().Level) {
 									sender.sendMessage("You have kicked" + args[1]);
 									fp.getFaction().kickPlayer(fp);
-									
+									return true;
 								}else {
 									sender.sendMessage("You can not kick this user");
+									return false;
 								}
 							}
 						}else {
 							sender.sendMessage("This player is not in your faction");
+							return false;
 						}
 					}else {
 						sender.sendMessage("You do not have permission to do this");
+						return false;
 					}
 				}catch(Throwable e) {
 					sender.sendMessage(e.getMessage());
@@ -49,6 +52,7 @@ public class Kicker implements Execute {
 				
 			}
 		}
+		return false;
 	}
 
 }
