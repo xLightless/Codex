@@ -1,10 +1,13 @@
 package org.codex.factions;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-public class FactionObject {
+public class FactionObject implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 	private String FactionName;
 	private UUID Leader;
 	private Set<UUID> Players = new HashSet<>();
@@ -13,15 +16,13 @@ public class FactionObject {
 		return Players;
 	}
 
-
 	public FactionObject(String name, UUID uUID) {
 		this.setFactionName(name);
 		this.Leader = uUID;
 		Players.add(uUID);
-		FactionsMain.Players.put(uUID, new FactionPlayer(uUID, Rank.LEADER, this));
+		FactionsMain.Players.put(uUID, new FactionPlayer(uUID, Rank.LEADER, name));
 	}
-	
-	
+
 	public UUID getLeaderUUID() {
 		return Leader;
 	}
@@ -48,7 +49,7 @@ public class FactionObject {
 	}
 
 	public void demotePlayer(UUID player) throws Throwable {
-		FactionPlayer p =  FactionsMain.Players.get(player);
+		FactionPlayer p = FactionsMain.Players.get(player);
 		if (p != null) {
 			p.setRank(Rank.demote(p.getRank()));
 		} else {
@@ -63,7 +64,5 @@ public class FactionObject {
 	public void setFactionName(String factionName) {
 		FactionName = factionName;
 	}
-	
-
 
 }
