@@ -16,6 +16,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.codex.chunkbusters.ChunkBusterMain;
 import org.codex.factions.Executors.Kicker;
 
 import net.md_5.bungee.api.ChatColor;
@@ -34,7 +35,7 @@ public class FactionsMain extends JavaPlugin implements CommandExecutor {
 	Kicker kick;
 
 	public FactionsMain() {
-
+		//getServer().getPluginManager().enablePlugin(new ChunkBusterMain());
 	}
 
 	@SuppressWarnings("unchecked")
@@ -104,6 +105,8 @@ public class FactionsMain extends JavaPlugin implements CommandExecutor {
 	public void onEnable() {
 		loadSaveFolders();
 		getCommand("f").setExecutor(this);
+		ChunkBusterMain cb = new ChunkBusterMain();
+		getServer().getPluginManager().registerEvents(cb, this);
 	}
 
 	private void loadSaveFolders() {
