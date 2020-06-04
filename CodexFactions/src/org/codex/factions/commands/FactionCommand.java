@@ -25,7 +25,7 @@ public class FactionCommand implements CommandExecutor {
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (args.length != 0) {
-			switch (args[0]) {
+			switch (args[0].toLowerCase()) {
 			case "create":
 				return create.onCommand(sender, args);
 			case "disband":
@@ -49,6 +49,14 @@ public class FactionCommand implements CommandExecutor {
 			case "rename":
 				break;
 			case "claim":
+				break;
+			case "ally":
+				break;
+			case "truce":
+				break;
+			case "alt":
+				break;
+			case "makealt":
 				break;
 			case "info":
 				return info.onCommand(sender, args);
