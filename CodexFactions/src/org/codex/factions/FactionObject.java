@@ -164,5 +164,19 @@ public class FactionObject implements Serializable{
 			if(!Bukkit.getOfflinePlayer(u).isOnline())ps.add(Bukkit.getPlayer(u));
 		return ps;
 	}
+	
+	public List<String> getOnlinePlayersName(){
+		List<String> ps = new ArrayList<>();
+		for(UUID u: this.Players) 
+			if(Bukkit.getOfflinePlayer(u).isOnline())ps.add(Bukkit.getPlayer(u).getName());
+		return ps;
+	}
+	
+	public List<String> getOfflinePlayersName(){
+		List<String> ps = new ArrayList<>();
+		for(UUID u: this.Players) 
+			if(!Bukkit.getOfflinePlayer(u).isOnline())ps.add(Bukkit.getPlayer(u).getName());
+		return ps;
+	}
 	 
 }
