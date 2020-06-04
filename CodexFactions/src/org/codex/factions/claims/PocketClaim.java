@@ -1,16 +1,15 @@
-package claims;
+package org.codex.factions.claims;
 
 import org.bukkit.Chunk;
 import org.bukkit.entity.Entity;
 
-public class MonsterClaim implements Claim{
+public class PocketClaim implements Claim{
 
 	private Chunk c;
 	
-	public MonsterClaim(Chunk c) {
+	public PocketClaim(Chunk c) {
 		this.c = c;
 	}
-	
 	
 	@Override
 	public void onEnter(Entity e) {

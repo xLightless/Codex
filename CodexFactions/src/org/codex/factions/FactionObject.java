@@ -9,8 +9,7 @@ import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-
-import claims.Claim;
+import org.codex.factions.claims.Claim;
 
 
 public class FactionObject implements Serializable{

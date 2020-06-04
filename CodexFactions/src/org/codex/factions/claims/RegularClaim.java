@@ -1,4 +1,4 @@
-package claims;
+package org.codex.factions.claims;
 
 import org.bukkit.Chunk;
 import org.bukkit.entity.Entity;
