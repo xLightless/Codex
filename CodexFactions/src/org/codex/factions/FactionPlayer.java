@@ -9,6 +9,7 @@ public class FactionPlayer implements Serializable{
 	private UUID UUID;
 	private Rank Rank;
 	private String factionName;
+	private int power = 20;
 	
 	public FactionPlayer(UUID uUID, Rank rank, String faction) {
 		this.setUUID(uUID);
@@ -39,6 +40,14 @@ public class FactionPlayer implements Serializable{
 	} 
 	public FactionObject getFaction() {
 		return FactionsMain.getFactionFromName(factionName);
+	}
+
+	public int getPower() {
+		return power;
+	}
+
+	public void setPower(int power) {
+		this.power = power;
 	}
 	
 	

@@ -5,6 +5,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.codex.factions.Executors.Creator;
 import org.codex.factions.Executors.Disbander;
+import org.codex.factions.Executors.Info;
 import org.codex.factions.Executors.Kicker;
 
 import net.md_5.bungee.api.ChatColor;
@@ -14,7 +15,7 @@ public class FactionCommand implements CommandExecutor {
 	private Kicker kick = new Kicker();
 	private Creator create = new Creator();
 	private Disbander disband = new Disbander();
-	
+	private Info info = new Info();
 	
 	public FactionCommand() {
 	}
@@ -50,7 +51,9 @@ public class FactionCommand implements CommandExecutor {
 			case "claim":
 				break;
 			case "info":
-				break;
+				return info.onCommand(sender, args);
+			case "f":
+				return info.onCommand(sender, args);
 			default:
 				sender.sendMessage(ChatColor.RED + "That command is not valid. Try /f help");
 				break;
