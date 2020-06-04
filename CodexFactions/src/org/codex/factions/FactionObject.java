@@ -8,8 +8,10 @@ import java.util.Set;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Chunk;
 import org.bukkit.entity.Player;
 import org.codex.factions.claims.Claim;
+import org.codex.factions.claims.ClaimType;
 
 
 public class FactionObject implements Serializable{
@@ -18,13 +20,15 @@ public class FactionObject implements Serializable{
 	private String FactionName;
 	private UUID Leader;
 	private Set<UUID> Players = new HashSet<>();
-	private List<FactionObject> allies = new ArrayList<>();
-	private List<FactionObject> truces = new ArrayList<>();
-	private List<AltFactionObject> alts = new ArrayList<>();
-	private List<FactionObject> enemies = new ArrayList<>();
+	private Set<String> allies = new HashSet<>();
+	private Set<String> truces = new HashSet<>();
+	private Set<String> alts = new HashSet<>();
+	private Set<String> enemies = new HashSet<>();
 	private int power = 20;
-	private List<Claim> claimedLand = new ArrayList<>();
+	private Set<Long> claimedLand = new HashSet<>();
 	private double value = 0D;
+	private ClaimType claimtype = ClaimType.NORMAL;
+
 	
 	public Set<UUID> getPlayers() {
 		return Players;
@@ -35,6 +39,14 @@ public class FactionObject implements Serializable{
 		this.Leader = uUID;
 		Players.add(uUID);
 		FactionsMain.Players.put(uUID, new FactionPlayer(uUID, Rank.LEADER, name));
+		
+	}
+	public FactionObject(String name, UUID uUID, ClaimType type) {
+		this.setFactionName(name);
+		this.Leader = uUID;
+		Players.add(uUID);
+		FactionsMain.Players.put(uUID, new FactionPlayer(uUID, Rank.LEADER, name));
+		this.claimtype  = type;
 	}
 
 	public UUID getLeaderUUID() {
@@ -81,36 +93,57 @@ public class FactionObject implements Serializable{
 	}
 
 	public List<FactionObject> getAllies() {
+		List<FactionObject> allies = new ArrayList<>();
+		for(String name : this.allies) {
+			allies.add(FactionsMain.getFactionFromName(name));
+		}
 		return allies;
 	}
 	
 	public List<FactionObject> getTruces() {
+		List<FactionObject> truces = new ArrayList<>();
+		for(String name : this.truces) {
+			truces.add(FactionsMain.getFactionFromName(name));
+		}
 		return truces;
 	}
 
 	public List<AltFactionObject> getAlts() {
-		return alts;
+		//TODO
+		return null;
 	}
 	
 	public List<FactionObject> getEnemies(){
+		List<FactionObject> enemies = new ArrayList<>();
+		for(String name : this.enemies) {
+			enemies.add(FactionsMain.getFactionFromName(name));
+		}
 		return enemies;
 	}
 	
 	
+	public ClaimType getClaimtype() {
+		return claimtype;
+	}
+
+	public void setClaimtype(ClaimType claimtype) {
+		this.claimtype = claimtype;
+	}
+
 	public void addAlly(FactionObject fac) {
-		allies.add(fac);
+		allies.add(fac.getFactionName());
 	}
 	
 	public void addTruce(FactionObject fac) {
-		truces.add(fac);
+		truces.add(fac.getFactionName());
 	}
 	
 	public void addAlt(AltFactionObject fac) {
-		alts.add(fac);
+		alts.add(fac.getFactionName());
 	}
 	
 	public void addEnemy(FactionObject fac) {
-		enemies.add(fac);
+		enemies.add(fac.getFactionName());
 	}
 	
 
@@ -128,19 +161,24 @@ public class FactionObject implements Serializable{
 	}
 
 	public List<Claim> getClaimedLand() {
-		return claimedLand;
+		//TODO
+		return null;
 	}
 	
 	public void addClaim(Claim c) {
-		claimedLand.add(c);
+		Chunk a = c.getChunk();
+		
+		claimedLand.add(FactionsMain.chunkCoordsToLong(a.getX(), a.getZ()));
 	}
 	
 	public void removeClaim(Claim c) {
-		claimedLand.remove(c);
+		Chunk a = c.getChunk();
+		claimedLand.remove(FactionsMain.chunkCoordsToLong(a.getX(), a.getZ()));
 	}
 	
 	public boolean hasClaim(Claim c) {
-		return claimedLand.contains(c);
+		Chunk a = c.getChunk();
+		return claimedLand.contains(FactionsMain.chunkCoordsToLong(a.getX(), a.getZ()));
 	}
 
 	public double getValue() {

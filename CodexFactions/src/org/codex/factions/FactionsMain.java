@@ -84,6 +84,12 @@ public class FactionsMain extends JavaPlugin{
 		long result = posx | posz;
 		return !ClaimedChunks.containsKey(result);
 	}
+	public static long chunkCoordsToLong(int x, int z) {
+		long posz = z;
+		long posx = x << 32;
+		long result = posx | posz;
+		return result;
+	}
 
 	// returns null if wilderness
 	public static FactionObject getChunkOwner(int x, int z) {
