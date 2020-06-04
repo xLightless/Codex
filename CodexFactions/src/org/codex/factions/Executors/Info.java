@@ -29,24 +29,27 @@ public class Info implements Execute{
 		}
 		return false;
 	}else {
-		if(FactionsMain.Factions.containsKey(((Player) sender).getUniqueId().toString())){
+		Player p = (Player) sender;
+		if(FactionsMain.Players.containsKey(p.getUniqueId())){
 			FactionObject fac;
 			try {
-				fac = FactionsMain.getPlayerFaction(((Player) sender).getUniqueId());
+				fac = FactionsMain.getPlayerFaction(p.getUniqueId());
 			} catch (Throwable e) {
-				sender.sendMessage(e.getMessage());
+				p.sendMessage(e.getMessage());
 				return false;
 			}
-			sender.sendMessage(ChatColor.GREEN + "----------- " + fac.getFactionName() + " -----------");
-			sender.sendMessage(ChatColor.LIGHT_PURPLE + "Allies - " + fac.getAllies().toString().replace("[", "").replace("]", ""));
-			sender.sendMessage(ChatColor.BLUE + "Truces - " + fac.getTruces().toString().replace("[", "").replace("]", ""));
-			sender.sendMessage(ChatColor.GRAY + "Alts - " + fac.getAlts().toString().replace("[", "").replace("]", ""));
-			sender.sendMessage(ChatColor.RED + "Enemies - " + fac.getEnemies().toString().replace("[", "").replace("]", ""));
-			sender.sendMessage(ChatColor.GREEN + "Faction Power to Claimed Land - " + fac.getPower() + "/" + fac.getClaimedLand().size());
-			sender.sendMessage(ChatColor.GREEN + "Bank Value - " + fac.getValue());
-			sender.sendMessage(ChatColor.GREEN + "Online Players - " + fac.getOnlinePlayersName().toString().replace("[", "").replace("]", ""));
-			sender.sendMessage(ChatColor.GREEN + "Offline Players - " + fac.getOfflinePlayersName().toString().replace("[", "").replace("]", ""));
+			p.sendMessage(ChatColor.GREEN + "----------- " + fac.getFactionName() + " -----------");
+			p.sendMessage(ChatColor.LIGHT_PURPLE + "Allies - " + fac.getAllies().toString().replace("[", "").replace("]", ""));
+			p.sendMessage(ChatColor.BLUE + "Truces - " + fac.getTruces().toString().replace("[", "").replace("]", ""));
+			p.sendMessage(ChatColor.GRAY + "Alts - " + fac.getAlts().toString().replace("[", "").replace("]", ""));
+			p.sendMessage(ChatColor.RED + "Enemies - " + fac.getEnemies().toString().replace("[", "").replace("]", ""));
+			p.sendMessage(ChatColor.GREEN + "Faction Power to Claimed Land - " + fac.getPower() + "/" + fac.getClaimedLand().size());
+			p.sendMessage(ChatColor.GREEN + "Bank Value - " + fac.getValue());
+			p.sendMessage(ChatColor.GREEN + "Online Players - " + fac.getOnlinePlayersName().toString().replace("[", "").replace("]", ""));
+			p.sendMessage(ChatColor.GREEN + "Offline Players - " + fac.getOfflinePlayersName().toString().replace("[", "").replace("]", ""));
 			return true;
+		}else {
+			p.sendMessage(ChatColor.RED + "You are not inside of a faction");
 		}
 		
 		
