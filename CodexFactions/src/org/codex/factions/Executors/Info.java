@@ -17,7 +17,7 @@ public class Info implements Execute{
 			sender.sendMessage(ChatColor.GREEN + "------------------ " + fac.getFactionName() + " ------------------");
 			sender.sendMessage(ChatColor.LIGHT_PURPLE + "Allies - " + fac.getAllies().toString().replace("[", "").replace("]", ""));
 			sender.sendMessage(ChatColor.BLUE + "Truces - " + fac.getTruces().toString().replace("[", "").replace("]", ""));
-			sender.sendMessage(ChatColor.GRAY + "Alts - " + fac.getAlts().toString().replace("[", "").replace("]", ""));
+			sender.sendMessage(ChatColor.GRAY + "Alts - " + fac.getAltNames().toString().replace("[", "").replace("]", ""));
 			sender.sendMessage(ChatColor.RED + "Enemies - " + fac.getEnemies().toString().replace("[", "").replace("]", ""));
 			sender.sendMessage(ChatColor.GREEN + "Faction Power to Claimed Land - " + fac.getPower() + "/" + fac.getClaimedLand().size());
 			sender.sendMessage(ChatColor.GREEN + "Bank Value - " + fac.getValue());
@@ -41,7 +41,7 @@ public class Info implements Execute{
 			p.sendMessage(ChatColor.GREEN + "----------- " + fac.getFactionName() + " -----------");
 			p.sendMessage(ChatColor.LIGHT_PURPLE + "Allies - " + fac.getAllies().toString().replace("[", "").replace("]", ""));
 			p.sendMessage(ChatColor.BLUE + "Truces - " + fac.getTruces().toString().replace("[", "").replace("]", ""));
-			p.sendMessage(ChatColor.GRAY + "Alts - " + fac.getAlts().toString().replace("[", "").replace("]", ""));
+			p.sendMessage(ChatColor.GRAY + "Alts - " + fac.getAltNames().toString().replace("[", "").replace("]", ""));
 			p.sendMessage(ChatColor.RED + "Enemies - " + fac.getEnemies().toString().replace("[", "").replace("]", ""));
 			p.sendMessage(ChatColor.GREEN + "Faction Power to Claimed Land - " + fac.getPower() + "/" + fac.getClaimedLand().size());
 			p.sendMessage(ChatColor.GREEN + "Bank Value - " + fac.getValue());

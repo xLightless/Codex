@@ -22,7 +22,7 @@ public class FactionObject implements Serializable{
 	private Set<UUID> Players = new HashSet<>();
 	private Set<String> allies = new HashSet<>();
 	private Set<String> truces = new HashSet<>();
-	private Set<String> alts = new HashSet<>();
+	private Set<UUID> alts = new HashSet<>();
 	private Set<String> enemies = new HashSet<>();
 	private int power = 20;
 	private Set<Long> claimedLand = new HashSet<>();
@@ -108,9 +108,15 @@ public class FactionObject implements Serializable{
 		return truces;
 	}
 
-	public List<AltFactionObject> getAlts() {
-		//TODO
-		return null;
+	public Set<UUID> getAlts() {
+		return alts;
+	}
+	public Set<String> getAltNames(){
+		Set<String> names = new HashSet<>();
+		for(UUID id : alts) {
+			names.add(Bukkit.getPlayer(id).getPlayerListName());
+		}
+		return names;
 	}
 	
 	public List<FactionObject> getEnemies(){
@@ -138,8 +144,8 @@ public class FactionObject implements Serializable{
 		truces.add(fac.getFactionName());
 	}
 	
-	public void addAlt(AltFactionObject fac) {
-		alts.add(fac.getFactionName());
+	public void addAlt(UUID id) {
+		alts.add(id);
 	}
 	
 	public void addEnemy(FactionObject fac) {
