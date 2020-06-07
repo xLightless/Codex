@@ -14,6 +14,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.codex.chunkbusters.ChunkBusterMain;
 import org.codex.factions.commands.FactionCommand;
 import org.codex.factions.commands.GiveChunkBusterCommand;
+import org.codex.trenchitems.TrenchMain;
 
 
 
@@ -110,6 +111,7 @@ public class FactionsMain extends JavaPlugin{
 		getCommand("givechunkbuster").setExecutor(new GiveChunkBusterCommand());
 		ChunkBusterMain cb = new ChunkBusterMain();
 		getServer().getPluginManager().registerEvents(cb, this);
+		getServer().getPluginManager().registerEvents(new TrenchMain(), this);
 	}
 
 	private void loadSaveFolders() {

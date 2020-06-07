@@ -20,13 +20,13 @@ public class TrenchMain implements Listener {
 	}
 
 	public void destroyRegion(Location pos, int radius, World w) {
-		for (int minx = pos.getBlockX() - radius; minx < pos.getBlockX() + radius; minx++) {
-			for (int miny = pos.getBlockY() - radius; miny < pos.getBlockY() + radius; miny++) {
-				for (int minz = pos.getBlockZ() - radius; minz < pos.getBlockZ() + radius; minz++) {
+		for (int minx = pos.getBlockX() - radius; minx <= pos.getBlockX() + radius; minx++) {
+			for (int miny = pos.getBlockY() - radius; miny <= pos.getBlockY() + radius; miny++) {
+				for (int minz = pos.getBlockZ() - radius; minz <= pos.getBlockZ() + radius; minz++) {
 					if (miny < 1) {
 						continue;
 					}
-					w.getBlockAt(minx, miny, minz).setType(Material.AIR);
+					w.getBlockAt(minx, miny, minz).breakNaturally();
 				}
 			}
 		}
