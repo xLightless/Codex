@@ -25,11 +25,11 @@ public class Kicker implements Execute {
 				UUID id = p.getUniqueId();
 				try {
 					FactionPlayer fp = FactionsMain.getPlayer(id);
-					if(fp.getRank().Level >= 2) {
+					if(fp.getRank().getLevel() >= 2) {
 						FactionPlayer tuuid;
 						if(fp.getFaction().getPlayers().contains(target.getUniqueId()) && (tuuid = FactionsMain.getPlayer(target.getUniqueId())) != null) {
 							if(tuuid.getFaction() == fp.getFaction()) {
-								if(tuuid.getRank().Level < fp.getRank().Level) {
+								if(tuuid.getRank().getLevel() < fp.getRank().getLevel()) {
 									sender.sendMessage("You have kicked" + args[1]);
 									fp.getFaction().kickPlayer(fp);
 									return true;
