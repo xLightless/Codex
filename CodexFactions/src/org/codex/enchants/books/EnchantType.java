@@ -5,6 +5,8 @@ import org.codex.factions.FactionsMain;
 public enum EnchantType {
 	AUTOSMELT(new AutoSmelt(), "AUTOSMELT"),
 	
+	ADVANCED_FEATHER_FALLING(new AdvancedFeatherFalling(), "ADVANCED_FEATHER_FALLING"),
+	
 	HARDENED(new Hardened(), "HARDENED"),
 	
 	WEED_WACKER(new WeedWacker(), "WEED_WACKER"),

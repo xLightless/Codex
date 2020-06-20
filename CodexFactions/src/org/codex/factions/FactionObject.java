@@ -2,8 +2,10 @@ package org.codex.factions;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
@@ -25,7 +27,7 @@ public class FactionObject implements Serializable{
 	private Set<UUID> alts = new HashSet<>();
 	private Set<String> enemies = new HashSet<>();
 	private int power = 20;
-	private Set<Long> claimedLand = new HashSet<>();
+	private Map<Long, Vector2D<Integer, String>> claimedLand = new HashMap<>();
 	private double value = 0D;
 	private ClaimType claimtype = ClaimType.NORMAL;
 
@@ -167,24 +169,33 @@ public class FactionObject implements Serializable{
 	}
 
 	public List<Claim> getClaimedLand() {
-		//TODO
-		return null;
+		List<Claim> c = new ArrayList<>();
+		for(long l : this.claimedLand.keySet()) {
+			c.add(FactionsMain.getChunkFromLong(l, claimedLand.get(l).getVectorOne(), claimedLand.get(l).getVectorTwo()));
+		}
+		return c;
 	}
 	
 	public void addClaim(Claim c) {
 		Chunk a = c.getChunk();
-		
-		claimedLand.add(FactionsMain.chunkCoordsToLong(a.getX(), a.getZ()));
+
+		Long l = FactionsMain.chunkCoordsToLong(a.getX(), a.getZ());
+		FactionsMain.ClaimedChunks.put(l, this.getFactionName());
+		int i = c.getClaimType().getID();
+		String s = a.getWorld().getName();
+		claimedLand.put(l, new Vector2D<>(i,s));
 	}
 	
 	public void removeClaim(Claim c) {
 		Chunk a = c.getChunk();
+		Long l = FactionsMain.chunkCoordsToLong(a.getX(), a.getZ());
+		FactionsMain.ClaimedChunks.remove(l);
 		claimedLand.remove(FactionsMain.chunkCoordsToLong(a.getX(), a.getZ()));
 	}
 	
 	public boolean hasClaim(Claim c) {
 		Chunk a = c.getChunk();
-		return claimedLand.contains(FactionsMain.chunkCoordsToLong(a.getX(), a.getZ()));
+		return claimedLand.containsKey(FactionsMain.chunkCoordsToLong(a.getX(), a.getZ()));
 	}
 
 	public double getValue() {

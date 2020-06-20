@@ -48,7 +48,7 @@ public class ChunkBusterMain implements Listener {
 			int startx = (b.getX() >> 4) * 16;
 			int endx = startx + 16;
 			int endz = ((b.getZ() >> 4) * 16) + 16;
-			int endy = b.getY();
+			int endy = 255;
 			for (; startx < endx; startx++) {
 				for (int startz = (b.getZ() >> 4) * 16; startz < endz; startz++) {
 					for (int starty = 1; starty < endy; starty++) {

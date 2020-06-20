@@ -3,29 +3,28 @@ package org.codex.factions.claims;
 import org.bukkit.Chunk;
 import org.bukkit.entity.Entity;
 
-public class MonsterClaim implements Claim{
+public class SafezoneClaim implements Claim {
 
 	private Chunk c;
-	
-	public MonsterClaim() {
-		
+
+	public SafezoneClaim() {
+
 	}
-	
-	public MonsterClaim(Chunk c) {
+
+	public SafezoneClaim(Chunk c) {
 		this.c = c;
 	}
-	
-	
+
 	@Override
 	public void onEnter(Entity e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void onLeave(Entity e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -33,12 +32,11 @@ public class MonsterClaim implements Claim{
 		return c;
 	}
 
-
 	@Override
 	public ClaimType getClaimType() {
-		return ClaimType.MONSTER;
+		return ClaimType.SAFEZONE;
 	}
-	
+
 	@Override
 	public void setChunk(Chunk c) {
 		this.c = c;

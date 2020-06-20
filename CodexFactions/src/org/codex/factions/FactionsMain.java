@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Chunk;
 import org.bukkit.Material;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.enchantments.Enchantment;
@@ -61,6 +62,8 @@ import org.codex.enchants.energy.EnergyHarvester;
 import org.codex.enchants.items.RepairCrystal;
 import org.codex.enchants.items.TrenchPickaxe;
 import org.codex.enchants.leveling.Levels;
+import org.codex.factions.claims.Claim;
+import org.codex.factions.claims.ClaimType;
 import org.codex.factions.commands.CustomEnchant;
 import org.codex.factions.commands.EnchanterComm;
 import org.codex.factions.commands.FactionCommand;
@@ -144,9 +147,12 @@ public class FactionsMain extends JavaPlugin implements Listener{
 		long result = posx | posz;
 		return !ClaimedChunks.containsKey(result);
 	}
+	
+	
 	public static long chunkCoordsToLong(int x, int z) {
 		long posz = z;
-		long posx = x << 32;
+		long posx = x;
+		posx = posx << 32;
 		long result = posx | posz;
 		return result;
 	}
@@ -434,6 +440,16 @@ public class FactionsMain extends JavaPlugin implements Listener{
 			if (byName.containsKey(getName()))
 				byName.remove(getName());
 		} catch (Exception ignored) {
+		}
+	}
+
+	public static Claim getChunkFromLong(long l, int i, String world) {
+		Chunk c = Bukkit.getWorld(world).getChunkAt((int) (l >> 32), (int) l);
+		try {
+			return ClaimType.getClaim(i, c);
+		} catch (Throwable e) {
+			e.printStackTrace();
+			return null;
 		}
 	}
 

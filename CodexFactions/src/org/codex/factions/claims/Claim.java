@@ -11,4 +11,15 @@ public interface Claim {
 	
 	public Chunk getChunk();
 	
+	public ClaimType getClaimType();
+
+	public void setChunk(Chunk c);
+	
+	public static long chunkCoordsToLong(int x, int z) {
+			long posz = z;
+			long posx = x;
+			posx = posx << 32;
+			long result = posx | posz;
+			return result;
+		}
 }
