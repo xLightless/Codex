@@ -59,6 +59,7 @@ import org.codex.enchants.books.WeedWacker;
 import org.codex.enchants.energy.Energy;
 import org.codex.enchants.energy.EnergyHarvester;
 import org.codex.enchants.items.RepairCrystal;
+import org.codex.enchants.items.TrenchPickaxe;
 import org.codex.enchants.leveling.Levels;
 import org.codex.factions.commands.CustomEnchant;
 import org.codex.factions.commands.EnchanterComm;
@@ -73,7 +74,6 @@ import org.codex.factions.commands.GiveItem;
 import org.codex.factions.commands.RemoveHarvester;
 import org.codex.factions.commands.RenameCommand;
 import org.codex.factions.commands.TestCommand;
-import org.codex.trenchitems.TrenchMain;
 
 
 
@@ -166,11 +166,7 @@ public class FactionsMain extends JavaPlugin implements Listener{
 	@Override
 	public void onEnable() {
 		loadSaveFolders();
-		getCommand("f").setExecutor(new FactionCommand());
-		getCommand("givechunkbuster").setExecutor(new GiveChunkBusterCommand());
-		ChunkBusterMain cb = new ChunkBusterMain();
-		getServer().getPluginManager().registerEvents(cb, this);
-		getServer().getPluginManager().registerEvents(new TrenchMain(), this);
+
 		main = this;
 		loadCommands();
 		loadEvents();
@@ -189,6 +185,8 @@ public class FactionsMain extends JavaPlugin implements Listener{
 	}
 
 	private void loadCommands() {
+		getCommand("f").setExecutor(new FactionCommand());
+		getCommand("givechunkbuster").setExecutor(new GiveChunkBusterCommand());
 		getCommand("enchanter").setExecutor(new EnchanterComm(this));
 		getCommand("giveenergy").setExecutor(new GiveEnergyComm());
 		getCommand("giveset").setExecutor(new GiveArmorSet());
@@ -228,10 +226,13 @@ public class FactionsMain extends JavaPlugin implements Listener{
 		Bukkit.getServer().getPluginManager().registerEvents(new Umbrella(), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new Fangs(), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new RepairCrystal(), this);
+		Bukkit.getServer().getPluginManager().registerEvents(new TrenchPickaxe(0), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new Freeze(), this);
 		Bukkit.getServer().getPluginManager().registerEvents(this, this);
 		Bukkit.getServer().getPluginManager().registerEvents(new ProtectionFixListener(), this);
-
+		ChunkBusterMain cb = new ChunkBusterMain();
+		getServer().getPluginManager().registerEvents(cb, this);
+		
 		Bukkit.getServer().getPluginManager().registerEvents(new NetherArmorSet(), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new EnderArmorSet(), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new PhantomArmorSet(), this);

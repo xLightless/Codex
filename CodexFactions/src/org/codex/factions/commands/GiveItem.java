@@ -6,6 +6,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.codex.enchants.items.CustomItem;
 import org.codex.enchants.items.CustomItemType;
+import org.codex.enchants.items.TrenchPickaxe;
 
 import net.md_5.bungee.api.ChatColor;
 
@@ -16,10 +17,12 @@ public class GiveItem implements CommandExecutor{
 		if(sender instanceof Player){
 			Player p = (Player) sender;
 			if(p.hasPermission("CustomEnchant.GiveItem") || p.isOp()) {
-				if(args.length == 1) {
+				if(args.length >= 1) {
 					try {
 						CustomItemType type = CustomItemType.valueOf(args[0].toUpperCase());
-						CustomItem<?> i = type.getItem();
+						CustomItem<?> i;
+						if(!type.equals(CustomItemType.TRENCH_PICKAXE))i = type.getItem();
+						else i = new TrenchPickaxe(Integer.parseInt(args[1]));
 						p.getInventory().addItem(i.getItemStack());
 						p.sendMessage(ChatColor.GREEN + "You have been given " + i.getItemStack().getItemMeta().getDisplayName());
 						return true;

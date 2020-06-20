@@ -20,12 +20,10 @@ public abstract class CustomItem<E extends Event> implements Listener{
 	private final Material m;
 	private int matID = 1;
 	private int energyCost = 0;
-	private ItemStack is;
 	private final CustomItemType type;
 	
 	public CustomItem(Material m, CustomItemType t) {
 		this.m = m;
-		this.is = this.createItemStack();
 		this.type = t;
 	}
 	
@@ -62,13 +60,9 @@ public abstract class CustomItem<E extends Event> implements Listener{
 	}
 
 	public ItemStack getItemStack() {
-		return is;
+		return this.createItemStack();
 	}
 
-	@Deprecated
-	public void setItemStack(ItemStack is) {
-		this.is = is;
-	}
 
 	public CustomItemType getType() {
 		return type;

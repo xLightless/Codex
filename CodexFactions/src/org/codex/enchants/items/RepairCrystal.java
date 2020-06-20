@@ -102,7 +102,7 @@ public class RepairCrystal extends CustomItem<PlayerInteractEvent>{
 		if(is.getItemMeta().getDisplayName().equals(this.getItemStack().getItemMeta().getDisplayName())) {
 			ItemMeta im = is.getItemMeta();
 			List<String> lore = im.getLore();
-			if(lore.get(2).equals(this.getItemStack().getItemMeta().getLore().get(2)))return true;
+			if(lore.get(0).equals(this.getItemStack().getItemMeta().getLore().get(0)))return true;
 		}
 		return false;
 	}
