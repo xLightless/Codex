@@ -1,4 +1,4 @@
-package org.codex.factions.Executors;
+package org.codex.factions.executors;
 
 import javax.annotation.Nullable;
 

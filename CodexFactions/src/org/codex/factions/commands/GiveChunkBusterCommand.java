@@ -14,9 +14,19 @@ public class GiveChunkBusterCommand implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command arg1, String arg2, String[] args) {
 		if(sender instanceof Player && (sender.hasPermission("Codex.Factions.GiveBuster") || sender.isOp())) {
 			Player p = (Player) sender;
+			if(args.length == 0) {
 			p.getInventory().addItem(ChunkBusterMain.getChunkBuster());
 			p.sendMessage(ChatColor.AQUA + "You have been given a chunk buster");
 			return true;
+			}else {
+				try {
+				int amount = Integer.parseInt(args[0]);
+				p.getInventory().addItem(ChunkBusterMain.getChunkBuster(amount));
+				p.sendMessage(ChatColor.AQUA + "You have been given " + amount + " chunk busters");
+				}catch(Exception e) {
+				p.sendMessage(e.getMessage());
+				}
+			}
 		}
 		return false;
 	}

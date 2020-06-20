@@ -4,7 +4,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.codex.factions.Rank;
-import org.codex.factions.Executors.*;
+import org.codex.factions.executors.*;
 
 import net.md_5.bungee.api.ChatColor;
 
@@ -52,10 +52,6 @@ public class FactionCommand implements CommandExecutor {
 			case "ally":
 				break;
 			case "truce":
-				break;
-			case "alt":
-				break;
-			case "makealt":
 				break;
 			case "info":
 				return info.onCommand(sender, args);

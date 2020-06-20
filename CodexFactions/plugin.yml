@@ -1,4 +1,4 @@
-name: CodexFactions
+name: CodexMain
 version: 1.0
 main: org.codex.factions.FactionsMain
 description: A modern solution to an old problem
@@ -10,3 +10,41 @@ commands:
   givechunkbuster: 
         aliases: [gbuster, gchunkbuster, gbust]
         description: gives a player a chunk buster.
+  enchanter:
+        aliases: [openenchanter]
+        description: opens enchanter
+  giveenergy:
+        aliases: [addenergy]
+        description: gives the player energy
+  giveset:
+        aliases: [gset]
+        description: gives a set
+  givebook:
+        aliases: [gbook]
+        description: gives a book
+  givedust:
+        aliases: [gdust, idust]
+        description: gives dust
+  fix:
+        description: fixes an item
+  rename:
+        aliases: [name]
+        description: renames item in main hand
+  harvesters:
+        aliases: [harvest, h]
+        description: shows harvesters
+  giveenergyharvester:
+        aliases: [giveharvester, gharvester, gharv]
+        description: gives harvesters
+        usage: /gharv [TYPE]
+  removeharvester:
+        aliases: [rharvester, rharv]
+        description: removes a harvester from the registry.
+        usage: /rharv [ID]
+  giveitem:
+        aliases: [gitem, spawnitem, sitem, si]
+        description: gives the player a custom item.
+        usage: /giveitem [ITEM]
+  cenchant:
+        aliases: [customenchant, enchantc]
+        description: gives a custom enchant.

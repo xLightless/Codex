@@ -13,9 +13,9 @@ public class TrenchMain implements Listener {
 	public void onBlockBreak(BlockBreakEvent event) {
 		Player p = event.getPlayer();
 		if (p.getItemInHand().getType().equals(Material.DIAMOND_PICKAXE)) {
-			destroyRegion(event.getBlock().getLocation(), 1, p.getWorld());
+			destroyRegion(event.getBlock().getLocation(), 0, p.getWorld());
 		} else if (p.getItemInHand().getType().equals(Material.DIAMOND_SPADE)) {
-			destroyRegion(event.getBlock().getLocation(), 1, p.getWorld());
+			destroyRegion(event.getBlock().getLocation(), 0, p.getWorld());
 		}
 	}
 
