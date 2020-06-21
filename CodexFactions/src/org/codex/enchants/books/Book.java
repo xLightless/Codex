@@ -293,7 +293,7 @@ public abstract class Book implements Listener {
 		return res;
 	}
 
-	public static String repeat(String s, int n) {
+	private static String repeat(String s, int n) {
 		if (s == null) {
 			return null;
 		}

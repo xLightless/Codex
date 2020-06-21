@@ -11,6 +11,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.codex.enchants.books.Book;
+import org.codex.enchants.books.BookManager;
 import org.codex.factions.Glow;
 
 import net.md_5.bungee.api.ChatColor;
@@ -33,8 +35,8 @@ public class TrenchPickaxe extends CustomItem<BlockBreakEvent> {
 		ItemStack is = new ItemStack(this.getMaterial());
 		ItemMeta im = is.getItemMeta();
 		im.addEnchant(new Glow(40), 1, true);
-		im.setDisplayName(
-				ChatColor.RESET + "" + ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Trench Pickaxe " + number);
+		im.setDisplayName(ChatColor.RESET + "" + ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Trench Pickaxe "
+				+ Book.getRomanNumeral(number));
 		List<String> lore = new ArrayList<>();
 		lore.add(ChatColor.GRAY + "After years of marinating in the cold depths of the dark realm");
 		lore.add(ChatColor.GRAY + "This item has gained the ability to mine out " + number + " blocks around your");
@@ -66,9 +68,13 @@ public class TrenchPickaxe extends CustomItem<BlockBreakEvent> {
 		Player p = e.getPlayer();
 		if (!this.isItem(p.getItemInHand()))
 			return;
-		destroyRegion(e.getBlock().getLocation(),
-				Integer.parseInt(p.getItemInHand().getItemMeta().getDisplayName().split(" ")[2]), p.getWorld(),
-				p.getLocation().getBlockY(), p.getItemInHand());
+		try {
+			destroyRegion(e.getBlock().getLocation(),
+					BookManager.getNumberFromNumeral(p.getItemInHand().getItemMeta().getDisplayName().split(" ")[2]),
+					p.getWorld(), p.getLocation().getBlockY(), p.getItemInHand());
+		} catch (Throwable e1) {
+			e1.printStackTrace();
+		}
 	}
 
 	public void destroyRegion(Location pos, int radius, World w, int playerY, ItemStack is) {
@@ -79,7 +85,6 @@ public class TrenchPickaxe extends CustomItem<BlockBreakEvent> {
 					if (miny < 1) {
 						continue;
 					}
-					w.getBlockAt(minx, miny, minz).breakNaturally(is);
 					w.getBlockAt(minx, miny, minz).setType(Material.AIR, false);
 				}
 			}

@@ -10,10 +10,12 @@ import net.md_5.bungee.api.ChatColor;
 
 public class FactionCommand implements CommandExecutor {
 
+	private Joiner join = new Joiner();
 	private Kicker kick = new Kicker();
 	private Creator create = new Creator();
 	private Disbander disband = new Disbander();
 	private Info info = new Info();
+	private Inviter invite = new Inviter();
 	
 	public FactionCommand() {
 		
@@ -30,9 +32,11 @@ public class FactionCommand implements CommandExecutor {
 			case "disband":
 				return disband.onCommand(sender, args);
 			case "invite":
-				break;
+				return invite.onCommand(sender, args);
 			case "kick":
 				return kick.onCommand(sender, args);
+			case "join":
+				return join.onCommand(sender, args);
 			case "leave":
 				break;
 			case "mod":

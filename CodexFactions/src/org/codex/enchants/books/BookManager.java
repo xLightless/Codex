@@ -286,7 +286,11 @@ public class BookManager implements Listener {
 		for(EnchantType t: BookManager.getAllEnchantTypes()) {
 			String s1 = EnchantType.getEnchantClass(t).getAppliedBookName();
 			if(s.contains(s1)) {
-				return Integer.parseInt(BookManager.getNumberFromNumeral(s.replace(s1 + " ", "")));
+				try {
+					return BookManager.getNumberFromNumeral(s.replace(s1 + " ", ""));
+				} catch (Throwable e) {
+					e.printStackTrace();
+				}
 			}
 		}
 		return 0;
@@ -412,36 +416,50 @@ public class BookManager implements Listener {
 		
 	}
 
-	protected static String getNumberFromNumeral(String numeral) {
-		switch(ChatColor.stripColor(numeral).toUpperCase()) {
-		case "I":
-			return "1";
-		case "II":
-			return "2";
-		case "III":
-			return "3";
-		case "IV":
-			return "4";
-		case "V":
-			return "5";
-		case "VI":
-			return "6";
-		case "VII":
-			return "7";
-		case "VIII":
-			return "8";
-		case "IX":
-			return "9";
-		case "X":
-			return "10";
-		case "XI":
-			return "11";
-		case "XII":
-			return "12";
-		case "XIII":
-			return "13";
-		default :
-			return "0";
+	public static int getNumberFromNumeral(String news) throws Throwable {
+		String s = ChatColor.stripColor(news);
+		int finalValue = 0;
+		int[] is = new int[s.length()];
+		for (int i = 0; i <= s.length() - 1; i++) {
+			char c = s.charAt(i);
+			is[i] = BookManager.value(c);
+		}
+		int t = 0;
+		for (; t <= is.length - 1; t++) {
+			if (t + 1 >= is.length) {
+				finalValue += is[t];
+				break;
+			} else if (is[t] >= is[t + 1]) {
+				finalValue += is[t];
+			} else if (t + 2 >= is.length) {
+				finalValue += (is[t + 1] - is[t]);
+				break;
+			} else {
+				finalValue += (is[t + 1] - is[t]);
+			}
+		}
+
+		return finalValue;
+	}
+
+	private static int value(char c) throws Throwable {
+		switch (c) {
+		case 'I':
+			return 1;
+		case 'V':
+			return 5;
+		case 'X':
+			return 10;
+		case 'L':
+			return 50;
+		case 'C':
+			return 100;
+		case 'D':
+			return 500;
+		case 'M':
+			return 1000;
+		default:
+			throw new Throwable("Not a valid Roman Numeral");
 		}
 	}
 	

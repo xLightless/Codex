@@ -67,9 +67,8 @@ public class Freeze extends Book {
 			int level = map.get(damager);
 			Random r = new Random();
 			if(entity instanceof Player) {
-				if(level >= r.nextInt(300)) {
-				super.addPotionEffect(PotionEffectType.SLOW, (Player) entity, 255, 2 * level * 20);
-				super.addPotionEffect(PotionEffectType.JUMP, (Player) entity, 180, 2 * level * 20);
+				if(level >= r.nextInt(240)) {
+				super.addPotionEffect(PotionEffectType.SLOW, (Player) entity, 255, level * 20);
 				}
 			}
 		

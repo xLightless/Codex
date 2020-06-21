@@ -15,8 +15,7 @@ import org.bukkit.entity.Player;
 import org.codex.factions.claims.Claim;
 import org.codex.factions.claims.ClaimType;
 
-
-public class FactionObject implements Serializable{
+public class FactionObject implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private String FactionName;
@@ -31,7 +30,6 @@ public class FactionObject implements Serializable{
 	private double value = 0D;
 	private ClaimType claimtype = ClaimType.NORMAL;
 
-	
 	public Set<UUID> getPlayers() {
 		return Players;
 	}
@@ -41,14 +39,15 @@ public class FactionObject implements Serializable{
 		this.Leader = uUID;
 		Players.add(uUID);
 		FactionsMain.Players.put(uUID, new FactionPlayer(uUID, Rank.LEADER, name));
-		
+
 	}
+
 	public FactionObject(String name, UUID uUID, ClaimType type) {
 		this.setFactionName(name);
 		this.Leader = uUID;
 		Players.add(uUID);
 		FactionsMain.Players.put(uUID, new FactionPlayer(uUID, Rank.LEADER, name));
-		this.claimtype  = type;
+		this.claimtype = type;
 	}
 
 	public UUID getLeaderUUID() {
@@ -96,15 +95,15 @@ public class FactionObject implements Serializable{
 
 	public List<FactionObject> getAllies() {
 		List<FactionObject> allies = new ArrayList<>();
-		for(String name : this.allies) {
+		for (String name : this.allies) {
 			allies.add(FactionsMain.getFactionFromName(name));
 		}
 		return allies;
 	}
-	
+
 	public List<FactionObject> getTruces() {
 		List<FactionObject> truces = new ArrayList<>();
-		for(String name : this.truces) {
+		for (String name : this.truces) {
 			truces.add(FactionsMain.getFactionFromName(name));
 		}
 		return truces;
@@ -113,23 +112,23 @@ public class FactionObject implements Serializable{
 	public Set<UUID> getAlts() {
 		return alts;
 	}
-	public Set<String> getAltNames(){
+
+	public Set<String> getAltNames() {
 		Set<String> names = new HashSet<>();
-		for(UUID id : alts) {
+		for (UUID id : alts) {
 			names.add(Bukkit.getPlayer(id).getPlayerListName());
 		}
 		return names;
 	}
-	
-	public List<FactionObject> getEnemies(){
+
+	public List<FactionObject> getEnemies() {
 		List<FactionObject> enemies = new ArrayList<>();
-		for(String name : this.enemies) {
+		for (String name : this.enemies) {
 			enemies.add(FactionsMain.getFactionFromName(name));
 		}
 		return enemies;
 	}
-	
-	
+
 	public ClaimType getClaimtype() {
 		return claimtype;
 	}
@@ -141,19 +140,18 @@ public class FactionObject implements Serializable{
 	public void addAlly(FactionObject fac) {
 		allies.add(fac.getFactionName());
 	}
-	
+
 	public void addTruce(FactionObject fac) {
 		truces.add(fac.getFactionName());
 	}
-	
+
 	public void addAlt(UUID id) {
 		alts.add(id);
 	}
-	
+
 	public void addEnemy(FactionObject fac) {
 		enemies.add(fac.getFactionName());
 	}
-	
 
 	@Override
 	public String toString() {
@@ -165,17 +163,18 @@ public class FactionObject implements Serializable{
 	}
 
 	public void changePower(int i) {
-		power+=i;
+		power += i;
 	}
 
 	public List<Claim> getClaimedLand() {
 		List<Claim> c = new ArrayList<>();
-		for(long l : this.claimedLand.keySet()) {
-			c.add(FactionsMain.getChunkFromLong(l, claimedLand.get(l).getVectorOne(), claimedLand.get(l).getVectorTwo()));
+		for (long l : this.claimedLand.keySet()) {
+			c.add(FactionsMain.getChunkFromLong(l, claimedLand.get(l).getVectorOne(),
+					claimedLand.get(l).getVectorTwo()));
 		}
 		return c;
 	}
-	
+
 	public void addClaim(Claim c) {
 		Chunk a = c.getChunk();
 
@@ -183,16 +182,16 @@ public class FactionObject implements Serializable{
 		FactionsMain.ClaimedChunks.put(l, this.getFactionName());
 		int i = c.getClaimType().getID();
 		String s = a.getWorld().getName();
-		claimedLand.put(l, new Vector2D<>(i,s));
+		claimedLand.put(l, new Vector2D<>(i, s));
 	}
-	
+
 	public void removeClaim(Claim c) {
 		Chunk a = c.getChunk();
 		Long l = FactionsMain.chunkCoordsToLong(a.getX(), a.getZ());
 		FactionsMain.ClaimedChunks.remove(l);
 		claimedLand.remove(FactionsMain.chunkCoordsToLong(a.getX(), a.getZ()));
 	}
-	
+
 	public boolean hasClaim(Claim c) {
 		Chunk a = c.getChunk();
 		return claimedLand.containsKey(FactionsMain.chunkCoordsToLong(a.getX(), a.getZ()));
@@ -205,33 +204,54 @@ public class FactionObject implements Serializable{
 	public void setValue(double value) {
 		this.value = value;
 	}
-	
+
 	public List<Player> getOnlinePlayers() {
 		List<Player> ps = new ArrayList<>();
-		for(UUID u: this.Players) 
-			if(Bukkit.getOfflinePlayer(u).isOnline())ps.add(Bukkit.getPlayer(u));
+		for (UUID u : this.Players)
+			if (Bukkit.getOfflinePlayer(u).isOnline())
+				ps.add(Bukkit.getPlayer(u));
 		return ps;
 	}
-	
-	public List<Player> getOfflinePlayers(){
+
+	public List<Player> getOfflinePlayers() {
 		List<Player> ps = new ArrayList<>();
-		for(UUID u: this.Players) 
-			if(!Bukkit.getOfflinePlayer(u).isOnline())ps.add(Bukkit.getPlayer(u));
+		for (UUID u : this.Players)
+			if (!Bukkit.getOfflinePlayer(u).isOnline())
+				ps.add(Bukkit.getPlayer(u));
 		return ps;
 	}
-	
+
 	public List<String> getOnlinePlayersName(){
 		List<String> ps = new ArrayList<>();
-		for(UUID u: this.Players) 
-			if(Bukkit.getOfflinePlayer(u).isOnline())ps.add(Bukkit.getPlayer(u).getName());
+		for(UUID uuid: this.Players) {
+			if(Bukkit.getOfflinePlayer(uuid).isOnline()) {
+				FactionPlayer p = FactionsMain.Players.get(uuid);
+				String tag = p.getTag();
+				String status = p.getRank().getStatus();
+				ps.add(tag + " " + status + Bukkit.getPlayer(uuid).getName());
+			}
+		}
 		return ps;
 	}
-	
-	public List<String> getOfflinePlayersName(){
+
+	public List<String> getOfflinePlayersName() {
 		List<String> ps = new ArrayList<>();
-		for(UUID u: this.Players) 
-			if(!Bukkit.getOfflinePlayer(u).isOnline())ps.add(Bukkit.getPlayer(u).getName());
+		for (UUID u : this.Players) {
+			if (!Bukkit.getOfflinePlayer(u).isOnline()) {
+				FactionPlayer p = FactionsMain.Players.get(u);
+				String tag = p.getTag();
+				String status = p.getRank().getStatus();
+				ps.add(tag + " " + status + Bukkit.getOfflinePlayer(u).getName());
+			}
+		}
+			
 		return ps;
 	}
-	 
+
+	public void broadcast(String string) {
+		for(Player p : this.getOnlinePlayers()) {
+			p.sendMessage(string);
+		}
+	}
+
 }

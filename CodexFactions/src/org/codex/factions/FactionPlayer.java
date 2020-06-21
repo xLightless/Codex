@@ -9,13 +9,21 @@ public class FactionPlayer implements Serializable{
 	private UUID UUID;
 	private Rank Rank;
 	private String factionName;
-	private int power = 20;
+	private int power = 100;
+	private String tag = "";
 	
 	public FactionPlayer(UUID uUID, Rank rank, String faction) {
 		this.setUUID(uUID);
 		this.setRank(rank);
 		this.factionName = faction;
-		
+		setTag("");
+	}
+	
+	public FactionPlayer(UUID uUID, Rank rank, String faction, String tag) {
+		this.setUUID(uUID);
+		this.setRank(rank);
+		this.factionName = faction;
+		this.setTag(tag);
 	}
 	
 	public UUID getUUID() {
@@ -48,6 +56,14 @@ public class FactionPlayer implements Serializable{
 
 	public void setPower(int power) {
 		this.power = power;
+	}
+
+	public String getTag() {
+		return tag;
+	}
+
+	public void setTag(String tag) {
+		this.tag = tag;
 	}
 	
 	

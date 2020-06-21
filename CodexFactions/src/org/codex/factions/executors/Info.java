@@ -14,7 +14,7 @@ public class Info implements Execute {
 		if (args.length == 2) {
 			if (FactionsMain.Factions.containsKey(args[1])) {
 				FactionObject fac = FactionsMain.getFactionFromName(args[1]);
-				for (int x = 0; x <= 10; x++)
+				for (int x = 0; x <= 3; x++)
 					sender.sendMessage(
 							"                                                                                                ");
 				sender.sendMessage(ChatColor.AQUA + "" + ChatColor.BOLD + "-----------= " + fac.getFactionName()
@@ -50,7 +50,7 @@ public class Info implements Execute {
 					p.sendMessage(e.getMessage());
 					return false;
 				}
-				for (int x = 0; x <= 10; x++)
+				for (int x = 0; x <= 3; x++)
 					p.sendMessage(
 							"                                                                                                ");
 				p.sendMessage(ChatColor.AQUA + "" + ChatColor.BOLD + "-----------= " + fac.getFactionName()

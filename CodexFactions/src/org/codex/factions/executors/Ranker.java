@@ -31,7 +31,7 @@ public class Ranker implements Execute {
 				FactionPlayer pfac = FactionsMain.getPlayer(p.getUniqueId());
 				int rankLevel = rank.getLevel();
 				Player p2 = Bukkit.getPlayer(args[1]);
-				if(permission == null || !p.hasPermission(permission)) {
+				if(permission != null || !p.hasPermission(permission)) {
 					p.sendMessage(ChatColor.RED + "You do not have propper permissions. Contact your faction leader if this is an issue");
 					return false;
 				}

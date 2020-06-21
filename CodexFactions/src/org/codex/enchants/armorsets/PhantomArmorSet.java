@@ -182,7 +182,7 @@ public class PhantomArmorSet extends ArmorSet implements Listener {
 								
 							}
 							
-						}, 10 * 20);
+						}, 2 * 20);
 					}
 				}
 			}
