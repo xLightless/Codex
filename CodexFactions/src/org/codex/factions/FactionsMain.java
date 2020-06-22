@@ -42,6 +42,7 @@ import org.codex.enchants.books.Frenzy;
 import org.codex.enchants.books.FrenzyBlocker;
 import org.codex.enchants.books.Gears;
 import org.codex.enchants.books.Hardened;
+import org.codex.enchants.books.Harvest;
 import org.codex.enchants.books.HealthBoost;
 import org.codex.enchants.books.ItemSwapEvent;
 import org.codex.enchants.books.ItemUnuseEvent;
@@ -236,6 +237,7 @@ public class FactionsMain extends JavaPlugin implements Listener{
 		Bukkit.getServer().getPluginManager().registerEvents(new Freeze(), this);
 		Bukkit.getServer().getPluginManager().registerEvents(this, this);
 		Bukkit.getServer().getPluginManager().registerEvents(new ProtectionFixListener(), this);
+		Bukkit.getServer().getPluginManager().registerEvents(new Harvest(), this);
 		ChunkBusterMain cb = new ChunkBusterMain();
 		getServer().getPluginManager().registerEvents(cb, this);
 		

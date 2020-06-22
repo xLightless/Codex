@@ -24,10 +24,10 @@ public class AdvancedFeatherFalling extends Book implements Listener {
 	private static final String gr = BookType.RARE_BOOK.getChatColor();
 	private static HashMap<Player, Boolean> a = new HashMap<>();
 	private static HashMap<Player, Integer> b = new HashMap<>();
-	
+
 	public AdvancedFeatherFalling() {
-		super(is, im, lore, 4, BookType.RARE_BOOK, "Advanced Feather Falling", 
-				gr + "Advanced Feather Falling", new ArrayList<>());
+		super(is, im, lore, 4, BookType.RARE_BOOK, "Advanced Feather Falling", gr + "Advanced Feather Falling",
+				new ArrayList<>());
 		List<String> lore = new ArrayList<>();
 		lore.add(gy + "This book protects you from fall damage and gives you health back");
 		lore.add(gy + "For example, if you take 10 hearts and have");
@@ -46,11 +46,8 @@ public class AdvancedFeatherFalling extends Book implements Listener {
 		m.add(Material.IRON_BOOTS);
 		m.add(Material.GOLD_BOOTS);
 		this.setApplicableItems(m);
-		
-	}
-	
-	
 
+	}
 
 	@Override
 	protected void onActivation(Player p, String level, NonStackableItemType t) {
@@ -60,35 +57,34 @@ public class AdvancedFeatherFalling extends Book implements Listener {
 
 	@Override
 	protected void onDeactivation(Player p, String level, NonStackableItemType t) {
-	
+
 		a.put(p, false);
 		b.remove(p);
 	}
-	
 
 	@EventHandler
 	public void onFallDamage(EntityDamageEvent e) {
-		if(e.getEntity() instanceof Player) {
+		if (e.getEntity() instanceof Player) {
 			Player p = (Player) e.getEntity();
 			DamageCause c = e.getCause();
-			
-			if(!(a.containsKey(p) && b.containsKey(p)))return;
-			if(c.equals(DamageCause.FALL) && a.get(p)) {
+
+			if (!(a.containsKey(p) && b.containsKey(p)))
+				return;
+			if (c.equals(DamageCause.FALL) && a.get(p)) {
 				double d = e.getDamage();
 				d *= (1 - (Double.parseDouble("0." + b.get(p)) * 2));
 				double h = p.getHealth();
-				h +=  0.5 * e.getDamage() * (Double.parseDouble("0." + b.get(p)) + .5);
-				
+				h += 0.5 * e.getDamage() * (Double.parseDouble("0." + b.get(p)) + .5);
+
 				e.setDamage(d);
 				try {
 					p.setHealth(h);
-					}catch(IllegalArgumentException e2) {
+				} catch (IllegalArgumentException e2) {
 					p.setHealth(p.getMaxHealth());
-					} 
-				
+				}
+
 			}
 		}
 	}
-
 
 }

@@ -368,5 +368,9 @@ public abstract class Book implements Listener {
 	protected void forceRemoveEffect(PotionEffectType type, Player player) {
 		player.removePotionEffect(type);
 	}
+	
+	protected boolean random(double d, int j) {
+		return r.nextInt(j) <= d;
+	}
 
 }
