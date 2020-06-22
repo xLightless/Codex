@@ -47,7 +47,9 @@ public enum EnchantType {
 
 	FREEZE(new Freeze(), "FREEZE"),
 
-	HARVEST(new Harvest(), "HARVEST");
+	HARVEST(new Harvest(), "HARVEST"),
+	
+	CRIT(new Crit(), "CRIT");
 
 	private Book b;
 	private String name;
@@ -74,7 +76,7 @@ public enum EnchantType {
 				new Rain(FactionsMain.getMain()), new Hardened(), new Armored(), new Tank(), new FrenzyBlocker(),
 				new Frenzy(), new Knight(), new LumberJack(), new Vampire(), new Gears(), new HealthBoost(),
 				new AdvancedFeatherFalling(), new ObsidianShield(), new Springs(), new Ferrite(), new CreeperArmor(),
-				new Pheonix(), new Harvest() };
+				new Pheonix(), new Harvest(), new Crit() };
 
 		return bArray;
 	}

@@ -35,6 +35,7 @@ import org.codex.enchants.books.Armored;
 import org.codex.enchants.books.AutoSmelt;
 import org.codex.enchants.books.BookManager;
 import org.codex.enchants.books.CreeperArmor;
+import org.codex.enchants.books.Crit;
 import org.codex.enchants.books.Fangs;
 import org.codex.enchants.books.Ferrite;
 import org.codex.enchants.books.Freeze;
@@ -79,9 +80,7 @@ import org.codex.factions.commands.RemoveHarvester;
 import org.codex.factions.commands.RenameCommand;
 import org.codex.factions.commands.TestCommand;
 
-
-
-public class FactionsMain extends JavaPlugin implements Listener{
+public class FactionsMain extends JavaPlugin implements Listener {
 	static File JarLocation;
 	public static Map<String, FactionObject> Factions = new HashMap<>();
 	/**
@@ -93,9 +92,9 @@ public class FactionsMain extends JavaPlugin implements Listener{
 	static File FactionsData;
 	static File PlayersData;
 	private static FactionsMain main;
-	
+
 	public FactionsMain() {
-		//getServer().getPluginManager().enablePlugin(new ChunkBusterMain());
+		// getServer().getPluginManager().enablePlugin(new ChunkBusterMain());
 	}
 
 	@SuppressWarnings("unchecked")
@@ -148,8 +147,7 @@ public class FactionsMain extends JavaPlugin implements Listener{
 		long result = posx | posz;
 		return !ClaimedChunks.containsKey(result);
 	}
-	
-	
+
 	public static long chunkCoordsToLong(int x, int z) {
 		long posz = z;
 		long posx = x;
@@ -182,9 +180,8 @@ public class FactionsMain extends JavaPlugin implements Listener{
 		ArmorSet.loadSets();
 		loadConfigs();
 		Energy.loadArmorStands();
-		registerGlow();	
+		registerGlow();
 	}
-	
 
 	public void loadConfigs() {
 		ConfigurationSerialization.registerClass(EnergyHarvester.class, "EnergyHarvester");
@@ -238,9 +235,10 @@ public class FactionsMain extends JavaPlugin implements Listener{
 		Bukkit.getServer().getPluginManager().registerEvents(this, this);
 		Bukkit.getServer().getPluginManager().registerEvents(new ProtectionFixListener(), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new Harvest(), this);
+		Bukkit.getServer().getPluginManager().registerEvents(new Crit(), this);
 		ChunkBusterMain cb = new ChunkBusterMain();
 		getServer().getPluginManager().registerEvents(cb, this);
-		
+
 		Bukkit.getServer().getPluginManager().registerEvents(new NetherArmorSet(), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new EnderArmorSet(), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new PhantomArmorSet(), this);
@@ -281,7 +279,7 @@ public class FactionsMain extends JavaPlugin implements Listener{
 			URL url = new URL(urlString);
 			JarLocation = new File(url.toURI()).getParentFile().getParentFile();
 			File CodexDir = new File("plugins/CodexFactions");
-			if(!CodexDir.exists()) {
+			if (!CodexDir.exists()) {
 				CodexDir.mkdir();
 			}
 			FactionsData = new File("plugins/CodexFactions/fdata.txt");
@@ -303,28 +301,26 @@ public class FactionsMain extends JavaPlugin implements Listener{
 		FactionsMain.saveData();
 	}
 
-	
-
 	public static FactionObject getFactionFromName(String facName) {
 		return FactionsMain.Factions.get(facName.toUpperCase());
 	}
 
-	
-	public static FactionObject getPlayerFaction(UUID id) throws Throwable{
+	public static FactionObject getPlayerFaction(UUID id) throws Throwable {
 		FactionPlayer fp = Players.get(id);
-		if(fp == null) {
+		if (fp == null) {
 			throw new Throwable("Your not in a faction");
 		}
 		return fp.getFaction();
 	}
-	public static FactionPlayer getPlayer(UUID id) throws Throwable{
+
+	public static FactionPlayer getPlayer(UUID id) throws Throwable {
 		FactionPlayer fp = Players.get(id);
-		if(fp == null) {
+		if (fp == null) {
 			throw new Throwable("Your not in a faction");
 		}
 		return fp;
 	}
-	
+
 	private void saveConfigs() {
 		Energy.getYml().save();
 	}
@@ -454,7 +450,5 @@ public class FactionsMain extends JavaPlugin implements Listener{
 			return null;
 		}
 	}
-
-	
 
 }
