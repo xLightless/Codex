@@ -32,12 +32,12 @@ public class Inviter implements Execute {
 						return false;
 					}
 					p.sendMessage(ChatColor.AQUA + "You have invited " + p2.getName()
-							+ "to your factions. Type /f revoke " + p2.getName() + " to remove the invite.");
+							+ " to your factions. Type /f revoke " + p2.getName() + " to remove the invite.");
 					
 					IChatBaseComponent comp = ChatSerializer.a("{\"text\":\"" + "\",\"extra\":[{\"text\":\""
 							+ ChatColor.AQUA + "You have been invited to " + facp.getFactionName() + ". "
 							+ ChatColor.BOLD + "Click here" + ChatColor.RESET + "" + ChatColor.AQUA
-							+ " to join"  + ChatColor.AQUA + "the faction or type /f join " + facp.getFactionName() + "\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\""
+							+ " to " + ChatColor.AQUA + "join." + "\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\""
 							+ "/f join " + facp.getFactionName() + "\"}}]}");
 					PacketPlayOutChat packet = new PacketPlayOutChat(comp);
 					((CraftPlayer) p2).getHandle().playerConnection.sendPacket(packet);

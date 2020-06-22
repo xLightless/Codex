@@ -90,7 +90,7 @@ public class FactionObject implements Serializable {
 	}
 
 	public void setFactionName(String factionName) {
-		FactionName = factionName.toUpperCase();
+		FactionName = factionName;
 	}
 
 	public List<FactionObject> getAllies() {

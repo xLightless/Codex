@@ -9,6 +9,8 @@ import org.bukkit.entity.Player;
 import org.codex.factions.FactionPlayer;
 import org.codex.factions.FactionsMain;
 
+import net.md_5.bungee.api.ChatColor;
+
 public class Kicker implements Execute {
 
 	@Override
@@ -25,25 +27,27 @@ public class Kicker implements Execute {
 				UUID id = p.getUniqueId();
 				try {
 					FactionPlayer fp = FactionsMain.getPlayer(id);
+				
 					if(fp.getRank().getLevel() >= 2) {
-						FactionPlayer tuuid;
-						if(fp.getFaction().getPlayers().contains(target.getUniqueId()) && (tuuid = FactionsMain.getPlayer(target.getUniqueId())) != null) {
+						FactionPlayer tuuid = FactionsMain.getPlayer(target.getUniqueId());
+						if(fp.getFaction().getPlayers().contains(target.getUniqueId())) {
 							if(tuuid.getFaction() == fp.getFaction()) {
 								if(tuuid.getRank().getLevel() < fp.getRank().getLevel()) {
-									sender.sendMessage("You have kicked" + args[1]);
-									fp.getFaction().kickPlayer(fp);
+									sender.sendMessage(ChatColor.DARK_AQUA + "You have kicked " + args[1]);
+									fp.getFaction().kickPlayer(tuuid);
+									if(target.isOnline())((Player) target).sendMessage(ChatColor.AQUA + "you have been kicked from your faction.");
 									return true;
 								}else {
-									sender.sendMessage("You can not kick this user");
+									sender.sendMessage(ChatColor.RED + "You can not kick this user");
 									return false;
 								}
 							}
 						}else {
-							sender.sendMessage("This player is not in your faction");
+							sender.sendMessage(ChatColor.RED + "This player is not in your faction");
 							return false;
 						}
 					}else {
-						sender.sendMessage("You do not have permission to do this");
+						sender.sendMessage(ChatColor.RED + "You do not have permission to do this");
 						return false;
 					}
 				}catch(Throwable e) {

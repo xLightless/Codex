@@ -304,7 +304,7 @@ public class FactionsMain extends JavaPlugin implements Listener{
 	
 
 	public static FactionObject getFactionFromName(String facName) {
-		return FactionsMain.Factions.get(facName);
+		return FactionsMain.Factions.get(facName.toUpperCase());
 	}
 
 	

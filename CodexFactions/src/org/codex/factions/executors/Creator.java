@@ -35,7 +35,7 @@ public class Creator implements Execute {
 			if (FactionsMain.Players.containsKey(uuid))
 				throw new Throwable(ChatColor.RED + "You are already inside of a Faction");
 			FactionObject fac = new FactionObject(facName, uuid);
-			FactionsMain.Factions.put(facName, fac);
+			FactionsMain.Factions.put(facName.toUpperCase(), fac);
 			FactionsMain.saveData();
 			return;
 		} else {
