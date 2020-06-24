@@ -4,7 +4,15 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.codex.factions.Rank;
-import org.codex.factions.executors.*;
+import org.codex.factions.executors.Creator;
+import org.codex.factions.executors.Disbander;
+import org.codex.factions.executors.Info;
+import org.codex.factions.executors.Inviter;
+import org.codex.factions.executors.Joiner;
+import org.codex.factions.executors.Kicker;
+import org.codex.factions.executors.Leaver;
+import org.codex.factions.executors.Ranker;
+import org.codex.factions.executors.Tagger;
 
 import net.md_5.bungee.api.ChatColor;
 
@@ -38,7 +46,7 @@ public class FactionCommand implements CommandExecutor {
 			case "join":
 				return join.onCommand(sender, args);
 			case "leave":
-				break;
+				return new Leaver().onCommand(sender, args);
 			case "mod":
 				return new Ranker(Rank.MODERATOR, null).onCommand(sender, args);
 			case "coleader":
@@ -48,7 +56,7 @@ public class FactionCommand implements CommandExecutor {
 			case "help":
 				break;
 			case "tag":
-				break;
+				return new Tagger().onCommand(sender, args);
 			case "rename":
 				break;
 			case "claim":
