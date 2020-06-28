@@ -4,6 +4,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.codex.factions.Rank;
+import org.codex.factions.executors.Claimer;
 import org.codex.factions.executors.Creator;
 import org.codex.factions.executors.Disbander;
 import org.codex.factions.executors.Info;
@@ -24,6 +25,7 @@ public class FactionCommand implements CommandExecutor {
 	private Disbander disband = new Disbander();
 	private Info info = new Info();
 	private Inviter invite = new Inviter();
+	private Claimer claimer = new Claimer();
 	
 	public FactionCommand() {
 		
@@ -60,7 +62,7 @@ public class FactionCommand implements CommandExecutor {
 			case "rename":
 				break;
 			case "claim":
-				break;
+				return claimer.onCommand(sender, args);
 			case "ally":
 				break;
 			case "truce":
