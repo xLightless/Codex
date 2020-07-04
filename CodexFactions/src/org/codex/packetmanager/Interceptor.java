@@ -1,7 +1,6 @@
 package org.codex.packetmanager;
 
 import org.bukkit.Server;
-import org.bukkit.event.Event;
 
 import net.minecraft.server.v1_8_R3.EnumProtocolDirection;
 import net.minecraft.server.v1_8_R3.NetworkManager;
@@ -17,7 +16,7 @@ public class Interceptor extends NetworkManager {
 	}
 
 	@Override
-	public void handle(Packet packet) {
+	public void handle(@SuppressWarnings("rawtypes") Packet packet) {
 		PacketEvent e = new PacketEvent(packet);
 		server.getPluginManager().callEvent(e);
 		if (!e.isCancelled()) {
