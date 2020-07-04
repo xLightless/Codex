@@ -79,6 +79,7 @@ import org.codex.factions.commands.GiveItem;
 import org.codex.factions.commands.RemoveHarvester;
 import org.codex.factions.commands.RenameCommand;
 import org.codex.factions.commands.TestCommand;
+import org.codex.packetmanager.PacketMain;
 
 public class FactionsMain extends JavaPlugin implements Listener {
 	static File JarLocation;
@@ -181,6 +182,7 @@ public class FactionsMain extends JavaPlugin implements Listener {
 		loadConfigs();
 		Energy.loadArmorStands();
 		registerGlow();
+		
 	}
 
 	public void loadConfigs() {
@@ -242,6 +244,7 @@ public class FactionsMain extends JavaPlugin implements Listener {
 		Bukkit.getServer().getPluginManager().registerEvents(new NetherArmorSet(), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new EnderArmorSet(), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new PhantomArmorSet(), this);
+		Bukkit.getServer().getPluginManager().registerEvents(new PacketMain(getServer()), this);
 	}
 
 	private void loadConstructors() {
@@ -320,6 +323,7 @@ public class FactionsMain extends JavaPlugin implements Listener {
 		}
 		return fp;
 	}
+	
 
 	private void saveConfigs() {
 		Energy.getYml().save();

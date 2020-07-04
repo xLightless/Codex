@@ -25,7 +25,6 @@ public class FactionObject implements Serializable {
 	private Set<String> truces = new HashSet<>();
 	private Set<UUID> alts = new HashSet<>();
 	private Set<String> enemies = new HashSet<>();
-	private int power = 20;
 	private Map<Long, Vector2D<Integer, String>> claimedLand = new HashMap<>();
 	private double value = 0D;
 	private ClaimType claimtype = ClaimType.NORMAL;
@@ -60,13 +59,12 @@ public class FactionObject implements Serializable {
 
 	public void invitePlayer(FactionPlayer fp) {
 		Players.add(fp.getUUID());
-		this.changePower(fp.getPower());
 	}
+
 
 	public void kickPlayer(FactionPlayer fp) {
 		Players.remove(fp.getUUID());
 		FactionsMain.Players.remove(fp.getUUID());
-		this.changePower(-1 * fp.getPower());
 	}
 
 	public void promotePlayer(UUID player) throws Throwable {
@@ -159,13 +157,16 @@ public class FactionObject implements Serializable {
 	public String toString() {
 		return this.getFactionName();
 	}
-
+	//sums the power of all the factionplayers in this faction
 	public int getPower() {
-		return power;
-	}
-
-	public void changePower(int i) {
-		power += i;
+		int totalpower = 0;
+		for(UUID p : this.Players) {
+			FactionPlayer pl = FactionsMain.Players.get(p);
+			if(pl != null) {
+				totalpower += pl.getPower();
+			}
+		}
+		return totalpower;
 	}
 
 	public List<Claim> getClaimedLand() {
