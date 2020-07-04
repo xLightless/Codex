@@ -17,6 +17,10 @@ public class Leaver implements Execute{
 			try {
 				FactionPlayer facp = FactionsMain.getPlayer(p.getUniqueId());
 				FactionObject fac = facp.getFaction();
+				if(facp.getRank().getLevel() == 4) {
+					p.sendMessage(ChatColor.RED + "You must disband in order to leave this fac");
+					return false;
+				}
 				fac.kickPlayer(facp);
 				p.sendMessage(ChatColor.AQUA + "You have left " + fac.getFactionName() + ".");
 				fac.broadcast(ChatColor.AQUA + p.getName() + " has left the facton.");

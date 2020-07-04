@@ -16,7 +16,7 @@ public class Tagger implements Execute {
 			Player p = (Player) sender;
 			try {
 				
-				if(args.length < 2) {
+				if(args.length < 3) {
 					p.sendMessage(ChatColor.RED + "Not enough arguments.");
 					return false;
 				}
@@ -34,13 +34,13 @@ public class Tagger implements Execute {
 					return true;
 				}
 
-				if (!(facp.getRank().getLevel() >= 2) || facp2.getRank().getLevel() >= facp.getRank().getLevel()) {
+				if (facp.getRank().getLevel() <= 2 || facp2.getRank().getLevel() > facp.getRank().getLevel()) {
 					p.sendMessage(ChatColor.RED + "You do not have proper permissions");
 					return true;
 				}
 				
 				
-				facp2.setTag(args[2].replaceAll("&", "§"));
+				facp2.setTag(args[2].replaceAll("&", "§") + ChatColor.GREEN);
 				facp2.getFaction().broadcast(ChatColor.AQUA +  p2.getName() + "'s tag has been changed to " + facp2.getTag());
 				
 			} catch (Throwable e) {

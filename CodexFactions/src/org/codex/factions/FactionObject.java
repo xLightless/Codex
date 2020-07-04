@@ -60,11 +60,13 @@ public class FactionObject implements Serializable {
 
 	public void invitePlayer(FactionPlayer fp) {
 		Players.add(fp.getUUID());
+		this.changePower(fp.getPower());
 	}
 
 	public void kickPlayer(FactionPlayer fp) {
 		Players.remove(fp.getUUID());
 		FactionsMain.Players.remove(fp.getUUID());
+		this.changePower(-1 * fp.getPower());
 	}
 
 	public void promotePlayer(UUID player) throws Throwable {

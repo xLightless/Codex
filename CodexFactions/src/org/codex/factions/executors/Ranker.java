@@ -22,7 +22,7 @@ public class Ranker implements Execute {
 		this.rank = r;
 	}
 	
-	
+	@SuppressWarnings("deprecation")
 	@Override
 	public boolean onCommand(CommandSender sender, String[] args) {
 		if(sender instanceof Player && args.length >= 2) {
@@ -31,18 +31,21 @@ public class Ranker implements Execute {
 				FactionObject fac = FactionsMain.getPlayerFaction(p.getUniqueId());
 				FactionPlayer pfac = FactionsMain.getPlayer(p.getUniqueId());
 				int rankLevel = rank.getLevel();
-				@SuppressWarnings("deprecation")
 				OfflinePlayer p2 = Bukkit.getOfflinePlayer(args[1]);
-				if(permission != null || !p.hasPermission(permission)) {
+				if(permission != null) {
+					if(!p.hasPermission(permission)) {
 					p.sendMessage(ChatColor.RED + "You do not have propper permissions. Contact your faction leader if this is an issue");
 					return false;
+					}
 				}
 				if(rankLevel < pfac.getRank().getLevel() && fac.getPlayers().contains(p2.getUniqueId())) {
 					 FactionPlayer p2fac = FactionsMain.getPlayer(p2.getUniqueId());
-					 p2fac.setRank(Rank.promote(p2fac.getRank()));
+					 p2fac.setRank(rank);
 					 FactionsMain.Players.put(p2fac.getUUID(), p2fac);
+					 p.sendMessage(ChatColor.AQUA + "you have promoted " + p2.getName());
 				}
 			} catch (Throwable e) {
+				e.printStackTrace();
 				p.sendMessage(e.getMessage());
 			}
 		}
