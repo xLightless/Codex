@@ -11,7 +11,7 @@ import org.codex.factions.claims.RegularClaim;
 
 import net.md_5.bungee.api.ChatColor;
 
-public class Claimer implements Execute {
+public class KingmoClaimer implements Execute {
 
 	public boolean onCommand(CommandSender sender, String[] args) {
 		if (sender instanceof Player) {
