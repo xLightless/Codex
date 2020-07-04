@@ -27,7 +27,6 @@ public class FactionObject implements Serializable {
 	private Set<String> enemies = new HashSet<>();
 	private Map<Long, Vector2D<Integer, String>> claimedLand = new HashMap<>();
 	private double value = 0D;
-	private ClaimType claimtype = ClaimType.NORMAL;
 
 	public Set<UUID> getPlayers() {
 		return Players;
@@ -41,12 +40,15 @@ public class FactionObject implements Serializable {
 
 	}
 
+	public Map<Long, Vector2D<Integer, String>> getLand() {
+		return claimedLand;
+	}
+
 	public FactionObject(String name, UUID uUID, ClaimType type) {
 		this.setFactionName(name);
 		this.Leader = uUID;
 		Players.add(uUID);
 		FactionsMain.Players.put(uUID, new FactionPlayer(uUID, Rank.LEADER, name));
-		this.claimtype = type;
 	}
 
 	public UUID getLeaderUUID() {
@@ -60,7 +62,6 @@ public class FactionObject implements Serializable {
 	public void invitePlayer(FactionPlayer fp) {
 		Players.add(fp.getUUID());
 	}
-
 
 	public void kickPlayer(FactionPlayer fp) {
 		Players.remove(fp.getUUID());
@@ -129,14 +130,6 @@ public class FactionObject implements Serializable {
 		return enemies;
 	}
 
-	public ClaimType getClaimtype() {
-		return claimtype;
-	}
-
-	public void setClaimtype(ClaimType claimtype) {
-		this.claimtype = claimtype;
-	}
-
 	public void addAlly(FactionObject fac) {
 		allies.add(fac.getFactionName());
 	}
@@ -157,12 +150,13 @@ public class FactionObject implements Serializable {
 	public String toString() {
 		return this.getFactionName();
 	}
-	//sums the power of all the factionplayers in this faction
+
+	// sums the power of all the factionplayers in this faction
 	public int getPower() {
 		int totalpower = 0;
-		for(UUID p : this.Players) {
+		for (UUID p : this.Players) {
 			FactionPlayer pl = FactionsMain.Players.get(p);
-			if(pl != null) {
+			if (pl != null) {
 				totalpower += pl.getPower();
 			}
 		}
@@ -224,10 +218,10 @@ public class FactionObject implements Serializable {
 		return ps;
 	}
 
-	public List<String> getOnlinePlayersName(){
+	public List<String> getOnlinePlayersName() {
 		List<String> ps = new ArrayList<>();
-		for(UUID uuid: this.Players) {
-			if(Bukkit.getOfflinePlayer(uuid).isOnline()) {
+		for (UUID uuid : this.Players) {
+			if (Bukkit.getOfflinePlayer(uuid).isOnline()) {
 				FactionPlayer p = FactionsMain.Players.get(uuid);
 				String tag = p.getTag();
 				String status = p.getRank().getStatus();
@@ -247,12 +241,12 @@ public class FactionObject implements Serializable {
 				ps.add(tag + " " + status + Bukkit.getOfflinePlayer(u).getName());
 			}
 		}
-			
+
 		return ps;
 	}
 
 	public void broadcast(String string) {
-		for(Player p : this.getOnlinePlayers()) {
+		for (Player p : this.getOnlinePlayers()) {
 			p.sendMessage(string);
 		}
 	}

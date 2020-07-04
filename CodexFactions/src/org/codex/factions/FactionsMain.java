@@ -182,7 +182,7 @@ public class FactionsMain extends JavaPlugin implements Listener {
 		loadConfigs();
 		Energy.loadArmorStands();
 		registerGlow();
-		
+
 	}
 
 	public void loadConfigs() {
@@ -323,7 +323,6 @@ public class FactionsMain extends JavaPlugin implements Listener {
 		}
 		return fp;
 	}
-	
 
 	private void saveConfigs() {
 		Energy.getYml().save();
@@ -402,6 +401,13 @@ public class FactionsMain extends JavaPlugin implements Listener {
 		for (Player p : Bukkit.getOnlinePlayers()) {
 			p.sendMessage(s);
 		}
+	}
+
+	public static Claim getClaim(int x, int z, String w) {
+		FactionObject fac = FactionsMain
+				.getFactionFromName(FactionsMain.ClaimedChunks.get(FactionsMain.chunkCoordsToLong(x, z)));
+		long l = FactionsMain.chunkCoordsToLong(x, z);
+		return FactionsMain.getChunkFromLong(l, fac.getLand().get(l).getVectorOne(), w);
 	}
 
 	private void registerGlow() {

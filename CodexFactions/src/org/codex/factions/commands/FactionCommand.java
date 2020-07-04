@@ -4,7 +4,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.codex.factions.Rank;
-import org.codex.factions.executors.KingmoClaimer;
+import org.codex.factions.executors.Claimer;
 import org.codex.factions.executors.Creator;
 import org.codex.factions.executors.Disbander;
 import org.codex.factions.executors.Info;
@@ -61,7 +61,7 @@ public class FactionCommand implements CommandExecutor {
 			case "rename":
 				break;
 			case "claim":
-				return new KingmoClaimer().onCommand(sender, args);
+				return new Claimer().onCommand(sender, args);
 			case "ally":
 				break;
 			case "truce":
