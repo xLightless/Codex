@@ -27,24 +27,27 @@ public class Claimer implements Execute {
 						p.sendMessage(ChatColor.RED + "You are out of faction power.");
 						return true;
 					}
-					if(!FactionsMain.isChunkWilderness(c.getX(), c.getZ())) {
+					if (!FactionsMain.isChunkWilderness(c.getX(), c.getZ())) {
 						p.sendMessage(ChatColor.RED + "This chunk has already been claimed");
 						return true;
 					}
-					if (args.length >= 2) {
+					if (args.length >= 2 && fac.getClaimedLand().size() != 0) {
 						Claim cl = ClaimType.getClaim(Integer.parseInt(args[1]), c);
-						if (ClaimType.followsRules(cl))
+						if (ClaimType.followsRules(cl)) {
 							fac.addClaim(cl);
-						else p.sendMessage(ChatColor.RED + "Your claim does not follow the Claiming Regulations. Please type /f help claiming to find out where you went wrong.");
-					}
-					else if(fac.getClaimedLand().size() != 0)
+						}
+
+						else
+							p.sendMessage(ChatColor.RED
+									+ "Your claim does not follow the Claiming Regulations. Please type /f help claiming to find out where you went wrong.");
+					} else if (fac.getClaimedLand().size() != 0)
 						fac.addClaim(new RegularClaim(c));
-					else 
+					else
 						fac.addClaim(new PocketClaim(c));
 
 					fac.broadcast(ChatColor.AQUA + p.getName() + " has claimed land at " + c.getX() + ", " + c.getZ());
 					return true;
-				}else {
+				} else {
 					p.sendMessage(ChatColor.RED + "You do not have proper permissions");
 					return false;
 				}
