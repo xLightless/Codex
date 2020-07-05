@@ -21,12 +21,12 @@ public class Crit extends Book {
 	private static List<String> lore = new ArrayList<>();
 	private static ItemStack is = new ItemStack(Material.BOOK);
 	private static ItemMeta im = is.getItemMeta();
-	private static String c = BookType.GODLY_BOOK.getChatColor();
+	private static String c = BookType.LEGENDARY_BOOK.getChatColor();
 	private static ChatColor g = ChatColor.GRAY;
 	private static HashMap<Player, Integer> map = new HashMap<>();
 	
 	public Crit() {
-		super(is, im, lore, 4, BookType.GODLY_BOOK, "Crit", c + "Crit", new ArrayList<>());
+		super(is, im, lore, 4, BookType.LEGENDARY_BOOK, "Crit", c + "Crit", new ArrayList<>());
 		List<String> lore = new ArrayList<>();
 		lore.add(g + "When attacking a play there is a slight chance to push the player in the air.");
 		lore.add(g + "This allows you to get a large crit streak on the player");
@@ -62,7 +62,7 @@ public class Crit extends Book {
 			Player p = (Player) e.getDamager();
 			if(map.containsKey(p)) {
 				double l = map.get(p);
-				if(super.random(l/100D, 40)) {
+				if(super.random(l/10D, 40)) {
 					Entity e1 = e.getEntity();
 					Location loc = e1.getLocation();
 						e1.teleport(new Location(loc.getWorld(), loc.getX(), loc.getY() + (1 * (l * 0.5)), loc.getZ()));

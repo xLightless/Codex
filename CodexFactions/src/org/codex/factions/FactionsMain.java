@@ -65,6 +65,7 @@ import org.codex.enchants.items.RepairCrystal;
 import org.codex.enchants.items.TrenchPickaxe;
 import org.codex.enchants.leveling.Levels;
 import org.codex.factions.claims.Claim;
+import org.codex.factions.claims.ClaimManager;
 import org.codex.factions.claims.ClaimType;
 import org.codex.factions.commands.CustomEnchant;
 import org.codex.factions.commands.EnchanterComm;
@@ -168,6 +169,18 @@ public class FactionsMain extends JavaPlugin implements Listener {
 			return null;
 		}
 	}
+	
+	public static FactionObject getChunkOwner(Chunk c) {
+		long posz = c.getZ();
+		long posx = c.getX() << 32;
+		long result = posx | posz;
+		if (ClaimedChunks.containsKey(result)) {
+			return Factions.get(ClaimedChunks.get(result));
+		} else {
+			return null;
+		}
+	}
+
 
 	@Override
 	public void onEnable() {
@@ -245,6 +258,7 @@ public class FactionsMain extends JavaPlugin implements Listener {
 		Bukkit.getServer().getPluginManager().registerEvents(new EnderArmorSet(), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new PhantomArmorSet(), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new PacketMain(getServer()), this);
+		Bukkit.getServer().getPluginManager().registerEvents(new ClaimManager(), this);
 	}
 
 	private void loadConstructors() {
