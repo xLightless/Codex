@@ -7,13 +7,19 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.lang.reflect.Field;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Material;
+import org.bukkit.WorldCreator;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -23,6 +29,7 @@ import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.codex.chunkbusters.ChunkBusterMain;
+import org.codex.economy.EconomyMain;
 import org.codex.enchants.armorsets.ArmorSet;
 import org.codex.enchants.armorsets.CustomProtectionEnchantment;
 import org.codex.enchants.armorsets.EnderArmorSet;
@@ -80,6 +87,8 @@ import org.codex.factions.commands.GiveItem;
 import org.codex.factions.commands.RemoveHarvester;
 import org.codex.factions.commands.RenameCommand;
 import org.codex.factions.commands.TestCommand;
+import org.codex.factions.commands.WorldCommand;
+import org.codex.obsidiandestroyer.TNTHandler;
 import org.codex.packetmanager.PacketMain;
 
 public class FactionsMain extends JavaPlugin implements Listener {
@@ -91,10 +100,13 @@ public class FactionsMain extends JavaPlugin implements Listener {
 	 */
 	public static Map<UUID, FactionPlayer> Players = new HashMap<>();
 	public static Map<Long, String> ClaimedChunks = new HashMap<>();
+	private static Set<String> worlds = new HashSet<>();
 	static File FactionsData;
 	static File PlayersData;
+	static File claimedData;
 	private static FactionsMain main;
-
+	private static EconomyMain ecoMain;
+	
 	public FactionsMain() {
 		// getServer().getPluginManager().enablePlugin(new ChunkBusterMain());
 	}
@@ -108,12 +120,18 @@ public class FactionsMain extends JavaPlugin implements Listener {
 			if (!PlayersData.exists()) {
 				PlayersData.createNewFile();
 			}
+			if(!claimedData.exists()) {
+				claimedData.createNewFile();
+			}
 			try {
 				ObjectInputStream ois = new ObjectInputStream(new FileInputStream(FactionsData));
 				Factions = (Map<String, FactionObject>) ois.readObject();
 				ois.close();
 				ois = new ObjectInputStream(new FileInputStream(PlayersData));
 				Players = (Map<UUID, FactionPlayer>) ois.readObject();
+				ois.close();
+				ois = new ObjectInputStream(new FileInputStream(claimedData));
+				ClaimedChunks = (Map<Long, String>) ois.readObject();
 				ois.close();
 			} catch (Exception e) {
 				System.out.println("Ois stream is empty");
@@ -138,6 +156,9 @@ public class FactionsMain extends JavaPlugin implements Listener {
 			oos = new ObjectOutputStream(new FileOutputStream(PlayersData));
 			oos.writeObject(Players);
 			oos.close();
+			oos = new ObjectOutputStream(new FileOutputStream(claimedData));
+			oos.writeObject(ClaimedChunks);
+			oos.close();
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
@@ -161,10 +182,11 @@ public class FactionsMain extends JavaPlugin implements Listener {
 	// returns null if wilderness
 	public static FactionObject getChunkOwner(int x, int z) {
 		long posz = z;
-		long posx = x << 32;
+		long posx = 32;
+		posx = posx << 32;
 		long result = posx | posz;
 		if (ClaimedChunks.containsKey(result)) {
-			return Factions.get(ClaimedChunks.get(result));
+			return Factions.get(ClaimedChunks.get(result).toUpperCase());
 		} else {
 			return null;
 		}
@@ -172,10 +194,11 @@ public class FactionsMain extends JavaPlugin implements Listener {
 	
 	public static FactionObject getChunkOwner(Chunk c) {
 		long posz = c.getZ();
-		long posx = c.getX() << 32;
+		long posx = c.getX();
+		posx = posx << 32;
 		long result = posx | posz;
 		if (ClaimedChunks.containsKey(result)) {
-			return Factions.get(ClaimedChunks.get(result));
+			return Factions.get(ClaimedChunks.get(result).toUpperCase());
 		} else {
 			return null;
 		}
@@ -195,8 +218,59 @@ public class FactionsMain extends JavaPlugin implements Listener {
 		loadConfigs();
 		Energy.loadArmorStands();
 		registerGlow();
-
+		createConfig();
+		loadPastWorlds();
 	}
+
+	@SuppressWarnings("unchecked")
+	private void createConfig() {
+		FileConfiguration config = this.getConfig();
+		Set<String> worldList = new HashSet<>();
+		List<String> matList = new ArrayList<>();
+		matList.add(Material.OBSIDIAN.toString()); 
+		matList.add(Material.ENCHANTMENT_TABLE.toString());
+		Map<String, Double> priceMap = new HashMap<>(); 
+		priceMap.put(Material.IRON_BLOCK.toString(), 3000D);
+		config.addDefault("loaded_list", worldList);
+		config.addDefault("price_map", priceMap);
+		config.addDefault("health", 4);
+		config.addDefault("max_destroyed", 8);
+		config.addDefault("material_list", matList);
+		config.addDefault("clicker", Material.POTATO_ITEM.toString());
+		config.addDefault("protection_block", Material.HAY_BLOCK.toString());
+		config.options().copyDefaults(true);
+		this.saveConfig();
+		Bukkit.getServer().getPluginManager().registerEvents(new TNTHandler(config.getInt("health"),
+				config.getInt("max_destroyed"),
+				(List<String>) config.getList("material_list"),
+				Material.getMaterial(config.getString("clicker")),
+				Material.getMaterial(config.getString("protection_block"))), this);
+	try {
+		for(String m : config.getConfigurationSection("price_map").getKeys(false)) {
+			priceMap.put(m, config.getDouble("price_map." + m));
+		}
+		ecoMain = new EconomyMain(priceMap);
+	}catch(NullPointerException e) {
+		ecoMain = new EconomyMain(new HashMap<>());
+		e.printStackTrace();
+	}
+	}
+
+	
+	@SuppressWarnings("unchecked")
+	private void loadPastWorlds() {
+		if(this.getConfig() == null)return;
+				if(this.getConfig().getList("loaded_list") == null) return;
+		for(String name: (List<String>) this.getConfig().getList("loaded_list")) {
+			Bukkit.getServer().createWorld(new WorldCreator(name));
+			Bukkit.getLogger().info(name + " has been loaded");
+			worlds.add(name);
+		}
+		
+	}
+
+	
+	
 
 	public void loadConfigs() {
 		ConfigurationSerialization.registerClass(EnergyHarvester.class, "EnergyHarvester");
@@ -218,6 +292,7 @@ public class FactionsMain extends JavaPlugin implements Listener {
 		getCommand("removeharvester").setExecutor(new RemoveHarvester());
 		getCommand("giveitem").setExecutor(new GiveItem());
 		getCommand("cenchant").setExecutor(new CustomEnchant());
+		getCommand("world").setExecutor(new WorldCommand());
 	}
 
 	private void loadEvents() {
@@ -301,6 +376,7 @@ public class FactionsMain extends JavaPlugin implements Listener {
 			}
 			FactionsData = new File("plugins/CodexFactions/fdata.txt");
 			PlayersData = new File("plugins/CodexFactions/pdata.txt");
+			claimedData = new File("plugins/CodexFactions/cdata.txt");
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
@@ -316,11 +392,13 @@ public class FactionsMain extends JavaPlugin implements Listener {
 		Bukkit.getScheduler().cancelTasks(this);
 		Energy.removeArmorStands();
 		FactionsMain.saveData();
+		this.getConfig().set("loaded_list", worlds);
 	}
 
 	public static FactionObject getFactionFromName(String facName) {
 		return FactionsMain.Factions.get(facName.toUpperCase());
 	}
+	
 
 	public static FactionObject getPlayerFaction(UUID id) throws Throwable {
 		FactionPlayer fp = Players.get(id);
@@ -473,6 +551,14 @@ public class FactionsMain extends JavaPlugin implements Listener {
 			e.printStackTrace();
 			return null;
 		}
+	}
+	
+	public static Set<String> getWorlds() {
+		return worlds;
+	}
+
+	public static EconomyMain getEconomy() {
+		return ecoMain;
 	}
 
 }

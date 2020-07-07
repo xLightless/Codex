@@ -1,7 +1,14 @@
 package org.codex.factions;
 
-public class Vector2D<A, B> {
+import java.io.Serializable;
 
+public class Vector2D<A, B> implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 141234121242L;
+	
 	private A a;
 	private B b;
 	

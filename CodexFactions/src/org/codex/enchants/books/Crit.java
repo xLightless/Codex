@@ -62,7 +62,7 @@ public class Crit extends Book {
 			Player p = (Player) e.getDamager();
 			if(map.containsKey(p)) {
 				double l = map.get(p);
-				if(super.random(l/10D, 40)) {
+				if(super.random(l, 40)) {
 					Entity e1 = e.getEntity();
 					Location loc = e1.getLocation();
 						e1.teleport(new Location(loc.getWorld(), loc.getX(), loc.getY() + (1 * (l * 0.5)), loc.getZ()));

@@ -34,9 +34,13 @@ public class Disbander implements Execute {
 		FactionObject fac = FactionsMain.getPlayer(uuid).getFaction();
 		for (UUID u : fac.getPlayers())
 			FactionsMain.Players.remove(u);
-		FactionsMain.Factions.remove(fac.getFactionName());
+		FactionsMain.Factions.remove(fac.getFactionName().toUpperCase());
 		Bukkit.broadcastMessage(
 				ChatColor.GRAY + fac.getFactionName() + " has been disbanded by " + Bukkit.getPlayer(uuid).getName());
+		for(long l :fac.getLand().keySet()) {
+			FactionsMain.ClaimedChunks.remove(l);
+		}
+		fac.getLand().clear();
 	}
 
 }

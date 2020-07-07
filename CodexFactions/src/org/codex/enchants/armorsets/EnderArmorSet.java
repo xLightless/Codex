@@ -26,7 +26,7 @@ public class EnderArmorSet extends ArmorSet implements Listener{
 	private static HashMap<Player, Integer> applied = new HashMap<>();	
 	 
 	public EnderArmorSet() {
-		this.setDefensePoints(45);
+		this.setDefensePoints(50);
 		this.setArmor_value(6);
 		this.setDurabilityMultiplier(10);
 		List<String> lore = new ArrayList<>();
@@ -34,7 +34,7 @@ public class EnderArmorSet extends ArmorSet implements Listener{
 		this.setLeatherColor(Color.fromRGB(220, 77, 242));
 		lore.add(this.getUAID());
 		lore.add(ChatColor.RESET + "" + ChatColor.DARK_PURPLE + "Ender Armor: The Armor made from the Ender Gods");
-		lore.add(ChatColor.RESET + "" + ChatColor.DARK_PURPLE + "45 Defense Points");
+		lore.add(ChatColor.RESET + "" + ChatColor.DARK_PURPLE + "50 Defense Points");
 		this.setName(ChatColor.RESET + "" + ChatColor.BOLD + "" + ChatColor.DARK_PURPLE + "Ender " );
 		this.setLore(lore);
 		this.setmHelmet(Material.LEATHER_HELMET);

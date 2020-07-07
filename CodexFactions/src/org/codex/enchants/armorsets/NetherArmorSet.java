@@ -38,7 +38,7 @@ public class NetherArmorSet extends ArmorSet implements Listener{
 
 
 	public NetherArmorSet() {
-		this.setDefensePoints(30);
+		this.setDefensePoints(40);
 		this.setArmor_value(6);
 		this.setDurabilityMultiplier(4);
 		List<String> lore = new ArrayList<>();
@@ -46,7 +46,7 @@ public class NetherArmorSet extends ArmorSet implements Listener{
 		this.setLeatherColor(Color.fromRGB(230, 38, 125));
 		lore.add(this.getUAID());
 		lore.add(ChatColor.RED + "Nether Armor: The Armor made from the Nether Gods");
-		lore.add(ChatColor.RED + "30 Defense Points");
+		lore.add(ChatColor.RED + "45 Defense Points");
 		this.setName(ChatColor.BOLD + "" + ChatColor.RED + "Netheranian " );
 		this.setLore(lore);
 		this.setmHelmet(Material.LEATHER_HELMET);

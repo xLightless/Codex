@@ -48,3 +48,6 @@ commands:
   cenchant:
         aliases: [customenchant, enchantc]
         description: gives a custom enchant.
+  world:
+        aliases: [wrld, wld, worldmanager, wrldmnrg]
+        description: the big command for your worlds

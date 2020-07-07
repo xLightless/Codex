@@ -45,7 +45,7 @@ public class PhantomArmorSet extends ArmorSet implements Listener {
 	}
 
 	public PhantomArmorSet() {
-		this.setDefensePoints(40);
+		this.setDefensePoints(50);
 		this.setArmor_value(8);
 		this.setDurabilityMultiplier(5);
 		List<String> lore = new ArrayList<>();
@@ -53,7 +53,7 @@ public class PhantomArmorSet extends ArmorSet implements Listener {
 		this.setLeatherColor(Color.fromRGB(255, 251, 0));
 		lore.add(this.getUAID());
 		lore.add(ChatColor.YELLOW + "Phantom Knight's Armor: Armor worn by the legendary Phantom Knight");
-		lore.add(ChatColor.YELLOW + "40 Defense Points");
+		lore.add(ChatColor.YELLOW + "50 Defense Points");
 		this.setName(ChatColor.BOLD + "" + ChatColor.YELLOW + "Phantom Knight's ");
 		this.setLore(lore);
 		this.setmHelmet(Material.LEATHER_HELMET);

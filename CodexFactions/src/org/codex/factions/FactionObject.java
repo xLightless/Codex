@@ -177,6 +177,7 @@ public class FactionObject implements Serializable {
 
 		Long l = FactionsMain.chunkCoordsToLong(a.getX(), a.getZ());
 		FactionsMain.ClaimedChunks.put(l, this.getFactionName());
+		Bukkit.broadcastMessage(FactionsMain.ClaimedChunks.toString());
 		int i = c.getClaimType().getID();
 		String s = a.getWorld().getName();
 		claimedLand.put(l, new Vector2D<>(i, s));

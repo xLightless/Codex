@@ -42,7 +42,7 @@ public class PacketMain implements Listener {
 
 		}
 
-	}
+	}  
 
 	public static void sendPlayerPacket(Player p, Packet<?> packet) {
 		if (p instanceof CraftPlayer) {
