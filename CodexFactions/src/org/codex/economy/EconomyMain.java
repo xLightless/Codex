@@ -20,40 +20,44 @@ public class EconomyMain {
 	public EconomyMain(Map<String, Double> map) {
 		this.priceMap = map;
 	}
+	
+	public static Map<String, Double> getMap(){
+		return money;
+	}
 
-	public double getPlayerMoney(Player p) {
+	public static double getPlayerMoney(Player p) {
 		return money.get(p.getUniqueId().toString());
 	}
 
-	public double getPlayerMoney(UUID u) {
+	public static double getPlayerMoney(UUID u) {
 		return money.get(u.toString());
 	}
 	
-	public double getPlayerMoney(String s) {
+	public static double getPlayerMoney(String s) {
 		return money.get(s);
 	}
 	
-	public void setPlayerMoney(Player p, double d) {
+	public static void setPlayerMoney(Player p, double d) {
 		money.put(p.getUniqueId().toString(), d);
 	}
 
-	public void setPlayerMoney(UUID u, double d) {
+	public static void setPlayerMoney(UUID u, double d) {
 		money.put(u.toString(), d);
 	}
 	
-	public void setPlayerMoney(String s, double d) {
+	public static void setPlayerMoney(String s, double d) {
 		money.put(s, d);
 	}
 	
-	public void changePlayerMoney(Player p, double d) {
+	public static void changePlayerMoney(Player p, double d) {
 		money.put(p.getUniqueId().toString(), money.get(p.getUniqueId().toString()) + d);
 	}
 	
-	public void changePlayerMoney(UUID u, double d) {
+	public static void changePlayerMoney(UUID u, double d) {
 		money.put(u.toString(), money.get(u.toString()) + d);
 	}
 	
-	public void changePlayerMoney(String s, double d) {
+	public static void changePlayerMoney(String s, double d) {
 		money.put(s, money.get(s) + d);
 	}
 	
