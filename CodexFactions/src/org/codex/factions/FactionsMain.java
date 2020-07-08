@@ -3,6 +3,7 @@ package org.codex.factions;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.lang.reflect.Field;
@@ -106,62 +107,54 @@ public class FactionsMain extends JavaPlugin implements Listener {
 	static File claimedData;
 	private static FactionsMain main;
 	private static EconomyMain ecoMain;
-	
+
 	public FactionsMain() {
 		// getServer().getPluginManager().enablePlugin(new ChunkBusterMain());
 	}
 
 	@SuppressWarnings("unchecked")
 	public static void loadData() {
+
+		Factions = (Map<String, FactionObject>) FactionsMain.loadData(FactionsData);
+		Players = (Map<UUID, FactionPlayer>) FactionsMain.loadData(PlayersData);
+		ClaimedChunks = (Map<Long, String>) FactionsMain.loadData(claimedData);
+
+	}
+
+	public static Object loadData(File f) {
+		Object ob;
 		try {
-			if (!FactionsData.exists()) {
-				FactionsData.createNewFile();
-			}
-			if (!PlayersData.exists()) {
-				PlayersData.createNewFile();
-			}
-			if(!claimedData.exists()) {
-				claimedData.createNewFile();
-			}
-			try {
-				ObjectInputStream ois = new ObjectInputStream(new FileInputStream(FactionsData));
-				Factions = (Map<String, FactionObject>) ois.readObject();
-				ois.close();
-				ois = new ObjectInputStream(new FileInputStream(PlayersData));
-				Players = (Map<UUID, FactionPlayer>) ois.readObject();
-				ois.close();
-				ois = new ObjectInputStream(new FileInputStream(claimedData));
-				ClaimedChunks = (Map<Long, String>) ois.readObject();
-				ois.close();
-			} catch (Exception e) {
-				System.out.println("Ois stream is empty");
-			}
-		} catch (Throwable e) {
-			System.out.println(e.getMessage());
+			if (!f.exists())
+				f.createNewFile();
+
+			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(FactionsData));
+			ob = ois.readObject();
+			ois.close();
+			return ob;
+		} catch (IOException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
+		return null;
 	}
 
 	public static void saveData() {
+		FactionsMain.save(FactionsData, Factions);
+		FactionsMain.save(PlayersData, Players);
+		FactionsMain.save(claimedData, ClaimedChunks);
+	}
+
+	public static void save(File f, Object o) {
+		ObjectOutputStream oos;
 		try {
-			if (!FactionsData.exists()) {
-				FactionsData.createNewFile();
-			}
-			if (!PlayersData.exists()) {
-				PlayersData.createNewFile();
-			}
-			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(FactionsData));
-			oos.writeObject(Factions);
+			if (!f.exists())
+				f.createNewFile();
+			oos = new ObjectOutputStream(new FileOutputStream(f));
+			oos.writeObject(o);
 			oos.close();
-			oos = new ObjectOutputStream(new FileOutputStream(PlayersData));
-			oos.writeObject(Players);
-			oos.close();
-			oos = new ObjectOutputStream(new FileOutputStream(claimedData));
-			oos.writeObject(ClaimedChunks);
-			oos.close();
-		} catch (Throwable e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
 	}
 
 	public static boolean isChunkWilderness(int x, int z) {
@@ -191,7 +184,7 @@ public class FactionsMain extends JavaPlugin implements Listener {
 			return null;
 		}
 	}
-	
+
 	public static FactionObject getChunkOwner(Chunk c) {
 		long posz = c.getZ();
 		long posx = c.getX();
@@ -203,7 +196,6 @@ public class FactionsMain extends JavaPlugin implements Listener {
 			return null;
 		}
 	}
-
 
 	@Override
 	public void onEnable() {
@@ -227,9 +219,9 @@ public class FactionsMain extends JavaPlugin implements Listener {
 		FileConfiguration config = this.getConfig();
 		Set<String> worldList = new HashSet<>();
 		List<String> matList = new ArrayList<>();
-		matList.add(Material.OBSIDIAN.toString()); 
+		matList.add(Material.OBSIDIAN.toString());
 		matList.add(Material.ENCHANTMENT_TABLE.toString());
-		Map<String, Double> priceMap = new HashMap<>(); 
+		Map<String, Double> priceMap = new HashMap<>();
 		priceMap.put(Material.IRON_BLOCK.toString(), 3000D);
 		config.addDefault("loaded_list", worldList);
 		config.addDefault("price_map", priceMap);
@@ -240,37 +232,35 @@ public class FactionsMain extends JavaPlugin implements Listener {
 		config.addDefault("protection_block", Material.HAY_BLOCK.toString());
 		config.options().copyDefaults(true);
 		this.saveConfig();
-		Bukkit.getServer().getPluginManager().registerEvents(new TNTHandler(config.getInt("health"),
-				config.getInt("max_destroyed"),
-				(List<String>) config.getList("material_list"),
-				Material.getMaterial(config.getString("clicker")),
-				Material.getMaterial(config.getString("protection_block"))), this);
-	try {
-		for(String m : config.getConfigurationSection("price_map").getKeys(false)) {
-			priceMap.put(m, config.getDouble("price_map." + m));
+		Bukkit.getServer().getPluginManager()
+				.registerEvents(new TNTHandler(config.getInt("health"), config.getInt("max_destroyed"),
+						(List<String>) config.getList("material_list"),
+						Material.getMaterial(config.getString("clicker")),
+						Material.getMaterial(config.getString("protection_block"))), this);
+		try {
+			for (String m : config.getConfigurationSection("price_map").getKeys(false)) {
+				priceMap.put(m, config.getDouble("price_map." + m));
+			}
+			ecoMain = new EconomyMain(priceMap);
+		} catch (NullPointerException e) {
+			ecoMain = new EconomyMain(new HashMap<>());
+			e.printStackTrace();
 		}
-		ecoMain = new EconomyMain(priceMap);
-	}catch(NullPointerException e) {
-		ecoMain = new EconomyMain(new HashMap<>());
-		e.printStackTrace();
-	}
 	}
 
-	
 	@SuppressWarnings("unchecked")
 	private void loadPastWorlds() {
-		if(this.getConfig() == null)return;
-				if(this.getConfig().getList("loaded_list") == null) return;
-		for(String name: (List<String>) this.getConfig().getList("loaded_list")) {
+		if (this.getConfig() == null)
+			return;
+		if (this.getConfig().getList("loaded_list") == null)
+			return;
+		for (String name : (List<String>) this.getConfig().getList("loaded_list")) {
 			Bukkit.getServer().createWorld(new WorldCreator(name));
 			Bukkit.getLogger().info(name + " has been loaded");
 			worlds.add(name);
 		}
-		
-	}
 
-	
-	
+	}
 
 	public void loadConfigs() {
 		ConfigurationSerialization.registerClass(EnergyHarvester.class, "EnergyHarvester");
@@ -398,7 +388,6 @@ public class FactionsMain extends JavaPlugin implements Listener {
 	public static FactionObject getFactionFromName(String facName) {
 		return FactionsMain.Factions.get(facName.toUpperCase());
 	}
-	
 
 	public static FactionObject getPlayerFaction(UUID id) throws Throwable {
 		FactionPlayer fp = Players.get(id);
@@ -552,7 +541,7 @@ public class FactionsMain extends JavaPlugin implements Listener {
 			return null;
 		}
 	}
-	
+
 	public static Set<String> getWorlds() {
 		return worlds;
 	}

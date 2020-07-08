@@ -1,5 +1,6 @@
 package org.codex.economy;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -7,13 +8,14 @@ import java.util.UUID;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.codex.factions.FactionsMain;
 
 
 public class EconomyMain {
 
 	private static Map<String, Double> money = new HashMap<>();
 	private Map<String, Double> priceMap = new HashMap<>();	
-	
+	private static File moneyData = new File("plugins/CodexFactions/eco.txt");
 	
 	public EconomyMain(Map<String, Double> map) {
 		this.priceMap = map;
@@ -58,6 +60,15 @@ public class EconomyMain {
 	public double getCost(ItemStack is) {
 		Material m = is.getType();
 		return priceMap.get(m.toString());
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static void loadMoney() {
+		EconomyMain.money = (Map<String, Double>) FactionsMain.loadData(moneyData);
+	}
+	
+	public static void saveMoney() {
+		FactionsMain.save(moneyData, money);
 	}
 	
 }
