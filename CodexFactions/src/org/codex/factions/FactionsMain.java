@@ -60,6 +60,7 @@ import org.codex.enchants.books.LumberJack;
 import org.codex.enchants.books.ObsidianShield;
 import org.codex.enchants.books.Pheonix;
 import org.codex.enchants.books.Rain;
+import org.codex.enchants.books.SafeGuard;
 import org.codex.enchants.books.Springs;
 import org.codex.enchants.books.Tank;
 import org.codex.enchants.books.Umbrella;
@@ -316,6 +317,7 @@ public class FactionsMain extends JavaPlugin implements Listener {
 		Bukkit.getServer().getPluginManager().registerEvents(new ProtectionFixListener(), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new Harvest(), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new Crit(), this);
+		Bukkit.getServer().getPluginManager().registerEvents(new SafeGuard(), this);
 		ChunkBusterMain cb = new ChunkBusterMain();
 		getServer().getPluginManager().registerEvents(cb, this);
 
