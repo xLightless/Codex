@@ -102,7 +102,11 @@ public class FactionsMain extends JavaPlugin implements Listener {
 	 * must be removed from this list when kicked or not inside of a Faction.
 	 */
 	public static Map<UUID, FactionPlayer> Players = new HashMap<>();
-	public static Map<Long, String> ClaimedChunks = new HashMap<>();
+	/**
+	 * format goes Chunk X and Z converted to long World Name and then Faction Name
+	 * 
+	 */
+	public static Map<Long, HashMap<String, String>> ClaimedChunks = new HashMap<>();
 	private static Set<String> worlds = new HashSet<>();
 	static File FactionsData;
 	static File PlayersData;
@@ -119,7 +123,7 @@ public class FactionsMain extends JavaPlugin implements Listener {
 
 		Factions = (Map<String, FactionObject>) FactionsMain.loadData(FactionsData);
 		Players = (Map<UUID, FactionPlayer>) FactionsMain.loadData(PlayersData);
-		ClaimedChunks = (Map<Long, String>) FactionsMain.loadData(claimedData);
+		ClaimedChunks = (Map<Long, HashMap<String, String>>) FactionsMain.loadData(claimedData);
 
 	}
 
@@ -177,13 +181,13 @@ public class FactionsMain extends JavaPlugin implements Listener {
 	}
 
 	// returns null if wilderness
-	public static FactionObject getChunkOwner(int x, int z) {
+	public static FactionObject getChunkOwner(int x, int z, String name) {
 		long posz = z;
 		long posx = 32;
 		posx = posx << 32;
 		long result = posx | posz;
 		if (ClaimedChunks.containsKey(result)) {
-			return Factions.get(ClaimedChunks.get(result).toUpperCase());
+			return Factions.get(ClaimedChunks.get(result).get(name).toUpperCase());
 		} else {
 			return null;
 		}
@@ -192,10 +196,11 @@ public class FactionsMain extends JavaPlugin implements Listener {
 	public static FactionObject getChunkOwner(Chunk c) {
 		long posz = c.getZ();
 		long posx = c.getX();
+		String name = c.getWorld().getName();
 		posx = posx << 32;
 		long result = posx | posz;
 		if (ClaimedChunks.containsKey(result)) {
-			return Factions.get(ClaimedChunks.get(result).toUpperCase());
+			return Factions.get(ClaimedChunks.get(result).get(name).toUpperCase());
 		} else {
 			return null;
 		}
@@ -492,7 +497,7 @@ public class FactionsMain extends JavaPlugin implements Listener {
 
 	public static Claim getClaim(int x, int z, String w) {
 		FactionObject fac = FactionsMain
-				.getFactionFromName(FactionsMain.ClaimedChunks.get(FactionsMain.chunkCoordsToLong(x, z)));
+				.getFactionFromName(FactionsMain.ClaimedChunks.get(FactionsMain.chunkCoordsToLong(x, z)).get(w));
 		long l = FactionsMain.chunkCoordsToLong(x, z);
 		return FactionsMain.getChunkFromLong(l, fac.getLand().get(l).getVectorOne(), w);
 	}

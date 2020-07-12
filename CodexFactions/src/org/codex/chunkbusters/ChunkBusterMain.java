@@ -30,14 +30,15 @@ public class ChunkBusterMain implements Listener {
 				&& meta.getLore().equals(ChunkBusterMain.getChunkBuster().getItemMeta().getLore())) {
 			Block b = e.getBlock();
 			boolean temp = false;
+			String worldName = e.getBlock().getWorld().getName();
 			try {
-				if (!(FactionsMain.getChunkOwner(b.getX() / 16, b.getZ() / 16) == null
-						|| FactionsMain.getChunkOwner(b.getX() / 16, b.getZ() / 16)
+				if (!(FactionsMain.getChunkOwner(b.getX() / 16, b.getZ() / 16, worldName) == null
+						|| FactionsMain.getChunkOwner(b.getX() / 16, b.getZ() / 16, worldName)
 								.equals(FactionsMain.getPlayerFaction(e.getPlayer().getUniqueId())))) {
 					temp = true;
 				}
 			} catch (Throwable e1) {
-				if (!(FactionsMain.getChunkOwner(b.getX() / 16, b.getZ() / 16) == null)) {
+				if (!(FactionsMain.getChunkOwner(b.getX() / 16, b.getZ() / 16, worldName) == null)) {
 					temp = true;
 				}
 			}
