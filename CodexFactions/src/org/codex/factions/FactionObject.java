@@ -179,7 +179,6 @@ public class FactionObject implements Serializable {
 		HashMap<String, String> map = FactionsMain.ClaimedChunks.containsKey(l) ? FactionsMain.ClaimedChunks.get(l) : new HashMap<>();
 		map.put(a.getWorld().getName(), this.getFactionName());
 		FactionsMain.ClaimedChunks.put(l, map);
-		Bukkit.broadcastMessage(FactionsMain.ClaimedChunks.toString());
 		int i = c.getClaimType().getID();
 		String s = a.getWorld().getName();
 		claimedLand.put(l, new Vector2D<>(i, s));
