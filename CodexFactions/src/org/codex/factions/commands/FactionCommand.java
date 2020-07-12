@@ -68,6 +68,8 @@ public class FactionCommand implements CommandExecutor {
 				break;
 			case "info":
 				return info.onCommand(sender, args);
+			case "who":
+				return info.onCommand(sender, args);
 			case "f":
 				return info.onCommand(sender, args);
 			default:

@@ -27,7 +27,6 @@ public class SafeWalk extends Book implements Listener{
 	private static String c = BookType.LEGENDARY_BOOK.getChatColor();
 	private static ChatColor g = ChatColor.GRAY;
 	private static HashMap<Player, Integer> map = new HashMap<>();
-	private static HashMap<Player, Long> decay = new HashMap<>();
 	
 	public SafeWalk() {
 		super(is, im, lore, 0, BookType.LEGENDARY_BOOK, "Safe Walk", c + "Safe Walk", new ArrayList<>());
@@ -66,6 +65,7 @@ public class SafeWalk extends Book implements Listener{
 	@EventHandler
 	public void onPlayerWalk(PlayerMoveEvent e) {
 		if(!map.containsKey(e.getPlayer()))return;
+		if(e.getTo().equals(e.getFrom()))return;
 		Player p = e.getPlayer();
 		int level = map.get(p);
 		Location loc = p.getLocation();
@@ -73,22 +73,11 @@ public class SafeWalk extends Book implements Listener{
 		Block b = loc.getWorld().getBlockAt(loc.getBlockX(), y-1, loc.getBlockZ());
 		if(!b.getType().equals(Material.AIR))return;
 		Random r = new Random();
-		int rand = r.nextInt(3) % 2;
-		long l = System.currentTimeMillis();
+		int rand = r.nextInt(3) % 3;
 		byte data = (byte) (rand == 0 ? 3 : rand == 1 ? 9 : 11); 
-		if(!decay.containsKey(p)) {
 			b.setType(Material.STAINED_GLASS);
 			b.setData(data);
-			decay.put(p, l + 100);
-		}else if(l < decay.get(p)) 
-			return;
-		else {
-			b.setType(Material.STAINED_GLASS);
-			b.setData(data);
-			decay.put(p, l + 100);
-		}
-		
-		
+	
 		Bukkit.getScheduler().scheduleSyncDelayedTask(FactionsMain.getMain(), new Runnable() {
 
 			@Override
