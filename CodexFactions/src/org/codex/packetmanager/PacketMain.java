@@ -1,6 +1,8 @@
 package org.codex.packetmanager;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
@@ -10,7 +12,10 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
+import net.minecraft.server.v1_8_R3.EntityPlayer;
+import net.minecraft.server.v1_8_R3.EnumProtocolDirection;
 import net.minecraft.server.v1_8_R3.Packet;
+import net.minecraft.server.v1_8_R3.PlayerConnection;
 
 public class PacketMain implements Listener {
 
@@ -21,7 +26,7 @@ public class PacketMain implements Listener {
 	}
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent e) {
-		/*Player p = e.getPlayer();
+		Player p = e.getPlayer();
 		if (p instanceof CraftPlayer) {
 			CraftPlayer cp = (CraftPlayer) p;
 			EntityPlayer ep = cp.getHandle();
@@ -36,7 +41,7 @@ public class PacketMain implements Listener {
 				err.printStackTrace();
 			}
 
-		}*/
+		}
 
 	}  
 

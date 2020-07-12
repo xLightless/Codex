@@ -9,6 +9,7 @@ public class PacketEvent extends Event{
 
 	private boolean cancelled = false;
 	private Packet<?> packet;
+	private static final HandlerList handlers = new HandlerList();
 	
 	public PacketEvent(Packet<?> p ) {
 		packet = p;
@@ -16,7 +17,7 @@ public class PacketEvent extends Event{
 	
 	@Override
 	public HandlerList getHandlers() {
-		return null;
+		return handlers;
 	}
 	@Override
 	public String getEventName() {
@@ -37,5 +38,8 @@ public class PacketEvent extends Event{
 		this.packet = packet;
 	}
 	
+	 public static final HandlerList getHandlerList() {
+	  return handlers;
+	 }
 
 }

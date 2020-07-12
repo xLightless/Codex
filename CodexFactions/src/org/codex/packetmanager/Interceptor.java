@@ -18,6 +18,11 @@ public class Interceptor extends NetworkManager {
 	@Override
 	public void handle(@SuppressWarnings("rawtypes") Packet packet) {
 		PacketEvent e = new PacketEvent(packet);
+		if(server == null) {
+			System.err.println("Server is null ");
+			super.handle(packet);
+			return;
+		}
 		server.getPluginManager().callEvent(e);
 		if (!e.isCancelled()) {
 			super.handle(packet);
