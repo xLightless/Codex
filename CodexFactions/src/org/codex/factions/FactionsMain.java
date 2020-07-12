@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.lang.reflect.Field;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -19,7 +18,6 @@ import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Material;
-import org.bukkit.WorldCreator;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.enchantments.Enchantment;
@@ -95,7 +93,6 @@ import org.codex.obsidiandestroyer.TNTHandler;
 import org.codex.packetmanager.PacketMain;
 
 public class FactionsMain extends JavaPlugin implements Listener {
-	static File JarLocation;
 	public static Map<String, FactionObject> Factions = new HashMap<>();
 	/**
 	 * A map containing all players which are currently inside of a Faction. Player
@@ -108,9 +105,10 @@ public class FactionsMain extends JavaPlugin implements Listener {
 	 */
 	public static Map<Long, HashMap<String, String>> ClaimedChunks = new HashMap<>();
 	private static Set<String> worlds = new HashSet<>();
-	static File FactionsData;
-	static File PlayersData;
-	static File claimedData;
+	private static File FactionsData;
+	private static File PlayersData;
+	private static File claimedData;
+	private static File worldData;
 	private static FactionsMain main;
 	private static EconomyMain ecoMain;
 
@@ -124,7 +122,8 @@ public class FactionsMain extends JavaPlugin implements Listener {
 		Factions = (Map<String, FactionObject>) FactionsMain.loadData(FactionsData);
 		Players = (Map<UUID, FactionPlayer>) FactionsMain.loadData(PlayersData);
 		ClaimedChunks = (Map<Long, HashMap<String, String>>) FactionsMain.loadData(claimedData) == null ? new HashMap<>() : (Map<Long, HashMap<String, String>>) FactionsMain.loadData(claimedData)  ;
-
+		worlds = (Set<String>) FactionsMain.loadData(worldData);
+		EconomyMain.loadMoney();
 	}
 
 	public static Object loadData(File f) {
@@ -149,6 +148,8 @@ public class FactionsMain extends JavaPlugin implements Listener {
 		FactionsMain.save(FactionsData, Factions);
 		FactionsMain.save(PlayersData, Players);
 		FactionsMain.save(claimedData, ClaimedChunks);
+		FactionsMain.save(worldData, worlds);
+		EconomyMain.saveMoney();
 	}
 
 	public static void save(File f, Object o) {
@@ -223,19 +224,16 @@ public class FactionsMain extends JavaPlugin implements Listener {
 		Energy.loadArmorStands();
 		registerGlow();
 		createConfig();
-		loadPastWorlds();
 	}
 
 	@SuppressWarnings("unchecked")
 	private void createConfig() {
 		FileConfiguration config = this.getConfig();
-		Set<String> worldList = new HashSet<>();
 		List<String> matList = new ArrayList<>();
 		matList.add(Material.OBSIDIAN.toString());
 		matList.add(Material.ENCHANTMENT_TABLE.toString());
 		Map<String, Double> priceMap = new HashMap<>();
 		priceMap.put(Material.IRON_BLOCK.toString(), 3000D);
-		config.addDefault("loaded_list", worldList);
 		config.addDefault("price_map", priceMap);
 		config.addDefault("health", 4);
 		config.addDefault("max_destroyed", 8);
@@ -260,19 +258,6 @@ public class FactionsMain extends JavaPlugin implements Listener {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
-	private void loadPastWorlds() {
-		if (this.getConfig() == null)
-			return;
-		if (this.getConfig().getList("loaded_list") == null)
-			return;
-		for (String name : (List<String>) this.getConfig().getList("loaded_list")) {
-			Bukkit.getServer().createWorld(new WorldCreator(name));
-			Bukkit.getLogger().info(name + " has been loaded");
-			worlds.add(name);
-		}
-
-	}
 
 	public void loadConfigs() {
 		ConfigurationSerialization.registerClass(EnergyHarvester.class, "EnergyHarvester");
@@ -371,9 +356,7 @@ public class FactionsMain extends JavaPlugin implements Listener {
 				.toString();
 		urlString = urlString.substring(urlString.indexOf("file:"), urlString.length());
 		urlString = urlString.replaceAll("!", "");
-		try {
-			URL url = new URL(urlString);
-			JarLocation = new File(url.toURI()).getParentFile().getParentFile();
+		try {		
 			File CodexDir = new File("plugins/CodexFactions");
 			if (!CodexDir.exists()) {
 				CodexDir.mkdir();
@@ -381,6 +364,7 @@ public class FactionsMain extends JavaPlugin implements Listener {
 			FactionsData = new File("plugins/CodexFactions/fdata.txt");
 			PlayersData = new File("plugins/CodexFactions/pdata.txt");
 			claimedData = new File("plugins/CodexFactions/cdata.txt");
+			worldData = new File("plugins/CodexMain/worlds.txt");
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
@@ -396,7 +380,6 @@ public class FactionsMain extends JavaPlugin implements Listener {
 		Bukkit.getScheduler().cancelTasks(this);
 		Energy.removeArmorStands();
 		FactionsMain.saveData();
-		this.getConfig().set("loaded_list", worlds);
 	}
 
 	public static FactionObject getFactionFromName(String facName) {
@@ -556,12 +539,17 @@ public class FactionsMain extends JavaPlugin implements Listener {
 		}
 	}
 
-	public static Set<String> getWorlds() {
-		return worlds;
-	}
 
 	public static EconomyMain getEconomy() {
 		return ecoMain;
+	}
+	
+	public static Set<String> getWorlds(){
+		return worlds;
+	}
+
+	public static void addWorld(String name) {
+		worlds.add(name);
 	}
 
 }
