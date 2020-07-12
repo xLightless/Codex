@@ -123,7 +123,7 @@ public class FactionsMain extends JavaPlugin implements Listener {
 
 		Factions = (Map<String, FactionObject>) FactionsMain.loadData(FactionsData);
 		Players = (Map<UUID, FactionPlayer>) FactionsMain.loadData(PlayersData);
-		ClaimedChunks = (Map<Long, HashMap<String, String>>) FactionsMain.loadData(claimedData);
+		ClaimedChunks = (Map<Long, HashMap<String, String>>) FactionsMain.loadData(claimedData) == null ? new HashMap<>() : (Map<Long, HashMap<String, String>>) FactionsMain.loadData(claimedData)  ;
 
 	}
 
@@ -166,6 +166,7 @@ public class FactionsMain extends JavaPlugin implements Listener {
 	}
 
 	public static boolean isChunkWilderness(int x, int z) {
+		if(ClaimedChunks == null)return true;
 		long posz = z;
 		long posx = x << 32;
 		long result = posx | posz;
@@ -186,6 +187,7 @@ public class FactionsMain extends JavaPlugin implements Listener {
 		long posx = 32;
 		posx = posx << 32;
 		long result = posx | posz;
+		if(ClaimedChunks == null)return null;
 		if (ClaimedChunks.containsKey(result)) {
 			return Factions.get(ClaimedChunks.get(result).get(name).toUpperCase());
 		} else {
@@ -199,6 +201,7 @@ public class FactionsMain extends JavaPlugin implements Listener {
 		String name = c.getWorld().getName();
 		posx = posx << 32;
 		long result = posx | posz;
+		if(ClaimedChunks == null)return null;
 		if (ClaimedChunks.containsKey(result)) {
 			return Factions.get(ClaimedChunks.get(result).get(name).toUpperCase());
 		} else {

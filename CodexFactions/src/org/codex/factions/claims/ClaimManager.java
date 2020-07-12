@@ -21,6 +21,7 @@ public class ClaimManager implements Listener {
 
 	@EventHandler
 	public void onPlayerEnterChunk(PlayerMoveEvent e) {
+		if(e.getFrom().getChunk() == null)return;
 		if (FactionsMain.getChunkOwner(e.getFrom().getChunk())
 				!= FactionsMain.getChunkOwner(e.getTo().getChunk())) {
 			if(FactionsMain.getChunkOwner(e.getTo().getChunk()) != null) 

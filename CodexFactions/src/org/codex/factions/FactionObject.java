@@ -174,7 +174,7 @@ public class FactionObject implements Serializable {
 
 	public void addClaim(Claim c) {
 		Chunk a = c.getChunk();
-
+		
 		Long l = FactionsMain.chunkCoordsToLong(a.getX(), a.getZ());
 		HashMap<String, String> map = FactionsMain.ClaimedChunks.containsKey(l) ? FactionsMain.ClaimedChunks.get(l) : new HashMap<>();
 		map.put(a.getWorld().getName(), this.getFactionName());

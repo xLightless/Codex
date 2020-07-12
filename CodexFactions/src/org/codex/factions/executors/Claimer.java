@@ -52,6 +52,7 @@ public class Claimer implements Execute {
 					return false;
 				}
 			} catch (Throwable e) {
+				e.printStackTrace();
 				p.sendMessage(e.getMessage());
 			}
 		}
