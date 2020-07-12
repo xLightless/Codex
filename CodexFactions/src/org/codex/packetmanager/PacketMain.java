@@ -14,6 +14,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 import net.minecraft.server.v1_8_R3.EntityPlayer;
 import net.minecraft.server.v1_8_R3.EnumProtocolDirection;
+import net.minecraft.server.v1_8_R3.NetworkManager;
 import net.minecraft.server.v1_8_R3.Packet;
 import net.minecraft.server.v1_8_R3.PlayerConnection;
 
@@ -36,7 +37,7 @@ public class PacketMain implements Listener {
 				Field modifiersField = Field.class.getDeclaredField("modifiers");
 				modifiersField.setAccessible(true);
 				modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
-				field.set(ep.playerConnection, new Interceptor(EnumProtocolDirection.CLIENTBOUND, server));
+				field.set(ep.playerConnection, new Interceptor(EnumProtocolDirection.CLIENTBOUND, server, (NetworkManager) field.get(cp.getHandle().playerConnection)));
 			} catch (Throwable err) {
 				err.printStackTrace();
 			}
