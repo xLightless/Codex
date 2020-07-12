@@ -135,7 +135,14 @@ public class PhantomArmorSet extends ArmorSet implements Listener {
 			
 			Book.removePotionEffect(PotionEffectType.SPEED, p, "4");
 			BookManager.unloadEnchants(p);
-			BookManager.loadEnchants(p);
+			Bukkit.getScheduler().scheduleSyncDelayedTask(FactionsMain.getMain(), new Runnable() {
+
+				@Override
+				public void run() {
+					BookManager.loadEnchants(p);
+				}
+				
+			}, 1);
 			
 			PhantomArmorSet.fullSetApplied.remove(p);
 		}

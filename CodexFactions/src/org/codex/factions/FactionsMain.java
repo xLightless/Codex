@@ -115,7 +115,7 @@ public class FactionsMain extends JavaPlugin implements Listener {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static void loadData() {
+	private static void loadData() {
 
 		Factions = (Map<String, FactionObject>) FactionsMain.loadData(FactionsData);
 		Players = (Map<UUID, FactionPlayer>) FactionsMain.loadData(PlayersData);
@@ -129,14 +129,16 @@ public class FactionsMain extends JavaPlugin implements Listener {
 			if (!f.exists())
 				f.createNewFile();
 
-			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(FactionsData));
+			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(f));
 			ob = ois.readObject();
 			ois.close();
+			System.out.println("Loaded " + f.getName());
 			return ob;
 		} catch (IOException | ClassNotFoundException e) {
 			e.printStackTrace();
+			return null;
 		}
-		return null;
+		
 	}
 
 	public static void saveData() {
