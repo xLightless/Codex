@@ -3,62 +3,64 @@ package org.codex.enchants.books;
 import org.codex.factions.FactionsMain;
 
 public enum EnchantType {
-	AUTOSMELT(new AutoSmelt(), "AUTOSMELT"),
-
-	ADVANCED_FEATHER_FALLING(new AdvancedFeatherFalling(), "ADVANCED_FEATHER_FALLING"),
-
-	HARDENED(new Hardened(), "HARDENED"),
-
-	WEED_WACKER(new WeedWacker(), "WEED_WACKER"),
-
-	VAMPIRE(new Vampire(), "VAMPIRE"),
-
-	GEARS(new Gears(), "GEARS"),
-
-	HEALTH_BOOST(new HealthBoost(), "HEALTH_BOOST"),
-
-	OBSIDIAN_SHIELD(new ObsidianShield(), "OBSIDIAN_SHIELD"),
-
-	FERRITE(new Ferrite(), "FERRITE"),
-
-	CREEPER_ARMOR(new CreeperArmor(), "CREEPER_ARMOR"),
-
-	PHEONIX(new Pheonix(), "PHEONIX"),
-
-	SPRINGS(new Springs(), "SPRINGS"),
-
-	LUMBER_JACK(new LumberJack(), "LUMBER_JACK"),
-
-	KNIGHT(new Knight(), "KNIGHT"),
-
-	FRENZY(new Frenzy(), "FRENZY"),
-
-	FRENZY_BLOCKER(new FrenzyBlocker(), "FRENZY_BLOCKER"),
-
-	TANK(new Tank(), "TANK"),
-
-	ARMORED(new Armored(), "ARMORED"),
-
-	RAIN(new Rain(FactionsMain.getMain()), "RAIN"),
-
-	UMBRELLA(new Umbrella(), "UMBRELLA"),
-
-	FANGS(new Fangs(), "FANGS"),
-
-	FREEZE(new Freeze(), "FREEZE"),
-
-	HARVEST(new Harvest(), "HARVEST"),
 	
-	CRIT(new Crit(), "CRIT"),
+	AUTOSMELT(new AutoSmelt(), "AUTOSMELT", false),
+
+	ADVANCED_FEATHER_FALLING(new AdvancedFeatherFalling(), "ADVANCED_FEATHER_FALLING", false),
+
+	HARDENED(new Hardened(), "HARDENED", false),
+
+	WEED_WACKER(new WeedWacker(), "WEED_WACKER", false),
+
+	VAMPIRE(new Vampire(), "VAMPIRE", false),
+
+	GEARS(new Gears(), "GEARS", false),
+
+	HEALTH_BOOST(new HealthBoost(), "HEALTH_BOOST", true),
+
+	OBSIDIAN_SHIELD(new ObsidianShield(), "OBSIDIAN_SHIELD", false),
+
+	FERRITE(new Ferrite(), "FERRITE", false),
+
+	CREEPER_ARMOR(new CreeperArmor(), "CREEPER_ARMOR", false),
+
+	PHEONIX(new Pheonix(), "PHEONIX", false),
+
+	SPRINGS(new Springs(), "SPRINGS", false),
+
+	LUMBER_JACK(new LumberJack(), "LUMBER_JACK", false),
+
+	KNIGHT(new Knight(), "KNIGHT", false),
+
+	FRENZY(new Frenzy(), "FRENZY", false),
+
+	FRENZY_BLOCKER(new FrenzyBlocker(), "FRENZY_BLOCKER", false),
+
+	TANK(new Tank(), "TANK", false),
+
+	ARMORED(new Armored(), "ARMORED", false),
+
+	RAIN(new Rain(FactionsMain.getMain()), "RAIN", false),
+
+	UMBRELLA(new Umbrella(), "UMBRELLA", false),
+
+	FANGS(new Fangs(), "FANGS", false),
+
+	FREEZE(new Freeze(), "FREEZE", false),
+
+	HARVEST(new Harvest(), "HARVEST", false),
 	
-	SAFE_GUARD(new SafeGuard(), "SAFE_GUARD"),
+	CRIT(new Crit(), "CRIT", false),
 	
-	SAFE_WALK(new SafeWalk(), "SAFE_WALK");
+	SAFE_GUARD(new SafeGuard(), "SAFE_GUARD", false),
+	
+	SAFE_WALK(new SafeWalk(), "SAFE_WALK", false);
 
 	private Book b;
 	private String name;
+	private boolean s;
 
-	EnchantType(Book b, String name) {
+	EnchantType(Book b, String name, boolean s) {
 		this.b = b;
 		this.name = name;
 	}
@@ -66,7 +68,8 @@ public enum EnchantType {
 	private Book b() {
 		return b;
 	}
-
+	
+	
 	private String n() {
 		return name;
 	}
@@ -94,6 +97,16 @@ public enum EnchantType {
 		}
 		throw new NullPointerException();
 
+	}
+	
+	/**
+	 * checks if it supports multiple stacks 
+	 * Meant to stop dupe glitch
+	 * @return
+	 */
+	
+	public boolean canStack() {
+		return s;
 	}
 
 }

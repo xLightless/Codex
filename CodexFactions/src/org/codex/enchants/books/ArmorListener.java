@@ -19,6 +19,7 @@ import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemBreakEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 public class ArmorListener implements Listener {
@@ -119,9 +120,10 @@ public class ArmorListener implements Listener {
 						Bukkit.getServer().getPluginManager()
 								.callEvent(new ArmorEquipEvent(p, EquipMethod.HOTBAR_SWAP, ArmorType.ELYTRA, cu, ci));
 					}
-				} else if (isArmor(ci.getType()) && e.getSlotType() == SlotType.ARMOR) {
+				}
+				if (isArmor(ci.getType()) && e.getSlotType() == SlotType.ARMOR) {
 					try {
-						if ((e.getClickedInventory().getItem(e.getHotbarButton()).getType() == null))
+						if(!this.isFull(e.getClickedInventory()))
 							Bukkit.getServer().getPluginManager().callEvent(
 									new ArmorUnequipEvent(p, EquipMethod.HOTBAR_SWAP, getArmorType(ci.getType()), ci));
 					} catch (NullPointerException e2) {
@@ -306,6 +308,11 @@ public class ArmorListener implements Listener {
 
 	}
 
+	public boolean isFull(Inventory i) {
+		return i.firstEmpty() == -1 ? true : false;
+	}
+	
+	
 	@EventHandler
 	public void onItemBreak(PlayerItemBreakEvent e) {
 		Player p = e.getPlayer();

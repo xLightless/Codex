@@ -37,7 +37,7 @@ public class Hardened extends Book implements Listener{
 		lore.add(ChatColor.GREEN + "Success Rate : " + super.getRandomSuccessChance());
 		lore.add(ChatColor.RED + "Destroy Rate : " + super.getRandomDestroyChance());
 		lore.add(ChatColor.BLACK + "" + super.getRandomNumberLore());
-		im.setDisplayName(p + getBookName() + super.getRandomLevel(3));
+		im.setDisplayName(p + getBookName() + " " + super.getRandomLevel(3));
 		im.setLore(lore);
 		is.setItemMeta(im);
 		this.setItemMeta(im);

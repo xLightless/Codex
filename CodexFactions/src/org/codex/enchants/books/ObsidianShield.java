@@ -28,7 +28,7 @@ public class ObsidianShield extends Book{
 		 lore.add(ChatColor.RED + "Destroy Rate : " + super.getRandomDestroyChance());
 		 lore.add(ChatColor.BLACK + "" + super.getRandomNumberLore());
 		 im.setLore(lore);
-		 im.setDisplayName(dp + getBookName() + super.getRandomLevel(1));
+		 im.setDisplayName(dp + getBookName() + " " + super.getRandomLevel(1));
 		 is.setItemMeta(im);
 		 this.setItemMeta(im);
 		 this.setItemStack(is);

@@ -61,33 +61,49 @@ public class SafeWalk extends Book implements Listener{
 		map.remove(p);
 	}
 	
-	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onPlayerWalk(PlayerMoveEvent e) {
 		if(!map.containsKey(e.getPlayer()))return;
-		if(e.getTo().equals(e.getFrom()))return;
+		if(this.checkLocation(e.getTo(), e.getFrom()))return;
 		Player p = e.getPlayer();
 		int level = map.get(p);
 		Location loc = p.getLocation();
-		int y = loc.getBlockY();
-		Block b = loc.getWorld().getBlockAt(loc.getBlockX(), y-1, loc.getBlockZ());
-		if(!b.getType().equals(Material.AIR))return;
-		Random r = new Random();
-		int rand = r.nextInt(3) % 3;
-		byte data = (byte) (rand == 0 ? 3 : rand == 1 ? 9 : 11); 
-			b.setType(Material.STAINED_GLASS);
-			b.setData(data);
-	
-		Bukkit.getScheduler().scheduleSyncDelayedTask(FactionsMain.getMain(), new Runnable() {
-
-			@Override
-			public void run() {
-				b.setType(Material.AIR);
-				
-			}
-			
-		}, 8 * level);
+		if(p.isSneaking())return;
+		placeBlocks(loc, 1, level);
 		
+	}
+	
+	@SuppressWarnings("deprecation")
+	private void placeBlocks(Location loc, int i, int level) {
+		Random r = new Random();
+		
+		
+		for(int x = loc.getBlockX() - i; x <= i + loc.getBlockX(); x++) 
+			for(int z = loc.getBlockZ() - i; z <= i + loc.getBlockZ(); z++) {
+				Block b = loc.getWorld().getBlockAt(x, loc.getBlockY() - 1, z);
+				
+				if(!b.getType().equals(Material.AIR))continue;
+				int rand = r.nextInt(3) % 3;
+				byte data = (byte) (rand == 0 ? 3 : rand == 1 ? 9 : 11); 
+					b.setType(Material.STAINED_GLASS);
+					b.setData(data);
+				
+				Bukkit.getScheduler().scheduleSyncDelayedTask(FactionsMain.getMain(), new Runnable() {
+
+					@Override
+					public void run() {
+						b.setType(Material.AIR);
+						
+					}
+					
+				}, 8 * level);
+			}
+		
+		
+	}
+
+	private boolean checkLocation(Location loc1, Location loc2) {
+		return loc1.getX() == loc2.getX() ? loc1.getZ() == loc2.getZ() ? true : false : false;
 	}
 	
 	

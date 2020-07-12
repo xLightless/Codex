@@ -28,14 +28,14 @@ public class Frenzy extends Book implements Listener{
 	
 
 	public Frenzy() {
-		super(is, im, lore, 5, BookType.MYSTICAL_BOOK, "Frenzy ", dr + "Frenzy", new ArrayList<>());
+		super(is, im, lore, 5, BookType.MYSTICAL_BOOK, "Frenzy", dr + "Frenzy", new ArrayList<>());
 		List<String> lore = new ArrayList<>();
 		lore.add(gy + "When attacking a player, your outgoing damage gets mutliplied");
 		 lore.add(ChatColor.GREEN + "Success Rate : " + super.getRandomSuccessChance());
 		 lore.add(ChatColor.RED + "Destroy Rate : " + super.getRandomDestroyChance());
 		 lore.add(ChatColor.BLACK + "" + super.getRandomNumberLore());
 		 im.setLore(lore);
-		 im.setDisplayName(dr + getBookName() + super.getRandomLevel(6));
+		 im.setDisplayName(dr + getBookName() + " " + super.getRandomLevel(6));
 		 is.setItemMeta(im);
 		 this.setItemMeta(im);
 		 this.setItemStack(is);

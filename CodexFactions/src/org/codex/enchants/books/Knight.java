@@ -32,7 +32,7 @@ public class Knight extends Book implements Listener{
 		 lore.add(ChatColor.RED + "Destroy Rate : " + super.getRandomDestroyChance());
 		 lore.add(ChatColor.BLACK + "" + super.getRandomNumberLore());
 		 im.setLore(lore);
-		 im.setDisplayName(red + getBookName() + super.getRandomLevel(3));
+		 im.setDisplayName(red + getBookName() + " " + super.getRandomLevel(3));
 		 is.setItemMeta(im);
 		 this.setItemStack(is);
 		 this.setItemMeta(im);

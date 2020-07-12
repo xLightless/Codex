@@ -31,7 +31,7 @@ public class Harvest extends Book implements Listener{
 		lore.add(ChatColor.RED + "Destroy Rate : " + super.getRandomDestroyChance());
 		lore.add(ChatColor.BLACK + "" + super.getRandomNumberLore());
 		im.setLore(lore);
-		im.setDisplayName(dr + getBookName() + super.getRandomLevel(10));
+		im.setDisplayName(dr + getBookName() + " " + super.getRandomLevel(10));
 		is.setItemMeta(im);
 		this.setItemMeta(im);
 		this.setItemStack(is);

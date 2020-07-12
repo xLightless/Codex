@@ -33,7 +33,7 @@ public class FrenzyBlocker extends Book implements Listener {
 		lore.add(ChatColor.RED + "Destroy Rate : " + super.getRandomDestroyChance());
 		lore.add(ChatColor.BLACK + "" + super.getRandomNumberLore());
 		im.setLore(lore);
-		im.setDisplayName(c + getBookName() + super.getRandomLevel(4));
+		im.setDisplayName(c + getBookName() + " " + super.getRandomLevel(4));
 		is.setItemMeta(im);
 		List<Material> m = new ArrayList<Material>();
 		m.add(Material.DIAMOND_HELMET);
