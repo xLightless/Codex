@@ -34,6 +34,7 @@ public class Creator implements Execute {
 		if (!FactionsMain.Factions.containsKey(facName)) {
 			if (FactionsMain.Players.containsKey(uuid))
 				throw new Throwable(ChatColor.RED + "You are already inside of a Faction");
+			if(facName.length() >= 20) throw new Throwable(ChatColor.RED + "This faction name is too long. Retry.");
 			FactionObject fac = new FactionObject(facName, uuid);
 			FactionsMain.Factions.put(facName.toUpperCase(), fac);
 			FactionsMain.saveData();
