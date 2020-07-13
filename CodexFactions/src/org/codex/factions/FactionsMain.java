@@ -27,6 +27,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.codex.auctionhouse.AuctionCommand;
 import org.codex.chunkbusters.ChunkBusterMain;
 import org.codex.economy.EconomyMain;
 import org.codex.enchants.armorsets.ArmorSet;
@@ -280,6 +281,7 @@ public class FactionsMain extends JavaPlugin implements Listener {
 		getCommand("giveitem").setExecutor(new GiveItem());
 		getCommand("cenchant").setExecutor(new CustomEnchant());
 		getCommand("world").setExecutor(new WorldCommand());
+		getCommand("ah").setExecutor(new AuctionCommand());
 	}
 
 	private void loadEvents() {
@@ -323,6 +325,7 @@ public class FactionsMain extends JavaPlugin implements Listener {
 		Bukkit.getServer().getPluginManager().registerEvents(new PhantomArmorSet(), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new PacketMain(getServer()), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new ClaimManager(), this);
+		Bukkit.getServer().getPluginManager().registerEvents(new AuctionCommand(), this);
 	}
 
 	private void loadConstructors() {

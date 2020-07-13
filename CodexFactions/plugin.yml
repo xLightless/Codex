@@ -51,3 +51,6 @@ commands:
   world:
         aliases: [wrld, wld, worldmanager, wrldmnrg]
         description: the big command for your worlds
+  ah:
+        aliases: [auctionhouse, auc]
+        description: Main command to use auction house features.
