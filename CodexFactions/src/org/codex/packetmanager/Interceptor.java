@@ -29,7 +29,7 @@ public class Interceptor extends NetworkManager {
 
 	@Override
 	public void handle(@SuppressWarnings("rawtypes") Packet packet) {
-		PacketEvent e = new PacketEvent(packet);
+		/*PacketEvent e = new PacketEvent(packet);
 		if (server == null) {
 			System.err.println("Server is null ");
 			parent.handle(packet);
@@ -39,6 +39,7 @@ public class Interceptor extends NetworkManager {
 		if (!e.isCancelled()) {
 			parent.handle(packet);
 		}
+		*/
 
 	}
 
