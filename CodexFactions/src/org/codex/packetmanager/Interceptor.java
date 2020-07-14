@@ -4,8 +4,11 @@ import java.net.SocketAddress;
 
 import javax.crypto.SecretKey;
 
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 import org.bukkit.Server;
 
+import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.GenericFutureListener;
@@ -21,15 +24,20 @@ public class Interceptor extends NetworkManager {
 	Server server;
 	NetworkManager parent;
 
+	 public static final Marker a = MarkerManager.getMarker("NETWORK");
+	 public static final Marker b = MarkerManager.getMarker("NETWORK_PACKETS", NetworkManager.a);
+	 public Channel channel;
+	
 	public Interceptor(EnumProtocolDirection enumprotocoldirection, Server serv, NetworkManager parent) {
 		super(enumprotocoldirection);
 		server = serv;
 		this.parent = parent;
+		this.channel = parent.channel;
 	}
 
 	@Override
 	public void handle(@SuppressWarnings("rawtypes") Packet packet) {
-		/*PacketEvent e = new PacketEvent(packet);
+		PacketEvent e = new PacketEvent(packet);
 		if (server == null) {
 			System.err.println("Server is null ");
 			parent.handle(packet);
@@ -39,7 +47,7 @@ public class Interceptor extends NetworkManager {
 		if (!e.isCancelled()) {
 			parent.handle(packet);
 		}
-		*/
+		
 
 	}
 
@@ -189,5 +197,6 @@ public class Interceptor extends NetworkManager {
 	public void userEventTriggered(ChannelHandlerContext arg0, Object arg1) throws Exception {
 		parent.userEventTriggered(arg0, arg1);
 	}
+	
 
 }

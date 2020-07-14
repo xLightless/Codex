@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 
 import net.minecraft.server.v1_8_R3.EntityPlayer;
 import net.minecraft.server.v1_8_R3.EnumProtocolDirection;
@@ -43,8 +44,9 @@ public class PacketMain implements Listener {
 			}
 
 		}
-
-	}  
+		
+	} 
+	
 
 	public static void sendPlayerPacket(Player p, Packet<?> packet) {
 		if (p instanceof CraftPlayer) {
