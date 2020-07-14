@@ -4,6 +4,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.codex.economy.executors.Give;
+import org.codex.economy.executors.Set;
 
 import net.md_5.bungee.api.ChatColor;
 
@@ -15,7 +16,7 @@ public class EconomyCommand implements CommandExecutor{
 		case "give":
 			return new Give().onCommand(arg0, arg3);
 		case "set":
-			break;
+			return new Set().onCommand(arg0, arg3);
 		case "take":
 			break;
 		case "history":

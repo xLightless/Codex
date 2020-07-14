@@ -77,6 +77,7 @@ import org.codex.factions.claims.ClaimManager;
 import org.codex.factions.claims.ClaimType;
 import org.codex.factions.commands.AuctionCommand;
 import org.codex.factions.commands.CustomEnchant;
+import org.codex.factions.commands.EconomyCommand;
 import org.codex.factions.commands.EnchanterComm;
 import org.codex.factions.commands.FactionCommand;
 import org.codex.factions.commands.FixCommand;
@@ -282,6 +283,7 @@ public class FactionsMain extends JavaPlugin implements Listener {
 		getCommand("cenchant").setExecutor(new CustomEnchant());
 		getCommand("world").setExecutor(new WorldCommand());
 		getCommand("ah").setExecutor(new AuctionCommand());
+		getCommand("eco").setExecutor(new EconomyCommand());
 	}
 
 	private void loadEvents() {
@@ -326,6 +328,7 @@ public class FactionsMain extends JavaPlugin implements Listener {
 		Bukkit.getServer().getPluginManager().registerEvents(new PacketMain(getServer()), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new ClaimManager(), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new AuctionCommand(), this);
+		
 	}
 
 	private void loadConstructors() {
