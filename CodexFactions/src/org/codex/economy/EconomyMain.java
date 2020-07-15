@@ -1,12 +1,13 @@
 package org.codex.economy;
 
 import java.io.File;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
 import org.bukkit.Material;
-import org.bukkit.entity.Player;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.inventory.ItemStack;
 import org.codex.factions.FactionsMain;
 
@@ -16,6 +17,8 @@ public class EconomyMain {
 	private static Map<String, Double> money = new HashMap<>();
 	private Map<String, Double> priceMap = new HashMap<>();	
 	private static File moneyData = new File("plugins/CodexFactions/eco.txt");
+	private static Map<Date, String> history = new HashMap<>();
+	
 	
 	public EconomyMain(Map<String, Double> map) {
 		this.priceMap = map;
@@ -25,40 +28,42 @@ public class EconomyMain {
 		return money;
 	}
 
-	public static double getPlayerMoney(Player p) {
-		return money.get(p.getUniqueId().toString());
+	public static double getPlayerMoney(OfflinePlayer p) {
+		return getPlayerMoney(p.getUniqueId());
 	}
 
 	public static double getPlayerMoney(UUID u) {
-		return money.get(u.toString());
+		return getPlayerMoney(u.toString());
 	}
 	
 	public static double getPlayerMoney(String s) {
 		return money.get(s);
 	}
 	
-	public static void setPlayerMoney(Player p, double d) {
-		money.put(p.getUniqueId().toString(), d);
+	public static void setPlayerMoney(OfflinePlayer p, double d) {
+		setPlayerMoney(p.getUniqueId(), d);
 	}
 
 	public static void setPlayerMoney(UUID u, double d) {
-		money.put(u.toString(), d);
+		setPlayerMoney(u.toString(), d);
 	}
 	
 	public static void setPlayerMoney(String s, double d) {
 		money.put(s, d);
 	}
 	
-	public static void changePlayerMoney(Player p, double d) {
-		money.put(p.getUniqueId().toString(), money.get(p.getUniqueId().toString()) + d);
+	public static void changePlayerMoney(OfflinePlayer p, double d) {
+		changePlayerMoney(p.getUniqueId(), d);
 	}
 	
 	public static void changePlayerMoney(UUID u, double d) {
-		money.put(u.toString(), money.get(u.toString()) + d);
+		changePlayerMoney(u.toString(), d);
 	}
 	
 	public static void changePlayerMoney(String s, double d) {
 		money.put(s, money.get(s) + d);
+		if(isNegative((int) d))history.put(new Date(), formatString(EconomyEnum.TAKE, d));
+		else history.put(new Date(), formatString(EconomyEnum.GIVE, d));
 	}
 	
 	public double getCost(ItemStack is) {
@@ -75,4 +80,43 @@ public class EconomyMain {
 		FactionsMain.save(moneyData, money);
 	}
 	
+	public static final String formatString(EconomyEnum e, double d) {
+		return e.getID() + "-" + d;
+	}
+	
+	public static final EconomyEnum getTypeFromString(String s) {
+		return EconomyEnum.getFromID(Byte.parseByte(s.split("-")[0]));
+	}
+	
+	public static final double getAmountFromString(String s) {
+		return Double.parseDouble(s.split("-")[1]);
+	}
+	
+	private static boolean isNegative(int i) {
+		return i >= 0 ? true : false;
+	}
+	
+
+	
 }
+
+	enum EconomyEnum {
+		
+		GIVE((byte) 0), TAKE((byte) 1), SET((byte) 2);
+		
+		public byte id;
+		
+		EconomyEnum(byte i){
+			id=i;
+		}
+		
+		public byte getID() {
+			return id;
+		}
+		
+		public static EconomyEnum getFromID(byte id) throws NullPointerException{
+			for(EconomyEnum e: EconomyEnum.values())if(e.getID() == id)return e;
+			throw new NullPointerException("not a valid ID");
+		}
+	
+	}

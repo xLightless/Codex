@@ -9,13 +9,13 @@ import org.codex.factions.executors.Execute;
 
 import net.md_5.bungee.api.ChatColor;
 
-public class Give implements Execute {
+public class Set implements Execute{
 
 	@Override
 	public boolean onCommand(CommandSender sender, String[] args) {
 		if (!sender.hasPermission("Economy.Give")) {
 			sender.sendMessage(ChatColor.RED + "You do not have permission for that");
-			return false; 
+			return false;
 		}
 		if (args.length == 2 && sender instanceof OfflinePlayer) {
 			OfflinePlayer p = (OfflinePlayer) sender;
@@ -29,8 +29,8 @@ public class Give implements Execute {
 				}
 			} else {
 				try {
-					EconomyMain.changePlayerMoney(p, Double.parseDouble(args[1]));
-					sender.sendMessage(ChatColor.GOLD + "Your balance has been changed to " + EconomyMain.getPlayerMoney(p));
+					EconomyMain.setPlayerMoney(p, Double.parseDouble(args[1]));
+					sender.sendMessage(ChatColor.GOLD + "Your balance has been set to " + EconomyMain.getPlayerMoney(p));
 					return true;
 				} catch (NumberFormatException e) {
 					sender.sendMessage(ChatColor.RED + "Command Usuage improper. Please type /eco help");
@@ -51,10 +51,9 @@ public class Give implements Execute {
 				sender.sendMessage(ChatColor.RED + "Command Usuage improper. Please type /eco help");
 				return false;
 			}
-			if(!EconomyMain.getMap().containsKey(p.getUniqueId().toString()))EconomyMain.setPlayerMoney(p, d);
-			else EconomyMain.changePlayerMoney(p, d);
-			if(p.isOnline())((Player)p).sendMessage(ChatColor.GOLD + "Your balance has been changed to " + EconomyMain.getPlayerMoney(p));
-			sender.sendMessage(ChatColor.GOLD + p.getName() + "'s balance has been changed to " + EconomyMain.getPlayerMoney(p));
+			EconomyMain.setPlayerMoney(p, d);
+			if(p.isOnline()) ((Player) p).sendMessage(ChatColor.GOLD + "Your balance has been set to " + EconomyMain.getPlayerMoney(p));
+			sender.sendMessage(ChatColor.GOLD + p.getName() + "'s balance has been set to " + EconomyMain.getPlayerMoney(p));
 			return true;
 		}
 

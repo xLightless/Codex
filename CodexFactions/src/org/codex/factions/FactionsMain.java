@@ -27,7 +27,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.codex.auctionhouse.AuctionCommand;
 import org.codex.chunkbusters.ChunkBusterMain;
 import org.codex.economy.EconomyMain;
 import org.codex.enchants.armorsets.ArmorSet;
@@ -76,7 +75,9 @@ import org.codex.enchants.leveling.Levels;
 import org.codex.factions.claims.Claim;
 import org.codex.factions.claims.ClaimManager;
 import org.codex.factions.claims.ClaimType;
+import org.codex.factions.commands.AuctionCommand;
 import org.codex.factions.commands.CustomEnchant;
+import org.codex.factions.commands.EconomyCommand;
 import org.codex.factions.commands.EnchanterComm;
 import org.codex.factions.commands.FactionCommand;
 import org.codex.factions.commands.FixCommand;
@@ -168,11 +169,7 @@ public class FactionsMain extends JavaPlugin implements Listener {
 	}
 
 	public static boolean isChunkWilderness(int x, int z) {
-		if(ClaimedChunks == null)return true;
-		long posz = z;
-		long posx = x << 32;
-		long result = posx | posz;
-		return !ClaimedChunks.containsKey(result);
+		return !ClaimedChunks.containsKey(chunkCoordsToLong(x, z));
 	}
 
 	public static long chunkCoordsToLong(int x, int z) {
@@ -282,6 +279,7 @@ public class FactionsMain extends JavaPlugin implements Listener {
 		getCommand("cenchant").setExecutor(new CustomEnchant());
 		getCommand("world").setExecutor(new WorldCommand());
 		getCommand("ah").setExecutor(new AuctionCommand());
+		getCommand("eco").setExecutor(new EconomyCommand());
 	}
 
 	private void loadEvents() {
@@ -326,6 +324,7 @@ public class FactionsMain extends JavaPlugin implements Listener {
 		Bukkit.getServer().getPluginManager().registerEvents(new PacketMain(getServer()), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new ClaimManager(), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new AuctionCommand(), this);
+		
 	}
 
 	private void loadConstructors() {
