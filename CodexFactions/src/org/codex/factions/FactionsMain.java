@@ -169,11 +169,7 @@ public class FactionsMain extends JavaPlugin implements Listener {
 	}
 
 	public static boolean isChunkWilderness(int x, int z) {
-		if(ClaimedChunks == null)return true;
-		long posz = z;
-		long posx = x << 32;
-		long result = posx | posz;
-		return !ClaimedChunks.containsKey(result);
+		return !ClaimedChunks.containsKey(chunkCoordsToLong(x, z));
 	}
 
 	public static long chunkCoordsToLong(int x, int z) {

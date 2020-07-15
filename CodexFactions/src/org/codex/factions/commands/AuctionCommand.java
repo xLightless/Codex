@@ -11,7 +11,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.inventory.Inventory;
 
 public class AuctionCommand implements CommandExecutor, Listener {
@@ -31,6 +30,8 @@ public class AuctionCommand implements CommandExecutor, Listener {
 				invs.put(1, i); // saves player modifications
 
 			}
+			
+			
 
 			else if (args.length > 1) {
 

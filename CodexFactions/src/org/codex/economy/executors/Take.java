@@ -1,6 +1,7 @@
 package org.codex.economy.executors;
 
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.codex.economy.EconomyMain;
@@ -16,29 +17,30 @@ public class Take implements Execute{
 			sender.sendMessage(ChatColor.RED + "You do not have permission for that");
 			return false;
 		}
-		if (args.length == 2 && sender instanceof Player) {
-			Player p = (Player) sender;
+		if (args.length == 2 && sender instanceof OfflinePlayer) {
+			OfflinePlayer p = (OfflinePlayer) sender;
 			if (!EconomyMain.getMap().containsKey(p.getUniqueId().toString())) {
 				try {
 					EconomyMain.setPlayerMoney(p, -1 * Double.parseDouble(args[1]));
-					p.sendMessage(ChatColor.RED + "Your balance has been set to " + EconomyMain.getPlayerMoney(p));
+					sender.sendMessage(ChatColor.RED + "Your balance has been set to " + EconomyMain.getPlayerMoney(p));
 					return true;
 				} catch (NumberFormatException e) {
-					p.sendMessage(ChatColor.RED + "Command Usuage improper. Please type /eco help");
+					sender.sendMessage(ChatColor.RED + "Command Usuage improper. Please type /eco help");
 					return false;
 				}
 			} else {
 				try {
 					EconomyMain.changePlayerMoney(p, -1 * Double.parseDouble(args[1]));
-					p.sendMessage(ChatColor.RED + "Your balance has been changed to " + EconomyMain.getPlayerMoney(p));
+					sender.sendMessage(ChatColor.RED + "Your balance has been changed to " + EconomyMain.getPlayerMoney(p));
 					return true;
 				} catch (NumberFormatException e) {
-					p.sendMessage(ChatColor.RED + "Command Usuage improper. Please type /eco help");
+					sender.sendMessage(ChatColor.RED + "Command Usuage improper. Please type /eco help");
 					return false;
 				}
 			}
 		} else if (args.length >= 3) {
-			Player p = Bukkit.getPlayer(args[1]);
+			@SuppressWarnings("deprecation")
+			OfflinePlayer p = Bukkit.getOfflinePlayer(args[1]);
 			if (p == null) {
 				sender.sendMessage(ChatColor.RED + "That player is invalid");
 				return false;
@@ -47,12 +49,12 @@ public class Take implements Execute{
 			try {
 				d = -1 * Double.parseDouble(args[2]);
 			}catch(NumberFormatException e) {
-				p.sendMessage(ChatColor.RED + "Command Usuage improper. Please type /eco help");
+				sender.sendMessage(ChatColor.RED + "Command Usuage improper. Please type /eco help");
 				return false;
 			}
 			if(!EconomyMain.getMap().containsKey(p.getUniqueId().toString()))EconomyMain.setPlayerMoney(p, d);
 			else EconomyMain.changePlayerMoney(p, d);
-			p.sendMessage(ChatColor.GOLD + "Your balance has been changed to " + EconomyMain.getPlayerMoney(p));
+			((Player) p).sendMessage(ChatColor.GOLD + "Your balance has been changed to " + EconomyMain.getPlayerMoney(p));
 			sender.sendMessage(ChatColor.GOLD + p.getName() + "'s balance has been changed to " + EconomyMain.getPlayerMoney(p));
 			return true;
 		}
