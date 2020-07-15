@@ -33,13 +33,16 @@ public class AuctionCommand implements CommandExecutor, Listener {
 	
 			}
 			
-			if (args.length > 1) {
+			if (args[0].equalsIgnoreCase("sell")) {
 				
-				sender.sendMessage("Unknown arguments, use /ah [sell]");
+				sender.sendMessage("You have executed /ah sell! KINGMO ADD ECO!");
+				
+				
+				// add gui and sell confirm or other
 				
 			}else
 				
-			sender.sendMessage("You have executed /ah sell! KINGMO ADD ECO!");
+				sender.sendMessage("Unknown arguments, use /ah [sell]");
 			
 		}else
 			sender.sendMessage("You cannot use this command in console!");
