@@ -17,7 +17,7 @@ public class EconomyMain {
 	private static Map<String, Double> money = new HashMap<>();
 	private Map<String, Double> priceMap = new HashMap<>();	
 	private static File moneyData = new File("plugins/CodexFactions/eco.txt");
-	private static Map<Date, String> history = new HashMap<>();
+	private static Map<Date, Map<String, String>> history = new HashMap<>();
 	
 	
 	public EconomyMain(Map<String, Double> map) {
@@ -50,6 +50,7 @@ public class EconomyMain {
 	
 	public static void setPlayerMoney(String s, double d) {
 		money.put(s, d);
+		addHistory(s, d);
 	}
 	
 	public static void changePlayerMoney(OfflinePlayer p, double d) {
@@ -62,8 +63,15 @@ public class EconomyMain {
 	
 	public static void changePlayerMoney(String s, double d) {
 		money.put(s, money.get(s) + d);
-		if(isNegative((int) d))history.put(new Date(), formatString(EconomyEnum.TAKE, d));
-		else history.put(new Date(), formatString(EconomyEnum.GIVE, d));
+		addHistory(s, d);
+	}
+	
+	private static void addHistory(String s, double d) {
+		Date date = new Date();
+		Map<String, String> map = history.containsKey(date)? history.get(date) : new HashMap<>();
+		if(isNegative((int) d))map.put(s, formatString(EconomyEnum.TAKE, d));
+		else map.put(s, formatString(EconomyEnum.GIVE, d));
+		history.put(date, map);
 	}
 	
 	public double getCost(ItemStack is) {
@@ -73,7 +81,7 @@ public class EconomyMain {
 	
 	@SuppressWarnings("unchecked")
 	public static void loadMoney() {
-		EconomyMain.money = (Map<String, Double>) FactionsMain.loadData(moneyData);
+		EconomyMain.money = (Map<String, Double>) FactionsMain.loadData(moneyData) == null ? new HashMap<>() : (Map<String, Double>) FactionsMain.loadData(moneyData);
 	}
 	
 	public static void saveMoney() {

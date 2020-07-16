@@ -57,3 +57,5 @@ commands:
   eco: 
         aliases: [economy, ecomanager]
         description: the economy systems master command.
+  pay:
+        description: pays a player.

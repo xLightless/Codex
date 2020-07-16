@@ -87,6 +87,7 @@ import org.codex.factions.commands.GiveChunkBusterCommand;
 import org.codex.factions.commands.GiveEnergyComm;
 import org.codex.factions.commands.GiveHarvester;
 import org.codex.factions.commands.GiveItem;
+import org.codex.factions.commands.PayCommand;
 import org.codex.factions.commands.RemoveHarvester;
 import org.codex.factions.commands.RenameCommand;
 import org.codex.factions.commands.TestCommand;
@@ -124,7 +125,7 @@ public class FactionsMain extends JavaPlugin implements Listener {
 		Factions = (Map<String, FactionObject>) FactionsMain.loadData(FactionsData);
 		Players = (Map<UUID, FactionPlayer>) FactionsMain.loadData(PlayersData);
 		ClaimedChunks = (Map<Long, HashMap<String, String>>) FactionsMain.loadData(claimedData) == null ? new HashMap<>() : (Map<Long, HashMap<String, String>>) FactionsMain.loadData(claimedData)  ;
-		worlds = (Set<String>) FactionsMain.loadData(worldData);
+		worlds = (Set<String>) FactionsMain.loadData(worldData) == null ? new HashSet<>() : (Set<String>) FactionsMain.loadData(worldData) ;
 		EconomyMain.loadMoney();
 	}
 
@@ -280,6 +281,7 @@ public class FactionsMain extends JavaPlugin implements Listener {
 		getCommand("world").setExecutor(new WorldCommand());
 		getCommand("ah").setExecutor(new AuctionCommand());
 		getCommand("eco").setExecutor(new EconomyCommand());
+		getCommand("pay").setExecutor(new PayCommand());
 	}
 
 	private void loadEvents() {
