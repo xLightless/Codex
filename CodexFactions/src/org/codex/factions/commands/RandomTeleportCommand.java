@@ -1,4 +1,4 @@
-package org.codex.randomteleport;
+package org.codex.factions.commands;
 
 import java.util.Random;
 import net.md_5.bungee.api.ChatColor;

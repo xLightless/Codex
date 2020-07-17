@@ -12,7 +12,7 @@ public class Generator implements Executor{
 
 	public boolean onCommand(CommandSender sender, String[] args) {
 		if(args.length >= 2 && (sender.hasPermission("Codex.World.Generate") || sender.isOp())) {
-			if(!FactionsMain.getWorlds().contains(args[1]) && !(Bukkit.getWorld(args[1]) == null)) {
+			if(!FactionsMain.getWorlds().contains(args[1]) && (Bukkit.getWorld(args[1]) == null)) {
 			World w = Bukkit.getServer().createWorld(new WorldCreator(args[1]));
 			FactionsMain.addWorld(w.getName());
 			sender.sendMessage(ChatColor.GREEN + args[1] + " has been created");

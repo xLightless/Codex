@@ -88,13 +88,13 @@ import org.codex.factions.commands.GiveEnergyComm;
 import org.codex.factions.commands.GiveHarvester;
 import org.codex.factions.commands.GiveItem;
 import org.codex.factions.commands.PayCommand;
+import org.codex.factions.commands.RandomTeleportCommand;
 import org.codex.factions.commands.RemoveHarvester;
 import org.codex.factions.commands.RenameCommand;
 import org.codex.factions.commands.TestCommand;
 import org.codex.factions.commands.WorldCommand;
 import org.codex.obsidiandestroyer.TNTHandler;
 import org.codex.packetmanager.PacketMain;
-import org.codex.randomteleport.RandomTeleportCommand;
 
 public class FactionsMain extends JavaPlugin implements Listener {
 	public static Map<String, FactionObject> Factions = new HashMap<>();

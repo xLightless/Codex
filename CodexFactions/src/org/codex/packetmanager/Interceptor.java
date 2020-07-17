@@ -6,6 +6,7 @@ import javax.crypto.SecretKey;
 
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
+import org.bukkit.Bukkit;
 import org.bukkit.Server;
 
 import io.netty.channel.Channel;
@@ -21,8 +22,8 @@ import net.minecraft.server.v1_8_R3.PacketListener;
 
 public class Interceptor extends NetworkManager {
 
-	Server server;
-	NetworkManager parent;
+	public Server server;
+	public NetworkManager parent;
 
 	 public static final Marker a = MarkerManager.getMarker("NETWORK");
 	 public static final Marker b = MarkerManager.getMarker("NETWORK_PACKETS", NetworkManager.a);
@@ -32,7 +33,10 @@ public class Interceptor extends NetworkManager {
 		super(enumprotocoldirection);
 		server = serv;
 		this.parent = parent;
-		this.channel = parent.channel;
+		channel = parent.channel;
+			System.err.println(channel.config().isAutoRead());
+		
+		System.err.println("HERE - " + channel);
 	}
 
 	@Override
@@ -70,6 +74,7 @@ public class Interceptor extends NetworkManager {
 	@Override
 	public void a(EnumProtocol enumprotocol) {
 		parent.a(enumprotocol);
+		this.channel = parent.channel;
 	}
 
 	@Override
@@ -105,6 +110,7 @@ public class Interceptor extends NetworkManager {
 	@Override
 	public void channelActive(ChannelHandlerContext channelhandlercontext) throws Exception {
 		parent.channelActive(channelhandlercontext);
+		this.channel = parent.channel;
 	}
 
 	@Override

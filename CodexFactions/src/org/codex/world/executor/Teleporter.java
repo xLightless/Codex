@@ -34,6 +34,7 @@ public class Teleporter implements Executor	{
 				 sender.sendMessage(ChatColor.GREEN + "Teleported");
 				 return true;
 				}catch(NumberFormatException | NullPointerException e) {
+					e.printStackTrace();
 					sender.sendMessage(ChatColor.RED + "Command invalid. Please do /world help");
 				}
 		}

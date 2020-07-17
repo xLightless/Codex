@@ -19,7 +19,7 @@ public class PayCommand implements CommandExecutor {
 			try {
 			double d = Double.parseDouble(arg3[1]);
 			
-			if(arg3.length >= 2) {
+			if(arg3.length < 2) {
 				p.sendMessage(ChatColor.RED + "Incorrect usuage.");
 				return false;
 			}
