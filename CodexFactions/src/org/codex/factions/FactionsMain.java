@@ -94,6 +94,7 @@ import org.codex.factions.commands.TestCommand;
 import org.codex.factions.commands.WorldCommand;
 import org.codex.obsidiandestroyer.TNTHandler;
 import org.codex.packetmanager.PacketMain;
+import org.codex.randomteleport.RandomTeleportCommand;
 
 public class FactionsMain extends JavaPlugin implements Listener {
 	public static Map<String, FactionObject> Factions = new HashMap<>();
@@ -282,6 +283,7 @@ public class FactionsMain extends JavaPlugin implements Listener {
 		getCommand("ah").setExecutor(new AuctionCommand());
 		getCommand("eco").setExecutor(new EconomyCommand());
 		getCommand("pay").setExecutor(new PayCommand());
+		getCommand("wild").setExecutor(new RandomTeleportCommand());
 	}
 
 	private void loadEvents() {

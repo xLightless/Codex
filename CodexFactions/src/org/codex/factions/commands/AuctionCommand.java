@@ -85,7 +85,6 @@ public class AuctionCommand implements CommandExecutor, Listener {
 	public void onPlayerInventoryClick (InventoryClickEvent e) {
 		
 		if(e.getInventory().getType() != InventoryType.PLAYER && e.getInventory().getSize() == 54) {
-			Bukkit.broadcastMessage("clicked");
 			e.setCancelled(true);
 		}
 			
@@ -94,7 +93,6 @@ public class AuctionCommand implements CommandExecutor, Listener {
 	public void onPlayerInventoryDrag (InventoryDragEvent e2) {
 		
 		if (e2.getInventory().getType() != InventoryType.PLAYER && e2.getInventory().getSize() == 54) {
-			Bukkit.broadcastMessage("dragged");
 			e2.setCancelled(true);
 		}		
 	}

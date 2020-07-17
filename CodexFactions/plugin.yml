@@ -6,56 +6,59 @@ api-version: 1.8.8
 commands:
   f:
         aliases: [faction, fac]
-        description: Main faction plugin
+        description: Master command for Faction plugin..
   givechunkbuster: 
         aliases: [gbuster, gchunkbuster, gbust]
-        description: gives a player a chunk buster.
+        description: Gives a Player a Chunk Buster.
   enchanter:
         aliases: [openenchanter]
-        description: opens enchanter
+        description: Opens Enchanter
   giveenergy:
         aliases: [addenergy]
-        description: gives the player energy
+        description: Gives the Player Energy.
   giveset:
         aliases: [gset]
-        description: gives a set
+        description: Gives custom Armor to executor.
   givebook:
         aliases: [gbook]
-        description: gives a book
+        description: Gives a Book
   givedust:
         aliases: [gdust, idust]
-        description: gives dust
+        description: Gives Dust
   fix:
-        description: fixes an item
+        description: Fixes an Item in your Inventory.
   rename:
         aliases: [name]
-        description: renames item in main hand
+        description: Renames an Item in Players Hand.
   harvesters:
         aliases: [harvest, h]
-        description: shows harvesters
+        description: Shows Harvesters.
   giveenergyharvester:
         aliases: [giveharvester, gharvester, gharv]
-        description: gives harvesters
+        description: Gives Harvesters.
         usage: /gharv [TYPE]
   removeharvester:
         aliases: [rharvester, rharv]
-        description: removes a harvester from the registry.
+        description: Removes a Harvester from the registry.
         usage: /rharv [ID]
   giveitem:
         aliases: [gitem, spawnitem, sitem, si]
-        description: gives the player a custom item.
+        description: Gives the Player a custom Item.
         usage: /giveitem [ITEM]
   cenchant:
         aliases: [customenchant, enchantc]
-        description: gives a custom enchant.
+        description: Gives a Custom Enchant.
   world:
         aliases: [wrld, wld, worldmanager, wrldmngr]
-        description: the big command for your worlds
+        description: The master command for your Worlds.
   ah:
         aliases: [auctionhouse, auc]
         description: Main command to use auction house features.
   eco: 
         aliases: [economy, ecomanager]
-        description: the economy systems master command.
+        description: The economy systems master command.
   pay:
-        description: pays a player.
+        description: Pays a Player.
+  wild:
+        aliases: [wilderness, wildtp, wild tp]
+        description: Teleports you to random location.
