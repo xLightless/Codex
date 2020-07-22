@@ -12,7 +12,7 @@ public class Teleporter implements Executor	{
 
 	@Override
 	public boolean onCommand(CommandSender sender, String[] args) {
-		
+	
 		if(sender instanceof Player && args.length >= 5 && (sender.hasPermission("Codex.World.Teleport") || sender.isOp())) {
 			try {
 			 World w = Bukkit.getWorld(args[1]);

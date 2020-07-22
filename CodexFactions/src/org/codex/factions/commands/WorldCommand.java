@@ -42,6 +42,8 @@ public class WorldCommand implements CommandExecutor{
 			return false;
 			}
 		return ex.onCommand(sender, args);
+		}else {
+			sender.sendMessage(ChatColor.RED + "That is not a valid command. Please type /world help");
 		}
 		return false;
 	}

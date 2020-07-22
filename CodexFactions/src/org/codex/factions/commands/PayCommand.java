@@ -35,6 +35,7 @@ public class PayCommand implements CommandExecutor {
 				else EconomyMain.changePlayerMoney(reciever, d);
 				EconomyMain.changePlayerMoney(p, -1 * d);
 				p.sendMessage(ChatColor.GOLD + "You have payed " + arg3[0] + " " + d);
+				if(reciever.isOnline())((Player) reciever).sendMessage(ChatColor.GOLD + "You have been payed " + d + " by " + p.getName());
 				return true;
 				}else p.sendMessage(ChatColor.RED + "You do not have enough money to pay this player");
 			}else p.sendMessage(ChatColor.RED + "You do not have enough money to pay this player");

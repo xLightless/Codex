@@ -37,7 +37,7 @@ public class EconomyMain {
 	}
 	
 	public static double getPlayerMoney(String s) {
-		return money.get(s);
+		return money.containsKey(s) ? money.get(s) : 0;
 	}
 	
 	public static void setPlayerMoney(OfflinePlayer p, double d) {

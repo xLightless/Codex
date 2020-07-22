@@ -77,9 +77,10 @@ public class PacketMain implements Listener {
 	            Object enumTitle = getNMSClass("PacketPlayOutTitle").getDeclaredClasses()[0].getField("TITLE").get(null);
 	            Object enumSubTitle = getNMSClass("PacketPlayOutTitle").getDeclaredClasses()[0].getField("SUBTITLE").get(null);
 	            Object chat = getNMSClass("IChatBaseComponent").getDeclaredClasses()[0].getMethod("a", String.class).invoke(null, "{\"text\":\""+title+"\"}");
+	            Object subchat = getNMSClass("IChatBaseComponent").getDeclaredClasses()[0].getMethod("a", String.class).invoke(null, "{\"text\":\""+subtitle+"\"}");
 	            Constructor<?> titleConstructor = getNMSClass("PacketPlayOutTitle").getConstructor(getNMSClass("PacketPlayOutTitle").getDeclaredClasses()[0], getNMSClass("IChatBaseComponent"), int.class, int.class, int.class);
 	            Packet<?> packet = (Packet<?>) titleConstructor.newInstance(enumTitle, chat, fadeIn, stay, fadeOut);
-	            Packet<?> packet2 = (Packet<?>) titleConstructor.newInstance(enumSubTitle, chat, fadeIn, stay, fadeOut);
+	            Packet<?> packet2 = (Packet<?>) titleConstructor.newInstance(enumSubTitle, subchat, fadeIn, stay, fadeOut);
 	            sendPlayerPacket(player, packet);
 	            sendPlayerPacket(player, packet2);
 	    }catch(Exception e) {

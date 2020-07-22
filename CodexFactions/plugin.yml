@@ -62,3 +62,6 @@ commands:
   wild:
         aliases: [wilderness, wildtp, wild tp]
         description: Teleports you to random location.
+  balance:
+        aliases: [bal, checkbalance]
+        description: sends the player their balance.

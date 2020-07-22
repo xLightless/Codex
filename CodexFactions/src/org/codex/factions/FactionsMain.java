@@ -76,6 +76,7 @@ import org.codex.factions.claims.Claim;
 import org.codex.factions.claims.ClaimManager;
 import org.codex.factions.claims.ClaimType;
 import org.codex.factions.commands.AuctionCommand;
+import org.codex.factions.commands.BalanceCommand;
 import org.codex.factions.commands.CustomEnchant;
 import org.codex.factions.commands.EconomyCommand;
 import org.codex.factions.commands.EnchanterComm;
@@ -284,6 +285,7 @@ public class FactionsMain extends JavaPlugin implements Listener {
 		getCommand("eco").setExecutor(new EconomyCommand());
 		getCommand("pay").setExecutor(new PayCommand());
 		getCommand("wild").setExecutor(new RandomTeleportCommand());
+		getCommand("balance").setExecutor(new BalanceCommand());
 	}
 
 	private void loadEvents() {
