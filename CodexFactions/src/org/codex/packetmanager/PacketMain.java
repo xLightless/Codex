@@ -11,7 +11,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerRespawnEvent;
+import org.bukkit.event.player.PlayerLoginEvent;
 
 import net.minecraft.server.v1_8_R3.EntityPlayer;
 import net.minecraft.server.v1_8_R3.EnumProtocolDirection;
@@ -26,9 +26,10 @@ public class PacketMain implements Listener {
 	public PacketMain(Server server) {
 		this.server = server;
 	}
+	
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent e) {
-		Player p = e.getPlayer();
+		/*Player p = e.getPlayer();
 		if (p instanceof CraftPlayer) {
 			CraftPlayer cp = (CraftPlayer) p;
 			EntityPlayer ep = cp.getHandle();
@@ -38,12 +39,15 @@ public class PacketMain implements Listener {
 				Field modifiersField = Field.class.getDeclaredField("modifiers");
 				modifiersField.setAccessible(true);
 				modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
-				field.set(ep.playerConnection, new Interceptor(EnumProtocolDirection.CLIENTBOUND, server, (NetworkManager) field.get(cp.getHandle().playerConnection)));
-			} catch (Throwable err) {
+				field.set(ep.playerConnection, new Interceptor(EnumProtocolDirection.CLIENTBOUND, server, (NetworkManager) field.get(ep.playerConnection)));
+				System.out.println("Testing " + ep.joining);
+				ep.playerConnection.isDisconnected();
+			} catch (Throwable err) { 
 				err.printStackTrace();
 			}
 
 		}
+		*/
 		
 	} 
 	
