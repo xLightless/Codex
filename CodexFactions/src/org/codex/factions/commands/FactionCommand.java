@@ -4,6 +4,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.codex.factions.Rank;
+import org.codex.factions.Relationship;
 import org.codex.factions.executors.Claimer;
 import org.codex.factions.executors.Creator;
 import org.codex.factions.executors.Disbander;
@@ -13,6 +14,7 @@ import org.codex.factions.executors.Joiner;
 import org.codex.factions.executors.Kicker;
 import org.codex.factions.executors.Leaver;
 import org.codex.factions.executors.Ranker;
+import org.codex.factions.executors.Shipper;
 import org.codex.factions.executors.Tagger;
 
 import net.md_5.bungee.api.ChatColor;
@@ -63,8 +65,16 @@ public class FactionCommand implements CommandExecutor {
 			case "claim":
 				return new Claimer().onCommand(sender, args);
 			case "ally":
-				break;
+				return new Shipper(Relationship.ALLY, true).onCommand(sender, args);
 			case "truce":
+				return new Shipper(Relationship.TRUCE, true).onCommand(sender, args);
+			case "neutral":
+				return new Shipper(Relationship.NEUTRAL, true).onCommand(sender, args);
+			case "enemy":
+				return new Shipper(Relationship.ENEMY, true).onCommand(sender, args);
+			case "c":
+				break;
+			case "chat":
 				break;
 			case "info":
 				return info.onCommand(sender, args);

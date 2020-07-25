@@ -21,10 +21,8 @@ public class FactionObject implements Serializable {
 	private String FactionName;
 	private UUID Leader;
 	private Set<UUID> Players = new HashSet<>();
-	private Set<String> allies = new HashSet<>();
-	private Set<String> truces = new HashSet<>();
 	private Set<UUID> alts = new HashSet<>();
-	private Set<String> enemies = new HashSet<>();
+	private Map<Byte, Set<String>> relations = new HashMap<>();
 	private Map<Long, Vector2D<Integer, String>> claimedLand = new HashMap<>();
 	private double value = 0D;
 
@@ -96,7 +94,7 @@ public class FactionObject implements Serializable {
 
 	public List<FactionObject> getAllies() {
 		List<FactionObject> allies = new ArrayList<>();
-		for (String name : this.allies) {
+		for (String name : this.relations.get((byte) 0)) {
 			allies.add(FactionsMain.getFactionFromName(name));
 		}
 		return allies;
@@ -104,7 +102,7 @@ public class FactionObject implements Serializable {
 
 	public List<FactionObject> getTruces() {
 		List<FactionObject> truces = new ArrayList<>();
-		for (String name : this.truces) {
+		for (String name : this.relations.get((byte) 1)) {
 			truces.add(FactionsMain.getFactionFromName(name));
 		}
 		return truces;
@@ -124,18 +122,22 @@ public class FactionObject implements Serializable {
 
 	public List<FactionObject> getEnemies() {
 		List<FactionObject> enemies = new ArrayList<>();
-		for (String name : this.enemies) {
+		for (String name : this.relations.get((byte) 3)) {
 			enemies.add(FactionsMain.getFactionFromName(name));
 		}
 		return enemies;
 	}
 
 	public void addAlly(FactionObject fac) {
-		allies.add(fac.getFactionName());
+		Set<String> ally = relations.containsKey((byte) 0) ? this.relations.get((byte) 0) : new HashSet<String>();
+		ally.add(fac.getFactionName());
+		relations.put((byte) 0, ally);
 	}
 
 	public void addTruce(FactionObject fac) {
-		truces.add(fac.getFactionName());
+		Set<String> truce = relations.containsKey((byte) 1) ? this.relations.get((byte) 1) : new HashSet<String>();
+		truce.add(fac.getFactionName());
+		relations.put((byte) 1, truce);
 	}
 
 	public void addAlt(UUID id) {
@@ -143,7 +145,9 @@ public class FactionObject implements Serializable {
 	}
 
 	public void addEnemy(FactionObject fac) {
-		enemies.add(fac.getFactionName());
+		Set<String> enemy = relations.containsKey((byte) 3) ? this.relations.get((byte) 3) : new HashSet<String>();
+		enemy.add(fac.getFactionName());
+		relations.put((byte) 3, enemy);
 	}
 
 	@Override

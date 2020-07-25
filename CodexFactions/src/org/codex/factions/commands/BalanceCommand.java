@@ -23,6 +23,7 @@ public class BalanceCommand implements CommandExecutor{
 				@SuppressWarnings("deprecation")
 				OfflinePlayer p = Bukkit.getOfflinePlayer(arg3[0]);
 				arg0.sendMessage(ChatColor.GOLD  + "" + p.getName() + "'s balance is " + EconomyMain.getPlayerMoney(p));
+				return true;
 			}catch(NullPointerException e) {
 				arg0.sendMessage(ChatColor.RED + "That player does not exist. Reminder - this is CaSe SeNsEtIvE");
 			}

@@ -390,14 +390,18 @@ public class FactionsMain extends JavaPlugin implements Listener {
 		FactionsMain.saveData();
 	}
 
-	public static FactionObject getFactionFromName(String facName) {
+	public static FactionObject getFactionFromName(String facName) throws NullPointerException {
+		try {
 		return FactionsMain.Factions.get(facName.toUpperCase());
+		}catch(Exception e) {
+			throw new NullPointerException("This faction does not exist");
+		}
 	}
 
 	public static FactionObject getPlayerFaction(UUID id) throws Throwable {
 		FactionPlayer fp = Players.get(id);
 		if (fp == null) {
-			throw new Throwable("Your not in a faction");
+			throw new Throwable("You are not in a faction");
 		}
 		return fp.getFaction();
 	}
@@ -405,7 +409,7 @@ public class FactionsMain extends JavaPlugin implements Listener {
 	public static FactionPlayer getPlayer(UUID id) throws Throwable {
 		FactionPlayer fp = Players.get(id);
 		if (fp == null) {
-			throw new Throwable("Your not in a faction");
+			throw new Throwable("You are not in a faction");
 		}
 		return fp;
 	}
