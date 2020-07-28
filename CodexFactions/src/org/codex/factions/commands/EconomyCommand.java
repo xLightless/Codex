@@ -25,6 +25,14 @@ public class EconomyCommand implements CommandExecutor{
 		case "history":
 			break;
 		case "help":
+			
+			arg0.sendMessage(" ");
+			arg0.sendMessage(ChatColor.AQUA + "/eco " + ChatColor.WHITE + "- Primary Command for Economy");
+			arg0.sendMessage(ChatColor.AQUA + "/eco <Give/Set/Take> " + ChatColor.WHITE + "- Make changes to a Players Balance");
+			arg0.sendMessage(ChatColor.AQUA + "/eco <History> " + ChatColor.WHITE + "- View Economy History of a Player");
+			arg0.sendMessage(ChatColor.AQUA + "/withdraw <Amount> " + ChatColor.WHITE + "- Withdraw your Balance as an Item");
+			arg0.sendMessage(" ");
+			
 			break;
 		case "check":
 			break;

@@ -14,7 +14,7 @@ public class Set implements Execute{
 	@Override
 	public boolean onCommand(CommandSender sender, String[] args) {
 		if (!sender.hasPermission("Economy.Give")) {
-			sender.sendMessage(ChatColor.RED + "You do not have permission for that");
+			sender.sendMessage(ChatColor.RED + "You do not have permission to use this Command.");
 			return false;
 		}
 		if (args.length == 2 && sender instanceof OfflinePlayer) {
@@ -24,16 +24,16 @@ public class Set implements Execute{
 					EconomyMain.setPlayerMoney(p, Double.parseDouble(args[1]));
 					return true;
 				} catch (NumberFormatException e) {
-					sender.sendMessage(ChatColor.RED + "Command Usuage improper. Please type /eco help");
+					sender.sendMessage(ChatColor.RED + "Command usage improper. Please type /eco help.");
 					return false;
 				}
 			} else {
 				try {
 					EconomyMain.setPlayerMoney(p, Double.parseDouble(args[1]));
-					sender.sendMessage(ChatColor.GOLD + "Your balance has been set to " + EconomyMain.getPlayerMoney(p));
+					sender.sendMessage(ChatColor.GOLD + "Your Balance has been set to " + EconomyMain.getPlayerMoney(p));
 					return true;
 				} catch (NumberFormatException e) {
-					sender.sendMessage(ChatColor.RED + "Command Usuage improper. Please type /eco help");
+					sender.sendMessage(ChatColor.RED + "Command usage improper. Please type /eco help.");
 					return false;
 				}
 			}
@@ -41,19 +41,19 @@ public class Set implements Execute{
 			@SuppressWarnings("deprecation")
 			OfflinePlayer p = Bukkit.getOfflinePlayer(args[1]);
 			if (p == null) {
-				sender.sendMessage(ChatColor.RED + "That player is invalid");
+				sender.sendMessage(ChatColor.RED + "That Player is invalid.");
 				return false;
 			}
 			double d;
 			try {
 				d = Double.parseDouble(args[2]);
 			}catch(NumberFormatException e) {
-				sender.sendMessage(ChatColor.RED + "Command Usuage improper. Please type /eco help");
+				sender.sendMessage(ChatColor.RED + "Command usage improper. Please type /eco help.");
 				return false;
 			}
 			EconomyMain.setPlayerMoney(p, d);
-			if(p.isOnline()) ((Player) p).sendMessage(ChatColor.GOLD + "Your balance has been set to " + EconomyMain.getPlayerMoney(p));
-			sender.sendMessage(ChatColor.GOLD + p.getName() + "'s balance has been set to " + EconomyMain.getPlayerMoney(p));
+			if(p.isOnline()) ((Player) p).sendMessage(ChatColor.GOLD + "Your Balance has been set to " + EconomyMain.getPlayerMoney(p));
+			sender.sendMessage(ChatColor.GOLD + p.getName() + "'s Balance has been set to " + EconomyMain.getPlayerMoney(p));
 			return true;
 		}
 
