@@ -69,9 +69,9 @@ public class FactionCommand implements CommandExecutor {
 			case "truce":
 				return new Shipper(Relationship.TRUCE, true).onCommand(sender, args);
 			case "neutral":
-				return new Shipper(Relationship.NEUTRAL, true).onCommand(sender, args);
+				return new Shipper(Relationship.NEUTRAL, false).onCommand(sender, args);
 			case "enemy":
-				return new Shipper(Relationship.ENEMY, true).onCommand(sender, args);
+				return new Shipper(Relationship.ENEMY, false).onCommand(sender, args);
 			case "c":
 				break;
 			case "chat":

@@ -94,6 +94,7 @@ public class FactionObject implements Serializable {
 
 	public List<FactionObject> getAllies() {
 		List<FactionObject> allies = new ArrayList<>();
+		if(this.relations.get((byte) 0) == null) return allies; 
 		for (String name : this.relations.get((byte) 0)) {
 			allies.add(FactionsMain.getFactionFromName(name));
 		}
@@ -102,6 +103,7 @@ public class FactionObject implements Serializable {
 
 	public List<FactionObject> getTruces() {
 		List<FactionObject> truces = new ArrayList<>();
+		if(this.relations.get((byte) 1) == null) return truces; 
 		for (String name : this.relations.get((byte) 1)) {
 			truces.add(FactionsMain.getFactionFromName(name));
 		}
@@ -122,6 +124,7 @@ public class FactionObject implements Serializable {
 
 	public List<FactionObject> getEnemies() {
 		List<FactionObject> enemies = new ArrayList<>();
+		if(this.relations.get((byte) 3) == null) return enemies; 
 		for (String name : this.relations.get((byte) 3)) {
 			enemies.add(FactionsMain.getFactionFromName(name));
 		}
@@ -286,6 +289,25 @@ public class FactionObject implements Serializable {
 		}
 
 		return Relationship.NEUTRAL;
+	}
+
+	public void addRelationship(FactionObject fac, Relationship r) {
+		switch(r) {
+		case ALLY:
+			this.addAlly(fac);
+			break;
+		case TRUCE:
+			this.addTruce(fac);
+			break;
+		case NEUTRAL:
+			this.removeFromRelationLists(fac);
+			break;
+		case ENEMY:
+			this.addEnemy(fac);
+			break;
+			
+		}
+		
 	}
 
 }

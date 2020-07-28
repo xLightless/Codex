@@ -65,3 +65,5 @@ commands:
   balance:
         aliases: [bal, checkbalance]
         description: sends the player their balance.
+  withdraw:
+        description: withdraws a money note.

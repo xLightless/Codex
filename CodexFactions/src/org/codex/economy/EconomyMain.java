@@ -1,15 +1,21 @@
 package org.codex.economy;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.codex.factions.FactionsMain;
+
+import net.md_5.bungee.api.ChatColor;
 
 
 public class EconomyMain {
@@ -62,7 +68,11 @@ public class EconomyMain {
 	}
 	
 	public static void changePlayerMoney(String s, double d) {
-		money.put(s, money.get(s) + d);
+		if(money.containsKey(s)) {
+			money.put(s, money.get(s) + d);
+		}else {
+			money.put(s, d);
+		}
 		addHistory(s, d);
 	}
 	
@@ -104,6 +114,16 @@ public class EconomyMain {
 		return i >= 0 ? true : false;
 	}
 	
+	public static ItemStack createWithdrawNote(double d, Player p) {
+		ItemStack is = new ItemStack(Material.PAPER);
+		ItemMeta im = is.getItemMeta();
+		im.setDisplayName(ChatColor.AQUA + "Money Note : " + d);
+		List<String> lore = new ArrayList<>();
+		lore.add(ChatColor.GREEN + "Withdrawn by " + p.getName());
+		im.setLore(lore);
+		is.setItemMeta(im);
+		return is;
+	}
 
 	
 }

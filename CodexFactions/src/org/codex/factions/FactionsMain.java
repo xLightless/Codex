@@ -93,6 +93,7 @@ import org.codex.factions.commands.RandomTeleportCommand;
 import org.codex.factions.commands.RemoveHarvester;
 import org.codex.factions.commands.RenameCommand;
 import org.codex.factions.commands.TestCommand;
+import org.codex.factions.commands.WithdrawCommand;
 import org.codex.factions.commands.WorldCommand;
 import org.codex.obsidiandestroyer.TNTHandler;
 import org.codex.packetmanager.PacketMain;
@@ -124,8 +125,8 @@ public class FactionsMain extends JavaPlugin implements Listener {
 	@SuppressWarnings("unchecked")
 	private static void loadData() {
 
-		Factions = (Map<String, FactionObject>) FactionsMain.loadData(FactionsData);
-		Players = (Map<UUID, FactionPlayer>) FactionsMain.loadData(PlayersData);
+		Factions = (Map<String, FactionObject>) FactionsMain.loadData(FactionsData) == null ? new HashMap<>() : (Map<String, FactionObject>) FactionsMain.loadData(FactionsData);
+		Players = (Map<UUID, FactionPlayer>) FactionsMain.loadData(PlayersData) == null ? new HashMap<>() : (Map<UUID, FactionPlayer>) FactionsMain.loadData(PlayersData);
 		ClaimedChunks = (Map<Long, HashMap<String, String>>) FactionsMain.loadData(claimedData) == null ? new HashMap<>() : (Map<Long, HashMap<String, String>>) FactionsMain.loadData(claimedData)  ;
 		worlds = (Set<String>) FactionsMain.loadData(worldData) == null ? new HashSet<>() : (Set<String>) FactionsMain.loadData(worldData) ;
 		EconomyMain.loadMoney();
@@ -286,6 +287,7 @@ public class FactionsMain extends JavaPlugin implements Listener {
 		getCommand("pay").setExecutor(new PayCommand());
 		getCommand("wild").setExecutor(new RandomTeleportCommand());
 		getCommand("balance").setExecutor(new BalanceCommand());
+		getCommand("withdraw").setExecutor(new WithdrawCommand());
 	}
 
 	private void loadEvents() {
@@ -321,6 +323,7 @@ public class FactionsMain extends JavaPlugin implements Listener {
 		Bukkit.getServer().getPluginManager().registerEvents(new Crit(), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new SafeGuard(), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new SafeWalk(), this);
+		Bukkit.getServer().getPluginManager().registerEvents(new FactionsListener(), this);
 		ChunkBusterMain cb = new ChunkBusterMain();
 		getServer().getPluginManager().registerEvents(cb, this);
 

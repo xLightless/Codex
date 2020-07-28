@@ -12,7 +12,7 @@ public class Info implements Execute {
 	@Override
 	public boolean onCommand(CommandSender sender, String[] args) {
 		if (args.length == 2) {
-			if (FactionsMain.Factions.containsKey(args[1])) {
+			if (FactionsMain.Factions.containsKey(args[1].toUpperCase())) {
 				FactionObject fac = FactionsMain.getFactionFromName(args[1]);
 				for (int x = 0; x <= 3; x++)
 					sender.sendMessage(
@@ -21,11 +21,11 @@ public class Info implements Execute {
 						+ " =-----------");
 				sender.sendMessage(ChatColor.AQUA + "  Allies - " + ChatColor.LIGHT_PURPLE
 						+ fac.getAllies().toString().replace("[", "").replace("]", ""));
-				sender.sendMessage(ChatColor.AQUA + "  Truces - " + ChatColor.AQUA
+				sender.sendMessage(ChatColor.AQUA + "  Truces - " + ChatColor.BLUE
 						+ fac.getTruces().toString().replace("[", "").replace("]", ""));
 				sender.sendMessage(ChatColor.AQUA + "  Alts - " + ChatColor.GRAY
 						+ fac.getAltNames().toString().replace("[", "").replace("]", ""));
-				sender.sendMessage(ChatColor.AQUA + "  Enemies - " + ChatColor.GRAY
+				sender.sendMessage(ChatColor.AQUA + "  Enemies - " + ChatColor.RED
 						+ fac.getEnemies().toString().replace("[", "").replace("]", ""));
 				sender.sendMessage(ChatColor.AQUA + "  Online Players - " + ChatColor.GREEN
 						+ fac.getOnlinePlayersName().toString().replace("[", "").replace("]", ""));
@@ -53,11 +53,11 @@ public class Info implements Execute {
 							+ " =-----------");
 					p.sendMessage(ChatColor.AQUA + "  Allies - " + ChatColor.LIGHT_PURPLE
 							+ fac.getAllies().toString().replace("[", "").replace("]", ""));
-					p.sendMessage(ChatColor.AQUA + "  Truces - " + ChatColor.AQUA
+					p.sendMessage(ChatColor.AQUA + "  Truces - " + ChatColor.BLUE
 							+ fac.getTruces().toString().replace("[", "").replace("]", ""));
 					p.sendMessage(ChatColor.AQUA + "  Alts - " + ChatColor.GRAY
 							+ fac.getAltNames().toString().replace("[", "").replace("]", ""));
-					p.sendMessage(ChatColor.AQUA + "  Enemies - " + ChatColor.GRAY
+					p.sendMessage(ChatColor.AQUA + "  Enemies - " + ChatColor.RED
 							+ fac.getEnemies().toString().replace("[", "").replace("]", ""));
 					p.sendMessage(ChatColor.AQUA + "  Online Players - " + ChatColor.GREEN
 							+ fac.getOnlinePlayersName().toString().replace("[", "").replace("]", ""));
@@ -69,6 +69,7 @@ public class Info implements Execute {
 
 					return true;
 				} catch (Throwable e) {
+					e.printStackTrace();
 					p.sendMessage(e.getMessage());
 					return false;
 				}

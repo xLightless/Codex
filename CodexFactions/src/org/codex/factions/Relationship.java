@@ -6,7 +6,7 @@ public enum Relationship {
 	
 	TRUCE((byte) 1, "truces"),
 	
-	NEUTRAL((byte) 2, "nothing"),
+	NEUTRAL((byte) 2, "neutral"),
 	
 	ENEMY((byte) 3, "enemies");
 	

@@ -23,7 +23,7 @@ public class FactionsListener implements Listener{
 				FactionObject fac2 = facp2.getFaction();
 				if(fac1.getRelationshipWith(fac2).isFriendly()) {
 					e.setCancelled(true);
-					p1.sendMessage(ChatColor.AQUA + "You cannot damage " + facp2.getTag() + " " + p2.getName());
+					p1.sendMessage(ChatColor.AQUA + "You cannot damage " + ChatColor.RESET + facp2.getTag() + " " + p2.getName());
 				}
 			} catch (Throwable e1) {
 			}
