@@ -129,12 +129,14 @@ public class FactionObject implements Serializable {
 	}
 
 	public void addAlly(FactionObject fac) {
+		this.removeFromRelationLists(fac);
 		Set<String> ally = relations.containsKey((byte) 0) ? this.relations.get((byte) 0) : new HashSet<String>();
 		ally.add(fac.getFactionName());
 		relations.put((byte) 0, ally);
 	}
 
 	public void addTruce(FactionObject fac) {
+		this.removeFromRelationLists(fac);
 		Set<String> truce = relations.containsKey((byte) 1) ? this.relations.get((byte) 1) : new HashSet<String>();
 		truce.add(fac.getFactionName());
 		relations.put((byte) 1, truce);
@@ -145,9 +147,26 @@ public class FactionObject implements Serializable {
 	}
 
 	public void addEnemy(FactionObject fac) {
+		this.removeFromRelationLists(fac);
 		Set<String> enemy = relations.containsKey((byte) 3) ? this.relations.get((byte) 3) : new HashSet<String>();
 		enemy.add(fac.getFactionName());
 		relations.put((byte) 3, enemy);
+	}
+	
+	private void removeFromRelationLists(FactionObject fac) {
+		if(this.getAllies().contains(fac)) {
+			Set<String> ally = relations.containsKey((byte) 0) ? this.relations.get((byte) 0) : new HashSet<String>();
+			ally.remove(fac.getFactionName());
+			relations.put((byte) 0, ally);
+		}else if(this.getTruces().contains(fac)) {
+			Set<String> truce = relations.containsKey((byte) 0) ? this.relations.get((byte) 0) : new HashSet<String>();
+			truce.remove(fac.getFactionName());
+			relations.put((byte) 1, truce);
+		}else if(this.getEnemies().contains(fac)) {
+			Set<String> enemy = relations.containsKey((byte) 0) ? this.relations.get((byte) 0) : new HashSet<String>();
+			enemy.remove(fac.getFactionName());
+			relations.put((byte) 3, enemy);
+		}
 	}
 
 	@Override
@@ -255,6 +274,18 @@ public class FactionObject implements Serializable {
 		for (Player p : this.getOnlinePlayers()) {
 			p.sendMessage(string);
 		}
+	}
+
+	public Relationship getRelationshipWith(FactionObject fac2) {
+		if(this.getAllies().contains(fac2)) {
+			return Relationship.ALLY;
+		}else if(this.getTruces().contains(fac2)) {
+			return Relationship.TRUCE;
+		}else if(this.getEnemies().contains(fac2)) {
+			return Relationship.ENEMY;
+		}
+
+		return Relationship.NEUTRAL;
 	}
 
 }

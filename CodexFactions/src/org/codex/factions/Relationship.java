@@ -32,4 +32,18 @@ public enum Relationship {
 		}
 		throw new NullPointerException();
 	}
+
+	public boolean isFriendly() {
+		switch(this) {
+		case ALLY:
+			return true;
+		case TRUCE:
+			return true;
+		case NEUTRAL:
+			return false;
+		case ENEMY:
+			return false;
+		}
+		return false;
+	}
 }

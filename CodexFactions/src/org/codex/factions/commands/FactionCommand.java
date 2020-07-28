@@ -55,7 +55,7 @@ public class FactionCommand implements CommandExecutor {
 			case "coleader":
 				return new Ranker(Rank.COLEADER, null).onCommand(sender, args);
 			case "leader":
-				break;
+				return new Ranker(Rank.LEADER, null).onCommand(sender, args);
 			case "help":
 				break;
 			case "tag":

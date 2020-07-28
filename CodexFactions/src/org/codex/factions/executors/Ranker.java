@@ -38,7 +38,7 @@ public class Ranker implements Execute {
 					return false;
 					}
 				}
-				if(rankLevel < pfac.getRank().getLevel() && fac.getPlayers().contains(p2.getUniqueId())) {
+				if((rankLevel < pfac.getRank().getLevel() || pfac.getRank().equals(Rank.LEADER)) && fac.getPlayers().contains(p2.getUniqueId())) {
 					 FactionPlayer p2fac = FactionsMain.getPlayer(p2.getUniqueId());
 					 p2fac.setRank(rank);
 					 FactionsMain.Players.put(p2fac.getUUID(), p2fac);
