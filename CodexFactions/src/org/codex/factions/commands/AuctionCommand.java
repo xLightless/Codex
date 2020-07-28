@@ -1,8 +1,5 @@
 package org.codex.factions.commands;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -14,13 +11,17 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
+import org.codex.factions.AuctionMain;
 
 import net.md_5.bungee.api.ChatColor;
 
 public class AuctionCommand implements CommandExecutor, Listener {
 
-	private static Map<Integer, Inventory> invs = new HashMap<>();
+	//private static Map<Integer, Inventory> invs = new HashMap<>();
 
+	String invAuctionHouse = "Auction House";
+	String invAhSellName = ChatColor.WHITE + "Click a Inventory Item to Sell:";
+	
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
@@ -28,37 +29,39 @@ public class AuctionCommand implements CommandExecutor, Listener {
 			
 			Player player = (Player) sender;
 			
+			
+			
 			if (args.length == 0) {
 
-				Inventory i = invs.containsKey(1) ? invs.get(1) : Bukkit.createInventory(null, 54, "Auction House");
-				player.openInventory(i);
-				invs.put(1, i); // saves player modifications
-
+				AuctionMain.createMenu(player);
+				
 			}else {
 				switch (args[0]) {
 				
 					case "sell":
 						
 						if (args.length <= 1) {
-							sender.sendMessage("Enter an amount to make a listing!");
-						} 
-						if (args.length == 2) {
-							sender.sendMessage("Listing has been made!");
 							
-							
-							
-							// ah sell code here
-							
-							
+							Inventory ahSell = null;
+							AuctionMain.createMenu(ahSell, player);
 							
 						}
-						if (args.length > 2) {
-							sender.sendMessage("Enter a valid sell price!");
+						
+						if (args.length > 1) {
+							sender.sendMessage(ChatColor.AQUA + "Type /ah sell, click on the Item you wish to List!");
+							
 						}
 						break;
-					
+						
+					case "help":
+						sender.sendMessage(" ");
+						sender.sendMessage(ChatColor.AQUA + "/ah " + ChatColor.WHITE + "- Primary Command to view Auctions");
+						sender.sendMessage(ChatColor.AQUA + "/ah sell <Click Item> " + ChatColor.WHITE + "- Used to make a Listing");
+						sender.sendMessage(" ");
+						break;
+						
 					default:
-						sender.sendMessage("Type /ah for menu or /ah help for commands!");
+						sender.sendMessage(ChatColor.RED + "Type " + ChatColor.UNDERLINE + "/ah help" + ChatColor.RESET + ChatColor.RED + " for commands!");
 						
 				}
 				
@@ -67,11 +70,11 @@ public class AuctionCommand implements CommandExecutor, Listener {
 		} else if (!(sender instanceof Player)) {
 			sender.sendMessage("You cannot use this command in console!");
 		}else
-			sender.sendMessage("You do not have permission to use this command!");
+			sender.sendMessage(ChatColor.RED + "You do not have permission to use this command!");
 		return false;
 	}
 	
-	//Events below for AH and anvil renaming
+	//Events below for Auction Inventory and anvil renaming
 	
 	@EventHandler
 	public void onPlayerInventoryClick (InventoryClickEvent e) throws InterruptedException {
@@ -83,7 +86,6 @@ public class AuctionCommand implements CommandExecutor, Listener {
 		}
 		
 		if(e.getInventory().getType() != InventoryType.PLAYER && e.getInventory().getType() != InventoryType.ENDER_CHEST && e.getInventory().getSize() >= 54) {
-			Bukkit.broadcastMessage("click test");
 			e.setCancelled(true);
 		}
 		
@@ -92,6 +94,10 @@ public class AuctionCommand implements CommandExecutor, Listener {
 			player.sendMessage(ChatColor.RED + "Please refrain from using XP in anvils!");
 			player.sendMessage(ChatColor.RED + "Type " + ChatColor.UNDERLINE + ChatColor.ITALIC + "/anvil for a better experience.");
 			player.closeInventory();
+			e.setCancelled(true);
+		}
+		
+		if (e.getInventory().getName().equals(invAhSellName)) {
 			e.setCancelled(true);
 		}
 		
@@ -104,5 +110,5 @@ public class AuctionCommand implements CommandExecutor, Listener {
 			e2.setCancelled(true);
 		}
 		
-	}	
+	}
 }

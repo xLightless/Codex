@@ -21,7 +21,7 @@ public class RemoveHarvester implements CommandExecutor{
 		Energy.getYml().save();
 		arg0.sendMessage(ChatColor.BLUE + "You have removed the harvester with ID " + arg3[0]);
 			}catch(Exception e) {
-				arg0.sendMessage(ChatColor.RED + "That is not a vailid ID");
+				arg0.sendMessage(ChatColor.RED + "That is not a valid ID");
 			}
 		}
 		return false;
