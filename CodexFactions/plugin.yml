@@ -64,4 +64,6 @@ commands:
         description: Teleports you to random location.
   balance:
         aliases: [bal, checkbalance]
-        description: sends the player their balance.
+        description: Used to check a Players Balance.
+  block36:
+        description: Gives the Player a custom Raiding Block.

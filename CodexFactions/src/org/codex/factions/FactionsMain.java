@@ -286,6 +286,7 @@ public class FactionsMain extends JavaPlugin implements Listener {
 		getCommand("pay").setExecutor(new PayCommand());
 		getCommand("wild").setExecutor(new RandomTeleportCommand());
 		getCommand("balance").setExecutor(new BalanceCommand());
+		getCommand("block36").setExecutor(new CustomCannoningMain());
 	}
 
 	private void loadEvents() {
@@ -330,6 +331,7 @@ public class FactionsMain extends JavaPlugin implements Listener {
 		Bukkit.getServer().getPluginManager().registerEvents(new PacketMain(getServer()), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new ClaimManager(), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new AuctionCommand(), this);
+		Bukkit.getServer().getPluginManager().registerEvents(new CustomCannoningMain(), this);
 		
 	}
 
