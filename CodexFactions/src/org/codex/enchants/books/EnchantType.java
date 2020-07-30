@@ -54,7 +54,7 @@ public enum EnchantType {
 	
 	SAFE_GUARD(new SafeGuard(), "SAFE_GUARD", false),
 	
-	SAFE_WALK(new SafeWalk(), "SAFE_WALK", false);
+	SKY_WALKER(new SkyWalker(), "SKY_WALKER", false);
 
 	private Book b;
 	private String name;
@@ -83,7 +83,7 @@ public enum EnchantType {
 				new Rain(FactionsMain.getMain()), new Hardened(), new Armored(), new Tank(), new FrenzyBlocker(),
 				new Frenzy(), new Knight(), new LumberJack(), new Vampire(), new Gears(), new HealthBoost(),
 				new AdvancedFeatherFalling(), new ObsidianShield(), new Springs(), new Ferrite(), new CreeperArmor(),
-				new Pheonix(), new Harvest(), new Crit(), new SafeGuard(), new SafeWalk()};
+				new Pheonix(), new Harvest(), new Crit(), new SafeGuard(), new SkyWalker()};
 
 		return bArray;
 	}

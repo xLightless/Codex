@@ -2,8 +2,10 @@ package org.codex.enchants.books;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -19,7 +21,7 @@ import org.codex.factions.FactionsMain;
 
 import net.md_5.bungee.api.ChatColor;
 
-public class SafeWalk extends Book implements Listener{
+public class SkyWalker extends Book implements Listener{
 
 	private static List<String> lore = new ArrayList<>();
 	private static ItemStack is = new ItemStack(Material.BOOK);
@@ -27,9 +29,10 @@ public class SafeWalk extends Book implements Listener{
 	private static String c = BookType.LEGENDARY_BOOK.getChatColor();
 	private static ChatColor g = ChatColor.GRAY;
 	private static HashMap<Player, Integer> map = new HashMap<>();
+	private static Set<Block> blocks = new HashSet<>();
 	
-	public SafeWalk() {
-		super(is, im, lore, 0, BookType.LEGENDARY_BOOK, "Safe Walk", c + "Safe Walk", new ArrayList<>());
+	public SkyWalker() {
+		super(is, im, lore, 0, BookType.LEGENDARY_BOOK, "Sky Walker", c + "Sky Walker", new ArrayList<>());
 		List<String> lore = new ArrayList<>();
 		lore.add(g
 				+ "When walking over an edge not in warzone, a block will spawn underneath you for a certain amount of time.");
@@ -87,16 +90,19 @@ public class SafeWalk extends Book implements Listener{
 				byte data = (byte) (rand == 0 ? 3 : rand == 1 ? 9 : 11); 
 					b.setType(Material.STAINED_GLASS);
 					b.setData(data);
-				
-				Bukkit.getScheduler().scheduleSyncDelayedTask(FactionsMain.getMain(), new Runnable() {
+				Runnable r2 = new Runnable() {
 
 					@Override
 					public void run() {
 						b.setType(Material.AIR);
-						
+						SkyWalker.blocks.remove(b);
 					}
 					
-				}, 8 * level);
+				};
+				
+				blocks.add(b);
+				Bukkit.getScheduler().scheduleSyncDelayedTask(FactionsMain.getMain(), r2, 8 * level);
+				
 			}
 		
 		
@@ -106,7 +112,11 @@ public class SafeWalk extends Book implements Listener{
 		return loc1.getX() == loc2.getX() ? loc1.getZ() == loc2.getZ() ? true : false : false;
 	}
 	
-	
+	public static void clearActiveBlocks(){
+		for(Block b: blocks) {
+			b.setType(Material.AIR);
+		}
+	}
 	
 
 }

@@ -59,7 +59,7 @@ import org.codex.enchants.books.ObsidianShield;
 import org.codex.enchants.books.Pheonix;
 import org.codex.enchants.books.Rain;
 import org.codex.enchants.books.SafeGuard;
-import org.codex.enchants.books.SafeWalk;
+import org.codex.enchants.books.SkyWalker;
 import org.codex.enchants.books.Springs;
 import org.codex.enchants.books.Tank;
 import org.codex.enchants.books.Umbrella;
@@ -322,7 +322,7 @@ public class FactionsMain extends JavaPlugin implements Listener {
 		Bukkit.getServer().getPluginManager().registerEvents(new Harvest(), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new Crit(), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new SafeGuard(), this);
-		Bukkit.getServer().getPluginManager().registerEvents(new SafeWalk(), this);
+		Bukkit.getServer().getPluginManager().registerEvents(new SkyWalker(), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new FactionsListener(), this);
 		ChunkBusterMain cb = new ChunkBusterMain();
 		getServer().getPluginManager().registerEvents(cb, this);
@@ -333,6 +333,7 @@ public class FactionsMain extends JavaPlugin implements Listener {
 		Bukkit.getServer().getPluginManager().registerEvents(new PacketMain(getServer()), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new ClaimManager(), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new AuctionCommand(), this);
+		
 		
 	}
 
@@ -391,6 +392,7 @@ public class FactionsMain extends JavaPlugin implements Listener {
 		Bukkit.getScheduler().cancelTasks(this);
 		Energy.removeArmorStands();
 		FactionsMain.saveData();
+		SkyWalker.clearActiveBlocks();
 	}
 
 	public static FactionObject getFactionFromName(String facName) throws NullPointerException {

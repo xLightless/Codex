@@ -4,6 +4,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.codex.economy.executors.Give;
+import org.codex.economy.executors.Help;
 import org.codex.economy.executors.Set;
 import org.codex.economy.executors.Take;
 
@@ -25,15 +26,7 @@ public class EconomyCommand implements CommandExecutor{
 		case "history":
 			break;
 		case "help":
-			
-			arg0.sendMessage(" ");
-			arg0.sendMessage(ChatColor.AQUA + "/eco " + ChatColor.WHITE + "- Primary Command for Economy");
-			arg0.sendMessage(ChatColor.AQUA + "/eco <Give/Set/Take> " + ChatColor.WHITE + "- Make changes to a Players Balance");
-			arg0.sendMessage(ChatColor.AQUA + "/eco <History> " + ChatColor.WHITE + "- View Economy History of a Player");
-			arg0.sendMessage(ChatColor.AQUA + "/withdraw <Amount> " + ChatColor.WHITE + "- Withdraw your Balance as an Item");
-			arg0.sendMessage(" ");
-			
-			break;
+			return new Help().onCommand(arg0, arg3);
 		case "check":
 			break;
 		default :
