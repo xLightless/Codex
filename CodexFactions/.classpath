@@ -2,8 +2,6 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="C:/Users/reece/Desktop/Factions Development/Eclipse Plugins/CodexMain/Codex/jars/ExySpigotv1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/reece/Desktop/Factions Development/Eclipse Plugins/CodexMain/Codex/jars/ExySpigotV4.4.jar"/>
-	<classpathentry kind="lib" path="C:/Users/danie/Desktop/server/ExySpigotv1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/eddie/Downloads/ExySpigotv1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

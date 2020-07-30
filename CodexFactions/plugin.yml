@@ -67,3 +67,5 @@ commands:
         description: sends the player their balance.
   withdraw:
         description: withdraws a money note.
+  block36:
+        description: Gives the Player a custom Raiding Block.

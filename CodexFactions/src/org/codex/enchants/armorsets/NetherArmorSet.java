@@ -2,7 +2,9 @@ package org.codex.enchants.armorsets;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
@@ -26,6 +28,7 @@ public class NetherArmorSet extends ArmorSet implements Listener{
 	
 	protected static HashMap<Player, HashMap<ArmorType, Boolean>> a = new HashMap<>();
 	private static HashMap<Player, Integer> applied = new HashMap<>();	
+	private static Set<Player> fullSetApplied = new HashSet<>();
 	
 	public HashMap<Player, HashMap<ArmorType, Boolean>> getApplyMap() {
 		return a;
@@ -111,7 +114,18 @@ public class NetherArmorSet extends ArmorSet implements Listener{
 	
 	@EventHandler
 	public void onArmorChange(ArmorSetChangeEvent e) {
-		if(e.getAmountApplied() == 4 && e.getSet().equals(ArmorSets.NETHER_ARMOR_SET))e.getPlayer().sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "You have equiped the netheranian armor set");
+		Player p = e.getPlayer();
+		if(e.getAmountApplied() == 4 && e.getSet().equals(ArmorSets.NETHER_ARMOR_SET)) {
+			p.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "You have equiped the netheranian armor set");
+			p.sendMessage(super.plus + ChatColor.RED + "Fire Damage heals you");
+			p.sendMessage(super.plus + ChatColor.RED + "Nether Gods Passive Effect");
+			p.sendMessage(super.plus + ChatColor.RED + "Lava Walker I");
+			p.sendMessage(super.plus + ChatColor.RED + "30% PvE damage");
+			fullSetApplied.add(p);
+		}else if(fullSetApplied.contains(p) && e.getAmountApplied() == 3) {
+			p.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "You have unequiped the netheranian armor set");
+			fullSetApplied.remove(p);
+		}
 	}
 	
 

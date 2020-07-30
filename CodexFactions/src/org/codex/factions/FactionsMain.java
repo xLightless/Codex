@@ -287,7 +287,7 @@ public class FactionsMain extends JavaPlugin implements Listener {
 		getCommand("pay").setExecutor(new PayCommand());
 		getCommand("wild").setExecutor(new RandomTeleportCommand());
 		getCommand("balance").setExecutor(new BalanceCommand());
-		getCommand("withdraw").setExecutor(new WithdrawCommand());
+		getCommand("block36").setExecutor(new CustomCannoningMain());
 	}
 
 	private void loadEvents() {
