@@ -1,4 +1,4 @@
-package org.codex.factions;
+ package org.codex.factions;
 
 import java.io.File;
 import java.io.FileInputStream;

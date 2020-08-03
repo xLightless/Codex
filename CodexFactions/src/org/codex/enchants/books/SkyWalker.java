@@ -17,6 +17,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.codex.enchants.armorsets.NetherArmorSet;
 import org.codex.factions.FactionsMain;
 
 import net.md_5.bungee.api.ChatColor;
@@ -116,6 +117,7 @@ public class SkyWalker extends Book implements Listener{
 		for(Block b: blocks) {
 			b.setType(Material.AIR);
 		}
+		NetherArmorSet.clearActiveBlocks();
 	}
 	
 
