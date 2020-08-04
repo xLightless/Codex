@@ -56,10 +56,19 @@ public class Mapper implements Execute {
 				int row = (int) Math.floor(((double) i) / 10);
 				ClaimType t = claimList.get(i).getClaimType();
 				FactionObject fac2 = mappingList.get(i);
+				String s = t.getColor() == ChatColor.WHITE ? fac2.getRelationshipWith(fac).getColor() + finalMap.get(fac2)
+				: t.getColor() + finalMap.get(fac2);
 				message.put(row,
-						t.getColor() == ChatColor.WHITE ? fac2.getRelationshipWith(fac).getColor() + finalMap.get(fac2)
-								: t.getColor() + finalMap.get(fac2));
+						message.containsKey(row) ? message.get(row) + "   " + s : s);
 			}
+			p.sendMessage(ChatColor.AQUA + "----- Faction Map -----");
+			for(int r: message.keySet()) 
+				p.sendMessage(message.get(r));
+			
+			for(FactionObject obj: finalMap.keySet()) 
+				p.sendMessage(obj.getRelationshipWith(fac).getColor() + obj.getFactionName() + " is " + finalMap.get(obj));
+			
+			
 
 		}
 		return false;
