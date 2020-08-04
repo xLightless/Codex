@@ -315,5 +315,9 @@ public class FactionObject implements Serializable {
 	public int getPocketClaims() {
 		return pocketClaims;
 	}
+	
+	public Map<Byte, Set<String>> getRelations() {
+		return relations;
+	}
 
 }

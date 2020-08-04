@@ -38,6 +38,12 @@ public class Shipper implements Execute {
 				try {
 				FactionObject fac = facp.getFaction();
 				FactionObject fac2 = FactionsMain.getFactionFromName(args[1]);
+				if(fac.equals(fac2)) {
+					p.sendMessage(ChatColor.AQUA + "" + ChatColor.ITALIC + "To the one who loves themselves to the extent of forming a relation with themselves, Hell is next door.");
+					p.damage(1);
+					return true;
+				}
+				
 				if(confirm.containsKey(fac2.getFactionName()) ? confirm.get(fac2.getFactionName()).containsKey(fac.getFactionName()) ? true : false : false) {
 					confirm.remove(fac2.getFactionName());
 					fac.broadcast(ChatColor.AQUA + "You have become " + fac2.getFactionName() + "'s " + r.getTense());

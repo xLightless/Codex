@@ -93,8 +93,8 @@ import org.codex.factions.commands.RandomTeleportCommand;
 import org.codex.factions.commands.RemoveHarvester;
 import org.codex.factions.commands.RenameCommand;
 import org.codex.factions.commands.TestCommand;
-import org.codex.factions.commands.WithdrawCommand;
 import org.codex.factions.commands.WorldCommand;
+import org.codex.factions.executors.Unclaimer;
 import org.codex.obsidiandestroyer.TNTHandler;
 import org.codex.packetmanager.PacketMain;
 
@@ -333,6 +333,7 @@ public class FactionsMain extends JavaPlugin implements Listener {
 		Bukkit.getServer().getPluginManager().registerEvents(new PacketMain(getServer()), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new ClaimManager(), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new AuctionCommand(), this);
+		Bukkit.getServer().getPluginManager().registerEvents(new Unclaimer(), this);
 		
 		
 	}

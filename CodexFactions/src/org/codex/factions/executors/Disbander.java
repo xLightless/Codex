@@ -7,6 +7,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.codex.factions.FactionObject;
 import org.codex.factions.FactionsMain;
+import org.codex.factions.Relationship;
+import org.codex.factions.claims.Claim;
 
 import net.md_5.bungee.api.ChatColor;
 
@@ -37,10 +39,18 @@ public class Disbander implements Execute {
 		FactionsMain.Factions.remove(fac.getFactionName().toUpperCase());
 		Bukkit.broadcastMessage(
 				ChatColor.GRAY + fac.getFactionName() + " has been disbanded by " + Bukkit.getPlayer(uuid).getName());
-		for(long l :fac.getLand().keySet()) {
-			FactionsMain.ClaimedChunks.remove(l);
+		
+		for(Claim c : fac.getClaimedLand()) {
+			fac.removeClaim(c);
 		}
-		fac.getLand().clear();
+
+		for(int i: fac.getRelations().keySet()) {
+			for(String facName: fac.getRelations().get(i)) {
+				FactionObject fac2 = FactionsMain.getFactionFromName(facName);
+				fac2.addRelationship(fac, Relationship.NEUTRAL);
+				fac.addRelationship(fac2, Relationship.NEUTRAL);
+			}
+		}
 	}
 
 }
