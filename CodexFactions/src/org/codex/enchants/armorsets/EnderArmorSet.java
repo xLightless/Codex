@@ -2,7 +2,9 @@ package org.codex.enchants.armorsets;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
@@ -10,12 +12,16 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerItemDamageEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffectType;
 import org.codex.enchants.books.ArmorEquipEvent;
 import org.codex.enchants.books.ArmorType;
 import org.codex.enchants.books.ArmorUnequipEvent;
+import org.codex.enchants.books.Book;
+import org.codex.enchants.books.BookManager;
 import org.codex.factions.Vector2D;
 
 import net.md_5.bungee.api.ChatColor;
@@ -24,7 +30,8 @@ public class EnderArmorSet extends ArmorSet implements Listener{
 	
 	protected static HashMap<Player, HashMap<ArmorType, Boolean>> a = new HashMap<>();
 	private static HashMap<Player, Integer> applied = new HashMap<>();	
-	 
+	private static Set<Player> fullSetApplied = new HashSet<>();
+	
 	public EnderArmorSet() {
 		this.setDefensePoints(50);
 		this.setArmor_value(6);
@@ -79,7 +86,11 @@ public class EnderArmorSet extends ArmorSet implements Listener{
 		Vector2D<Boolean, HashMap<Player, HashMap<ArmorType, Boolean>>> b = super.getUnapplyMap(a, e, this);
 		a = b.getVectorTwo();
 		if(!applied.containsKey(e.getPlayer()))return;
-		if(b.getVectorOne())applied.put(e.getPlayer(), applied.get(e.getPlayer())-1);
+		if(b.getVectorOne()) {
+			applied.put(e.getPlayer(), applied.get(e.getPlayer())-1);
+			Bukkit.getPluginManager().callEvent(new ArmorSetChangeEvent(ArmorChangeType.UNAPPLY, e.getPlayer(),
+					ArmorSets.ENDER_ARMOR_SET, applied.get(e.getPlayer())));
+		}
 	}
 	
 	@EventHandler
@@ -114,8 +125,33 @@ public class EnderArmorSet extends ArmorSet implements Listener{
 
 	@EventHandler
 	public void onArmorChange(ArmorSetChangeEvent e) {
-		if(e.getAmountApplied() == 4 && e.getSet().equals(ArmorSets.ENDER_ARMOR_SET))e.getPlayer().sendMessage(ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "The ender set has been activated");
-		
+		Player p = e.getPlayer();
+		if(!e.getSet().equals(ArmorSets.ENDER_ARMOR_SET))return;
+		if (e.getAmountApplied() == 4) {
+			p.sendMessage(ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "You have equiped the ender armor set");
+			p.sendMessage(super.minus + ChatColor.LIGHT_PURPLE + " INCOMING 25% PvE Damage");
+			p.sendMessage(super.plus + ChatColor.LIGHT_PURPLE + " Passive Jump Boost 2");
+			p.sendMessage(super.plus + ChatColor.LIGHT_PURPLE + " 20% PvP Damage");
+			p.sendMessage(super.plus + ChatColor.LIGHT_PURPLE + " 2 Hearts");
+			p.sendMessage(super.minus + ChatColor.LIGHT_PURPLE + " Enderpearl Cooldown");
+			BookManager.unloadEnchants(p);
+			Book.addStackPotionEffect(PotionEffectType.HEALTH_BOOST, p, "1");
+			Book.addPotionEffect(PotionEffectType.JUMP, p, "2");
+			BookManager.loadEnchants(p);
+			fullSetApplied.add(p);
+		} else if (fullSetApplied.contains(p) && e.getAmountApplied() == 3) {
+			p.sendMessage(ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "You have unequiped the ender armor set");
+			Book.removePotionEffect(PotionEffectType.HEALTH_BOOST, p);
+			Book.removePotionEffect(PotionEffectType.JUMP, p);
+			super.reloadEffects(p);
+			fullSetApplied.remove(p);
+		}
+	}
+	
+	@EventHandler
+	public void onEntityDamage(EntityDamageByEntityEvent e) {
+		super.outPvPDamage(1.2, e, fullSetApplied);
+		super.inPvEDamage(0.25, e, fullSetApplied);
 	}
 	
 	

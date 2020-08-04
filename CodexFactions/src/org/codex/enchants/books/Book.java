@@ -1,5 +1,6 @@
 package org.codex.enchants.books;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -54,6 +55,19 @@ public abstract class Book implements Listener {
 		this.bookName = bookName;
 		this.appliedBookName = appliedBookName;
 		this.applicableItems = applicableItems;
+
+	}
+	
+	public Book(ItemStack is, ItemMeta im, String[] lore, int minArmorValue, BookType b, String bookName,
+			String appliedBookName, Material[] applicableItems) {
+		this.itemStack = is;
+		this.itemMeta = im;
+		this.lore = List.of(lore);
+		this.minArmorValue = minArmorValue;
+		this.bookType = b;
+		this.bookName = bookName;
+		this.appliedBookName = appliedBookName;
+		this.applicableItems = List.of(applicableItems);
 
 	}
 

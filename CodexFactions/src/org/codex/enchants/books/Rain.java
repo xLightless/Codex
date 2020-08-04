@@ -16,6 +16,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
+import org.codex.factions.FactionsMain;
 import org.codex.factions.Vector2D;
 
 import net.md_5.bungee.api.ChatColor;
@@ -121,6 +122,10 @@ public class Rain extends Book{
             	Rain.isRaining.put(p, false);
             }
         }, time * 20L);
+		try {
+			if(FactionsMain.getPlayerFaction(p.getUniqueId()).getRelationshipWith(FactionsMain.getPlayerFaction(o.getUniqueId())).isFriendly())return;
+		} catch (Throwable e1) {
+		}
 		for(int x = 0; x < time; x++) {
 	    scheduler.scheduleSyncDelayedTask(plugin, new Runnable() {
             @Override

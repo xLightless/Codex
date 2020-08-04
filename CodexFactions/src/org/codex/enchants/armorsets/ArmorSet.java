@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.player.PlayerItemDamageEvent;
@@ -21,8 +23,10 @@ import org.codex.enchants.books.ArmorEquipEvent;
 import org.codex.enchants.books.ArmorListener;
 import org.codex.enchants.books.ArmorType;
 import org.codex.enchants.books.ArmorUnequipEvent;
+import org.codex.enchants.books.BookManager;
 import org.codex.enchants.books.EquipMethod;
 import org.codex.enchants.books.Hardened;
+import org.codex.factions.FactionsMain;
 import org.codex.factions.Vector2D;
 
 import net.md_5.bungee.api.ChatColor;
@@ -513,5 +517,41 @@ public abstract class ArmorSet {
 			break;
 		}
 		return 50;
+	}
+	
+	protected void outPvEDamage(double damage, EntityDamageByEntityEvent e, Set<Player> fullSetApplied) {
+		if(e.getDamager() instanceof Player && fullSetApplied.contains(e.getDamager()) && !(e.getEntity() instanceof Player)) {
+			e.setDamage(e.getDamage() * damage);
+		}
+	}
+	
+	protected void outPvPDamage(double damage, EntityDamageByEntityEvent e, Set<Player> fullSetApplied) {
+		if(e.getDamager() instanceof Player && fullSetApplied.contains(e.getDamager()) && (e.getEntity() instanceof Player)) {
+			e.setDamage(e.getDamage() * damage);
+		}
+	}
+	
+	protected void inPvEDamage(double damage, EntityDamageByEntityEvent e, Set<Player> fullSetApplied) {
+		if(!(e.getDamager() instanceof Player) && fullSetApplied.contains(e.getEntity()) && (e.getEntity() instanceof Player)) {
+			e.setDamage(e.getDamage() * (1 - damage));
+		}
+	}
+	
+	protected void inPvPDamage(double damage, EntityDamageByEntityEvent e, Set<Player> fullSetApplied) {
+		if(e.getDamager() instanceof Player && fullSetApplied.contains(e.getEntity()) && (e.getEntity() instanceof Player)) {
+			e.setDamage(e.getDamage() * (1 - damage));
+		}
+	}
+	public void reloadEffects(Player p) {
+		BookManager.unloadEnchants(p);
+		Bukkit.getScheduler().scheduleSyncDelayedTask(FactionsMain.getMain(), new Runnable() {
+
+			@Override
+			public void run() {
+				BookManager.loadEnchants(p);
+			}
+			
+		}, 1);
+		
 	}
 }

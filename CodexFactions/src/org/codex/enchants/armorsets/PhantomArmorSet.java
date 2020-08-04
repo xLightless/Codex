@@ -130,19 +130,10 @@ public class PhantomArmorSet extends ArmorSet implements Listener {
 			BookManager.loadEnchants(p);
 			p.sendMessage(super.plus + ChatColor.YELLOW + "" + ChatColor.BOLD +  " Phantom Knight Ability");
 			PhantomArmorSet.fullSetApplied.add(p);
-		} else if (e.getAmountApplied() < 4 && e.getSet().equals(ArmorSets.PHANTOM_KNIGHT_ARMOR_SET)
+		} else if (e.getAmountApplied() == 3 && e.getSet().equals(ArmorSets.PHANTOM_KNIGHT_ARMOR_SET)
 				&& PhantomArmorSet.fullSetApplied.contains(p)) {
-			
 			Book.removePotionEffect(PotionEffectType.SPEED, p, "4");
-			BookManager.unloadEnchants(p);
-			Bukkit.getScheduler().scheduleSyncDelayedTask(FactionsMain.getMain(), new Runnable() {
-
-				@Override
-				public void run() {
-					BookManager.loadEnchants(p);
-				}
-				
-			}, 1);
+			super.reloadEffects(p);
 			
 			PhantomArmorSet.fullSetApplied.remove(p);
 		}
@@ -152,6 +143,8 @@ public class PhantomArmorSet extends ArmorSet implements Listener {
 	@EventHandler
 	public void onPlayerAttack(EntityDamageByEntityEvent e) {
 		if(!(e.getEntity() instanceof Player))return; 
+		super.outPvPDamage(1.2, e, fullSetApplied);
+		super.inPvPDamage(0.1, e, fullSetApplied);
 		if(PhantomArmorSet.fullSetApplied.contains((Player) e.getEntity())) {
 			e.setDamage(e.getDamage() * 0.9);
 				Player l = (Player) e.getEntity();
@@ -187,8 +180,5 @@ public class PhantomArmorSet extends ArmorSet implements Listener {
 					}
 				}
 			}
-		if(PhantomArmorSet.fullSetApplied.contains(e.getDamager())) {
-			e.setDamage(e.getDamage() * 1.2);
-		}
 	}
 }

@@ -292,6 +292,7 @@ public class FactionsMain extends JavaPlugin implements Listener {
 
 	private void loadEvents() {
 
+		Bukkit.getServer().getPluginManager().registerEvents(new FactionsListener(), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new Hardened(), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new EnchanterComm(this), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new ArmorListener(), this);
@@ -323,7 +324,6 @@ public class FactionsMain extends JavaPlugin implements Listener {
 		Bukkit.getServer().getPluginManager().registerEvents(new Crit(), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new SafeGuard(), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new SkyWalker(), this);
-		Bukkit.getServer().getPluginManager().registerEvents(new FactionsListener(), this);
 		ChunkBusterMain cb = new ChunkBusterMain();
 		getServer().getPluginManager().registerEvents(cb, this);
 
