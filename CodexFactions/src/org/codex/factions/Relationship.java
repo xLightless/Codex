@@ -3,7 +3,9 @@ package org.codex.factions;
 import org.bukkit.ChatColor;
 
 public enum Relationship {
-
+	
+	FACTION((byte) -1, "null", ChatColor.GREEN, true),
+	
 	ALLY((byte) 0, "allies", ChatColor.LIGHT_PURPLE, true), 
 	
 	TRUCE((byte) 1, "truces", ChatColor.BLUE, true),

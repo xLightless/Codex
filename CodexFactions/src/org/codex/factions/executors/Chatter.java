@@ -36,6 +36,12 @@ public class Chatter implements Execute, Listener {
 					case "a":
 						chat.put(p, Relationship.ALLY);
 						break;
+					case "f":
+						chat.put(p, Relationship.FACTION);
+						break;
+					case "faction":
+						chat.put(p, Relationship.FACTION);
+						break;
 					case "t":
 						chat.put(p, Relationship.TRUCE);
 						break;
