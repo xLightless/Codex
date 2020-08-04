@@ -5,6 +5,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.codex.factions.Rank;
 import org.codex.factions.Relationship;
+import org.codex.factions.executors.Chatter;
 import org.codex.factions.executors.Claimer;
 import org.codex.factions.executors.Creator;
 import org.codex.factions.executors.Disbander;
@@ -66,7 +67,7 @@ public class FactionCommand implements CommandExecutor {
 				break;
 			case "claim":
 				return new Claimer().onCommand(sender, args);
-			case "unclaim":  //Haven't made a unclaim command yet? - lightless
+			case "unclaim":  //Haven't made a unclaim command yet? - lightless...... Read the class and youll see why i waited so long
 				return new Unclaimer().onCommand(sender, args);
 			case "ally":
 				return new Shipper(Relationship.ALLY, true).onCommand(sender, args);
@@ -77,9 +78,9 @@ public class FactionCommand implements CommandExecutor {
 			case "enemy":
 				return new Shipper(Relationship.ENEMY, false).onCommand(sender, args);
 			case "c":
-				break;
+				return new Chatter().onCommand(sender, args);
 			case "chat":
-				break;
+				return new Chatter().onCommand(sender, args);
 			case "info":
 				return info.onCommand(sender, args);
 			case "who":

@@ -1,21 +1,27 @@
 package org.codex.factions;
 
+import org.bukkit.ChatColor;
+
 public enum Relationship {
 
-	ALLY((byte) 0, "allies"), 
+	ALLY((byte) 0, "allies", ChatColor.LIGHT_PURPLE, true), 
 	
-	TRUCE((byte) 1, "truces"),
+	TRUCE((byte) 1, "truces", ChatColor.BLUE, true),
 	
-	NEUTRAL((byte) 2, "neutral"),
+	NEUTRAL((byte) 2, "neutral", ChatColor.WHITE, false),
 	
-	ENEMY((byte) 3, "enemies");
+	ENEMY((byte) 3, "enemies", ChatColor.RED, false);
 	
 	private byte id;
 	private String tense;
+	private ChatColor color;
+	private boolean friendly;
 	
-	Relationship(byte id, String tense) {
+	Relationship(byte id, String tense, ChatColor color, boolean friendly) {
 		this.id = id;
 		this.tense = tense;
+		this.color = color;
+		this.friendly = friendly;
 	}
 	
 	public byte getID() {
@@ -34,16 +40,10 @@ public enum Relationship {
 	}
 
 	public boolean isFriendly() {
-		switch(this) {
-		case ALLY:
-			return true;
-		case TRUCE:
-			return true;
-		case NEUTRAL:
-			return false;
-		case ENEMY:
-			return false;
-		}
-		return false;
+		return friendly;
+	}
+
+	public ChatColor getColor() {
+		return color;
 	}
 }

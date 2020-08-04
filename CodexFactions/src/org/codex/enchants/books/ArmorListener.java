@@ -21,6 +21,7 @@ import org.bukkit.event.player.PlayerItemBreakEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.codex.enchants.armorsets.ArmorSet;
 
 public class ArmorListener implements Listener {
 
@@ -373,6 +374,7 @@ public class ArmorListener implements Listener {
 			}
 		} catch (NullPointerException e2) {
 		}
+		ArmorSet.loadSets(p);
 	}
 
 	@EventHandler

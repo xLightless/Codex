@@ -496,12 +496,55 @@ public abstract class ArmorSet {
 		}
 		
 	}
+	
+	public static void loadSets(Player p) {
+		ItemStack[] armorContents = {p.getInventory().getHelmet(), p.getInventory().getChestplate(), p.getInventory().getLeggings(), p.getInventory().getBoots()};
+		for(ItemStack is: armorContents) {
+			
+			for(ArmorSets as : ArmorSets.values()) {
+				
+				ArmorSet s = ArmorSets.getArmorSetFromSetType(as);
+				if(is != null) {
+				if(is.hasItemMeta()) { 
+				if(is.getItemMeta().hasLore()) {
+				for(String s1: is.getItemMeta().getLore()) {
+			
+					if(s1.contains(s.getUAID())) {
+						HashMap<Player, HashMap<ArmorType, Boolean>> map = s.getApplyMap();
+						HashMap<ArmorType, Boolean> map2 = map.get(p);
+						if(map2 == null) {
+							map2 = new HashMap<>();
+						}
+						map2.put(ArmorListener.getArmorType(is.getType()), true);
+						map.put(p, map2 );
+						s.setApplyMap(map);
+					}
+				}
+				
+				}
+			}
+			}
+			}
+			
+		}
+	}
+	
+	
 	public static void unloadSets() {
 		for(ArmorSets as: ArmorSets.values()) {
 			ArmorSet s = ArmorSets.getArmorSetFromSetType(as);
 			s.setApplyMap(new HashMap<Player, HashMap<ArmorType,Boolean>>());
 		}
 		
+	}
+	
+	public static void unloadSets(Player p) {
+		for(ArmorSets as: ArmorSets.values()) {
+			ArmorSet s = ArmorSets.getArmorSetFromSetType(as);
+			HashMap<Player, HashMap<ArmorType, Boolean>> map = s.getApplyMap() == null ? new HashMap<>() : s.getApplyMap();
+			map.remove(p);
+			s.setApplyMap(map);
+		}
 	}
 	public static int getMaxDiamondDurability(ArmorType armorType) {
 		switch(armorType) {

@@ -1,6 +1,5 @@
 package org.codex.enchants.books;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -57,7 +56,7 @@ public abstract class Book implements Listener {
 		this.applicableItems = applicableItems;
 
 	}
-	
+
 	public Book(ItemStack is, ItemMeta im, String[] lore, int minArmorValue, BookType b, String bookName,
 			String appliedBookName, Material[] applicableItems) {
 		this.itemStack = is;
@@ -378,11 +377,11 @@ public abstract class Book implements Listener {
 	public static void setPotionMap(HashMap<Player, HashMap<PotionEffectType, Vector2D<Integer, Integer>>> potionMap) {
 		Book.potionMap = potionMap;
 	}
-	
+
 	protected void forceRemoveEffect(PotionEffectType type, Player player) {
 		player.removePotionEffect(type);
 	}
-	
+
 	protected boolean random(double d, int j) {
 		return r.nextInt(j) <= d;
 	}

@@ -764,6 +764,7 @@ public class BookManager implements Listener {
 	public void onPlayerDisconnect(PlayerQuitEvent e) {
 		Player p = e.getPlayer();
 		unloadEnchants(p);
+		ArmorSet.unloadSets(p);
 	}
 
 	public static boolean checkWeapon(ItemStack is) {
