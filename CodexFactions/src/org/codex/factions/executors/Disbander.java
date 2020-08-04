@@ -44,7 +44,7 @@ public class Disbander implements Execute {
 			fac.removeClaim(c);
 		}
 
-		for(int i: fac.getRelations().keySet()) {
+		for(byte i: fac.getRelations().keySet()) {
 			for(String facName: fac.getRelations().get(i)) {
 				FactionObject fac2 = FactionsMain.getFactionFromName(facName);
 				fac2.addRelationship(fac, Relationship.NEUTRAL);

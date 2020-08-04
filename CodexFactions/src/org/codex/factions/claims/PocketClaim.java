@@ -8,7 +8,7 @@ public class PocketClaim implements Claim {
 	private Chunk c;
 
 	public PocketClaim() {
-
+		
 	}
 
 	public PocketClaim(Chunk c) {

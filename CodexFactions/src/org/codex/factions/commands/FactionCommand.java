@@ -15,7 +15,9 @@ import org.codex.factions.executors.Inviter;
 import org.codex.factions.executors.Joiner;
 import org.codex.factions.executors.Kicker;
 import org.codex.factions.executors.Leaver;
+import org.codex.factions.executors.Mapper;
 import org.codex.factions.executors.Ranker;
+import org.codex.factions.executors.Renamer;
 import org.codex.factions.executors.Shipper;
 import org.codex.factions.executors.Tagger;
 import org.codex.factions.executors.Unclaimer;
@@ -64,7 +66,7 @@ public class FactionCommand implements CommandExecutor {
 			case "tag":
 				return new Tagger().onCommand(sender, args);
 			case "rename":
-				break;
+				return new Renamer().onCommand(sender, args);
 			case "claim":
 				return new Claimer().onCommand(sender, args);
 			case "unclaim":  //Haven't made a unclaim command yet? - lightless...... Read the class and youll see why i waited so long
@@ -87,6 +89,8 @@ public class FactionCommand implements CommandExecutor {
 				return info.onCommand(sender, args);
 			case "f":
 				return info.onCommand(sender, args);
+			case "map":
+				return new Mapper().onCommand(sender, args);
 			default:
 				sender.sendMessage(ChatColor.RED + "That Command is not valid. Try /f help");
 				break;

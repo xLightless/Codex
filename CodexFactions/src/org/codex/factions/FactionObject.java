@@ -282,6 +282,7 @@ public class FactionObject implements Serializable {
 	}
 
 	public Relationship getRelationshipWith(FactionObject fac2) {
+		if(fac2 == null)return Relationship.NEUTRAL;
 		if(this.getAllies().contains(fac2)) {
 			return Relationship.ALLY;
 		}else if(this.getTruces().contains(fac2)) {
@@ -306,6 +307,10 @@ public class FactionObject implements Serializable {
 			break;
 		case ENEMY:
 			this.addEnemy(fac);
+			break;
+		case FACTION:
+			break;
+		default:
 			break;
 			
 		}

@@ -1,7 +1,6 @@
 package org.codex.packetmanager;
 
 import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
@@ -14,7 +13,6 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import net.minecraft.server.v1_8_R3.EntityPlayer;
 import net.minecraft.server.v1_8_R3.NetworkManager;
 import net.minecraft.server.v1_8_R3.Packet;
-import net.minecraft.server.v1_8_R3.PlayerConnection;
 
 public class PacketMain implements Listener {
 

@@ -8,7 +8,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -31,6 +30,7 @@ public class AuctionMain extends AuctionCommand {
 	public static void createMenu (Player player) {
 
 		int inventory = itemList.size() / 35;
+		@SuppressWarnings("unused")
 		int invOffset = itemList.size() % 35;
 		
 		Inventory ahMain = Bukkit.createInventory(null, 54, invAuctionHouse);	

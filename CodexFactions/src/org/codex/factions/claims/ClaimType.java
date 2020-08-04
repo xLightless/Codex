@@ -3,19 +3,29 @@ package org.codex.factions.claims;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Chunk;
 import org.codex.factions.FactionsMain;
 
 public enum ClaimType {
-	NORMAL(0, RegularClaim.class), SAFEZONE(1, SafezoneClaim.class), WARZONE(2, WarzoneClaim.class),
-	MONSTER(3, MonsterClaim.class), POCKET(4, PocketClaim.class);
+	NORMAL(0, RegularClaim.class, ChatColor.WHITE),
+	
+	SAFEZONE(1, SafezoneClaim.class, ChatColor.GREEN),
+	
+	WARZONE(2, WarzoneClaim.class, ChatColor.RED),
+	
+	MONSTER(3, MonsterClaim.class, ChatColor.DARK_PURPLE),
+	
+	POCKET(4, PocketClaim.class, ChatColor.YELLOW);
 
 	private int id;
 	private Class<? extends Claim> clazz;
-
-	ClaimType(int id, Class<? extends Claim> clazz) {
+	private ChatColor color;
+	
+	ClaimType(int id, Class<? extends Claim> clazz, ChatColor color) {
 		this.id = id;
 		this.clazz = clazz;
+		this.color = color;
 	}
 
 	public int getID() {
@@ -84,6 +94,10 @@ public enum ClaimType {
 		claims.add(FactionsMain.getClaim(x + 1, z - 1, w));
 		claims.add(FactionsMain.getClaim(x, z - 1, w));
 		return claims;
+	}
+
+	public ChatColor getColor() {
+		return color;
 	}
 
 }
