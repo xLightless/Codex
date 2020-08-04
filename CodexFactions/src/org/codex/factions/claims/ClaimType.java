@@ -25,7 +25,7 @@ public enum ClaimType {
 	public static Claim getClaim(int id, Chunk c) throws Throwable {
 		ClaimType ct = ClaimType.getClaimType(id);
 		Class<? extends Claim> c1 = ct.getClazz();
-		Claim c2 = c1.newInstance();
+		Claim c2 = 	(Claim) c1.getConstructors()[1].newInstance(c);
 		c2.setChunk(c);
 		return c2;
 
@@ -54,7 +54,7 @@ public enum ClaimType {
 		return true;
 	}
 
-	private static Set<ClaimType> getAdjacentClaimTypes(Claim c) {
+	public static Set<ClaimType> getAdjacentClaimTypes(Claim c) {
 		Set<ClaimType> claims = new HashSet<>();
 		int x = c.getChunk().getX();
 		int z = c.getChunk().getZ();
@@ -67,6 +67,22 @@ public enum ClaimType {
 		claims.add(FactionsMain.getClaim(x - 1, z + 1, w).getClaimType());
 		claims.add(FactionsMain.getClaim(x + 1, z - 1, w).getClaimType());
 		claims.add(FactionsMain.getClaim(x, z - 1, w).getClaimType());
+		return claims;
+	}
+	
+	public static Set<Claim> getAdjacentClaims(Claim c) {
+		Set<Claim> claims = new HashSet<>();
+		int x = c.getChunk().getX();
+		int z = c.getChunk().getZ();
+		String w = c.getChunk().getWorld().getName();
+		claims.add(FactionsMain.getClaim(x + 1, z, w));
+		claims.add(FactionsMain.getClaim(x + 1, z + 1, w));
+		claims.add(FactionsMain.getClaim(x, z + 1, w));
+		claims.add(FactionsMain.getClaim(x - 1, z - 1, w));
+		claims.add(FactionsMain.getClaim(x - 1, z, w));
+		claims.add(FactionsMain.getClaim(x - 1, z + 1, w));
+		claims.add(FactionsMain.getClaim(x + 1, z - 1, w));
+		claims.add(FactionsMain.getClaim(x, z - 1, w));
 		return claims;
 	}
 

@@ -42,7 +42,7 @@ public class Claimer implements Execute {
 									+ "Your claim does not follow the Claiming Regulations. Please type /f help claiming to find out where you went wrong.");
 					} else if (fac.getClaimedLand().size() != 0)
 						fac.addClaim(new RegularClaim(c));
-					else
+					else 
 						fac.addClaim(new PocketClaim(c));
 
 					fac.broadcast(ChatColor.AQUA + p.getName() + " has claimed land at " + c.getX() + ", " + c.getZ());

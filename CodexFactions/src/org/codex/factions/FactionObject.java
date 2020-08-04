@@ -25,6 +25,7 @@ public class FactionObject implements Serializable {
 	private Map<Byte, Set<String>> relations = new HashMap<>();
 	private Map<Long, Vector2D<Integer, String>> claimedLand = new HashMap<>();
 	private double value = 0D;
+	private int pocketClaims = 0;
 
 	public Set<UUID> getPlayers() {
 		return Players;
@@ -200,7 +201,7 @@ public class FactionObject implements Serializable {
 
 	public void addClaim(Claim c) {
 		Chunk a = c.getChunk();
-		
+		if(c.getClaimType().equals(ClaimType.POCKET))this.pocketClaims++;
 		Long l = FactionsMain.chunkCoordsToLong(a.getX(), a.getZ());
 		HashMap<String, String> map = FactionsMain.ClaimedChunks.containsKey(l) ? FactionsMain.ClaimedChunks.get(l) : new HashMap<>();
 		map.put(a.getWorld().getName(), this.getFactionName());
@@ -211,6 +212,7 @@ public class FactionObject implements Serializable {
 	}
 
 	public void removeClaim(Claim c) {
+		if(c.getClaimType().equals(ClaimType.POCKET))this.pocketClaims--;
 		Chunk a = c.getChunk();
 		Long l = FactionsMain.chunkCoordsToLong(a.getX(), a.getZ());
 		FactionsMain.ClaimedChunks.remove(l);
@@ -308,6 +310,10 @@ public class FactionObject implements Serializable {
 			
 		}
 		
+	}
+
+	public int getPocketClaims() {
+		return pocketClaims;
 	}
 
 }

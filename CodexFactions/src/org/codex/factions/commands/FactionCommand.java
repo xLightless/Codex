@@ -17,6 +17,7 @@ import org.codex.factions.executors.Leaver;
 import org.codex.factions.executors.Ranker;
 import org.codex.factions.executors.Shipper;
 import org.codex.factions.executors.Tagger;
+import org.codex.factions.executors.Unclaimer;
 
 import net.md_5.bungee.api.ChatColor;
 
@@ -66,7 +67,7 @@ public class FactionCommand implements CommandExecutor {
 			case "claim":
 				return new Claimer().onCommand(sender, args);
 			case "unclaim":  //Haven't made a unclaim command yet? - lightless
-				break;
+				return new Unclaimer().onCommand(sender, args);
 			case "ally":
 				return new Shipper(Relationship.ALLY, true).onCommand(sender, args);
 			case "truce":
