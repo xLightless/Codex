@@ -84,9 +84,18 @@ public class Mapper implements Execute {
 		List<String> list = List.of(chars);
 		list.remove(0);
 		list.add(returnable);
-		chars = (String[]) list.toArray();
+		chars = this.toArray(list); 
+		
 
 		return new Vector2D<>(returnable, chars);
+	}
+
+	private String[] toArray(List<String> list) {
+		String[] newlist = new String[list.size()];
+		for(int i = 0; i < list.size(); i++) {
+			newlist[i] = list.get(i);
+		}
+		return newlist;
 	}
 
 	private List<FactionObject> getFormattedList(Chunk chunk) {
