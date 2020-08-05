@@ -14,7 +14,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import net.md_5.bungee.api.ChatColor;
 
-public class Harvest extends Book implements Listener{
+public class Harvest extends Book implements Listener {
 
 	protected static List<String> lore = new ArrayList<>();
 	protected static ItemStack is = new ItemStack(Material.BOOK);
@@ -24,21 +24,9 @@ public class Harvest extends Book implements Listener{
 	private static HashMap<Player, Integer> map = new HashMap<>();
 
 	public Harvest() {
-		super(is, im, lore, 0, BookType.MYSTICAL_BOOK, "Harvest", dr + "Harvest", new ArrayList<>());
-		List<String> lore = new ArrayList<>();
-		lore.add(gy + "When attacking a player, you have a chance to gain back a portion of the damage given.");
-		lore.add(ChatColor.GREEN + "Success Rate : " + super.getRandomSuccessChance());
-		lore.add(ChatColor.RED + "Destroy Rate : " + super.getRandomDestroyChance());
-		lore.add(ChatColor.BLACK + "" + super.getRandomNumberLore());
-		im.setLore(lore);
-		im.setDisplayName(dr + getBookName() + " " + super.getRandomLevel(10));
-		is.setItemMeta(im);
-		this.setItemMeta(im);
-		this.setItemStack(is);
-		this.setLore(lore);
-		List<Material> m = new ArrayList<>();
-		m.add(Material.DIAMOND_SWORD);
-		this.setApplicableItems(m);
+		super(is, im,
+				List.of(gy + "When attacking a player, you have a chance to gain back a portion of the damage given."),
+				0, BookType.MYSTICAL_BOOK, "Harvest", dr + "Harvest", List.of(Material.DIAMOND_SWORD), 10);
 	}
 
 	@Override
@@ -50,16 +38,16 @@ public class Harvest extends Book implements Listener{
 	protected void onDeactivation(Player p, String level, NonStackableItemType a) {
 		map.remove(p);
 	}
-	
+
 	@EventHandler
 	public void onDamage(EntityDamageByEntityEvent e) {
-		if(e.getDamager() instanceof Player) {
+		if (e.getDamager() instanceof Player) {
 			Player p = (Player) e.getDamager();
-			if(map.containsKey(p)) {
+			if (map.containsKey(p)) {
 				double l = map.get(p);
-				if(super.random(l/100D, 40)) {
+				if (super.random(l / 100D, 40)) {
 					double h = p.getHealth();
-					h += l/10 > 40 ? 40 : l/10;
+					h += l / 10 > 40 ? 40 : l / 10;
 					p.setHealth(h);
 				}
 			}

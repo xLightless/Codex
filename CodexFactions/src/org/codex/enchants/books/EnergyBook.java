@@ -14,8 +14,10 @@ import net.md_5.bungee.api.ChatColor;
 public abstract class EnergyBook extends Book {
 
 	public EnergyBook(ItemStack is, ItemMeta im, List<String> lore, int minArmorValue, BookType b, String bookName,
-			String appliedBookName, List<Material> applicableItems) {
-		super(is, im, lore, minArmorValue, b, bookName, appliedBookName, applicableItems);
+			String appliedBookName, List<Material> applicableItems, int maxLevel, int energyPerUse) {
+		super(is, im, lore, minArmorValue, b, bookName, appliedBookName, applicableItems, maxLevel);
+		this.energyPerUse = energyPerUse;
+		
 	}
 
 	private int energyPerUse = 0;

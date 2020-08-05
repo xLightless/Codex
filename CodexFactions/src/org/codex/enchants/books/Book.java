@@ -17,6 +17,8 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.codex.factions.Vector2D;
 
+import net.md_5.bungee.api.ChatColor;
+
 public abstract class Book implements Listener {
 
 	protected static final String COMMON = BookType.COMMON_BOOK.getChatColor();
@@ -45,10 +47,16 @@ public abstract class Book implements Listener {
 	// Integer>>> map = new HashMap<>();
 
 	public Book(ItemStack is, ItemMeta im, List<String> lore, int minArmorValue, BookType b, String bookName,
-			String appliedBookName, List<Material> applicableItems) {
+			String appliedBookName, List<Material> applicableItems, int maxLevel) {
 		this.itemStack = is;
 		this.itemMeta = im;
+		lore.add(ChatColor.GREEN + "Success Rate : " + this.getRandomSuccessChance());
+		lore.add(ChatColor.RED + "Destroy Rate : " + this.getRandomDestroyChance());
+		lore.add(ChatColor.BLACK + "" + this.getRandomNumberLore());
 		this.lore = lore;
+		this.itemMeta.setLore(lore);
+		this.itemMeta.setDisplayName(b.getChatColor() + this.getBookName() + " " + this.getRandomLevel(maxLevel));
+		this.itemStack.setItemMeta(itemMeta);
 		this.minArmorValue = minArmorValue;
 		this.bookType = b;
 		this.bookName = bookName;
@@ -57,18 +65,6 @@ public abstract class Book implements Listener {
 
 	}
 
-	public Book(ItemStack is, ItemMeta im, String[] lore, int minArmorValue, BookType b, String bookName,
-			String appliedBookName, Material[] applicableItems) {
-		this.itemStack = is;
-		this.itemMeta = im;
-		this.lore = List.of(lore);
-		this.minArmorValue = minArmorValue;
-		this.bookType = b;
-		this.bookName = bookName;
-		this.appliedBookName = appliedBookName;
-		this.applicableItems = List.of(applicableItems);
-
-	}
 
 	protected abstract void onActivation(Player p, String level, NonStackableItemType a);
 
@@ -142,7 +138,7 @@ public abstract class Book implements Listener {
 	public static Book createDefaultBook() {
 		ItemStack is = new ItemStack(Material.AIR);
 		return new Book(is, is.getItemMeta(), is.getItemMeta().getLore(), 0, BookType.COMMON_BOOK, "DEFAULT BOOK",
-				"DEFAULT BOOK", null) {
+				"DEFAULT BOOK", null, 0) {
 
 			@Override
 			protected void onActivation(Player p, String level, NonStackableItemType t) {

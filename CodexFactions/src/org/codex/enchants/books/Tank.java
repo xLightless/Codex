@@ -1,6 +1,5 @@
 package org.codex.enchants.books;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -19,28 +18,13 @@ public class Tank extends Book implements Listener {
 
 	private static ItemStack is = new ItemStack(Material.BOOK);
 	private static ItemMeta im = is.getItemMeta();
-	private static List<String> lore = new ArrayList<>();
 	private static final String c = Book.MAJESTIC;
 	private static final ChatColor g = ChatColor.GRAY;
 	private static final HashMap<Player, Vector2D<Boolean, Integer>> map = new HashMap<>();
 
 	public Tank() {
-		super(is, im, lore, 5, BookType.MAJESTIC_BOOK, "Tank ", c + "Tank", new ArrayList<>());
-		List<String> lore = new ArrayList<>();
-		lore.add(g + "Reduced all incoming AXE damage");
-		lore.add(ChatColor.GREEN + "Success Rate : " + super.getRandomSuccessChance());
-		lore.add(ChatColor.RED + "Destroy Rate : " + super.getRandomDestroyChance());
-		lore.add(ChatColor.BLACK + "" + super.getRandomNumberLore());
-		im.setLore(lore);
-		im.setDisplayName(c + getBookName() + super.getRandomLevel(4));
-		is.setItemMeta(im);
-		this.setItemStack(is);
-		this.setItemMeta(im);
-		this.setLore(lore);
-		List<Material> m = new ArrayList<>();
-		m.add(Material.DIAMOND_CHESTPLATE);
-		m.add(Material.IRON_CHESTPLATE);
-		this.setApplicableItems(m);
+		super(is, im, List.of(g + "Reduced all incoming AXE damage"), 5, BookType.MAJESTIC_BOOK, "Tank ", c + "Tank",
+				List.of(Material.DIAMOND_CHESTPLATE, Material.IRON_CHESTPLATE), 4);
 	}
 
 	@Override

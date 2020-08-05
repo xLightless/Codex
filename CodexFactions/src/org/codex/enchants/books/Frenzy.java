@@ -30,22 +30,8 @@ public class Frenzy extends Book implements Listener {
 	private static HashMap<Player, Integer> decay = new HashMap<>();
 
 	public Frenzy() {
-		super(is, im, lore, 5, BookType.MYSTICAL_BOOK, "Frenzy", dr + "Frenzy", new ArrayList<>());
-		List<String> lore = new ArrayList<>();
-		lore.add(gy + "When attacking a player, your outgoing damage gets mutliplied");
-		lore.add(ChatColor.GREEN + "Success Rate : " + super.getRandomSuccessChance());
-		lore.add(ChatColor.RED + "Destroy Rate : " + super.getRandomDestroyChance());
-		lore.add(ChatColor.BLACK + "" + super.getRandomNumberLore());
-		im.setLore(lore);
-		im.setDisplayName(dr + getBookName() + " " + super.getRandomLevel(6));
-		is.setItemMeta(im);
-		this.setItemMeta(im);
-		this.setItemStack(is);
-		this.setLore(lore);
-		List<Material> m = new ArrayList<>();
-		m.add(Material.DIAMOND_AXE);
-		m.add(Material.DIAMOND_SWORD);
-		this.setApplicableItems(m);
+		super(is, im, List.of(gy + "When attacking a player, your outgoing damage gets mutliplied"), 5,
+				BookType.MYSTICAL_BOOK, "Frenzy", dr + "Frenzy", List.of(Material.DIAMOND_AXE, Material.DIAMOND_SWORD), 6);
 	}
 
 	@Override
@@ -110,31 +96,30 @@ public class Frenzy extends Book implements Listener {
 			}
 		}
 	}
-	
+
 	private void startDecay(Player p) {
 		decay.put(p, Bukkit.getScheduler().scheduleSyncDelayedTask(FactionsMain.getMain(), new Runnable() {
 
 			@Override
 			public void run() {
 				stack.put(p, new Vector2D<Double, Integer>(1D, map.get(p).getVectorTwo()));
-				
+
 			}
-			
+
 		}, (long) (20 * 1.3)));
 	}
-	
+
 	private void cancelDecay(Player p) {
 		Bukkit.getScheduler().cancelTask(decay.get(p));
 	}
-	
+
 	private void decay(Player p) {
-		if(decay.containsKey(p)) {
+		if (decay.containsKey(p)) {
 			cancelDecay(p);
 			startDecay(p);
-		}else {
+		} else {
 			startDecay(p);
 		}
 	}
-	
 
 }

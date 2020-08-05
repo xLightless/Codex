@@ -15,9 +15,8 @@ import org.bukkit.potion.PotionEffectType;
 
 import net.md_5.bungee.api.ChatColor;
 
-public class Vampire extends Book implements Listener{
+public class Vampire extends Book implements Listener {
 
-	
 	protected static List<String> lore = new ArrayList<>();
 	protected static ItemStack is = new ItemStack(Material.BOOK);
 	protected static ItemMeta im = is.getItemMeta();
@@ -25,31 +24,17 @@ public class Vampire extends Book implements Listener{
 	private static final ChatColor gy = ChatColor.GRAY;
 	private static HashMap<Player, Boolean> a = new HashMap<>();
 	private static HashMap<Player, Integer> b = new HashMap<>();
-	
-	public Vampire() {
-		super(is, im, lore, 5, BookType.MAJESTIC_BOOK, "Vampire ", bl + "Vampire", new ArrayList<>());
-		List<String> lore = new ArrayList<>();
-		lore.add(gy + "When you wield a sword with this enchant, ");
-		lore.add(gy + "you will be imbued with the power of the Vampire.");
-		lore.add(gy + "When holding the item you will recieve a hunger for blood");
-		lore.add(gy + "and additional damage. Lucky for you when you attack your ");
-		lore.add(gy + "Hunger will be replenished");
-		lore.add(ChatColor.GREEN + "Success Rate : " + super.getRandomSuccessChance());
-		lore.add(ChatColor.RED + "Destroy Rate : " + super.getRandomDestroyChance());
-		lore.add(ChatColor.BLACK + "" + super.getRandomNumberLore());
-		im.setDisplayName(bl + getBookName() + super.getRandomLevel(3));
-		im.setLore(lore);
-		is.setItemMeta(im);
-		this.setItemMeta(im);
-		this.setItemStack(is);
-		this.setLore(lore);
-		List<Material> lm = new ArrayList<>();
-		lm.add(Material.DIAMOND_SWORD);
-		lm.add(Material.DIAMOND_AXE);
-		this.setApplicableItems(lm);
-	}
-	
 
+	public Vampire() {
+		super(is, im,
+				List.of(gy + "When you wield a sword with this enchant, ",
+						gy + "you will be imbued with the power of the Vampire.",
+						gy + "When holding the item you will recieve a hunger for blood",
+						gy + "and additional damage. Lucky for you when you attack your ",
+						gy + "Hunger will be replenished"),
+				5, BookType.MAJESTIC_BOOK, "Vampire ", bl + "Vampire", List.of(Material.DIAMOND_SWORD, Material.DIAMOND_AXE), 3);
+	
+	}
 
 	@Override
 	protected void onActivation(Player p, String level, NonStackableItemType t) {
@@ -66,15 +51,17 @@ public class Vampire extends Book implements Listener{
 		a.put(p, false);
 		b.remove(p);
 	}
-	
+
 	@EventHandler
 	public void onHit(EntityDamageByEntityEvent e) {
-		if(!(e.getDamager() instanceof Player))return;
+		if (!(e.getDamager() instanceof Player))
+			return;
 		Player p = (Player) e.getDamager();
-		if(!(a.containsKey(p) && b.containsKey(p)))return;
-		if(a.get(p)) {
-		e.setDamage(e.getDamage() * 1.05);
-		p.setFoodLevel(p.getFoodLevel() + 2);
+		if (!(a.containsKey(p) && b.containsKey(p)))
+			return;
+		if (a.get(p)) {
+			e.setDamage(e.getDamage() * 1.05);
+			p.setFoodLevel(p.getFoodLevel() + 2);
 		}
 	}
 

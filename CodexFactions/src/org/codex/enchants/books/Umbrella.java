@@ -28,23 +28,8 @@ public class Umbrella extends EnergyBook implements Listener{
 	
 	
 	public Umbrella() {
-		super(is, im, lore, 6, BookType.ENERGY_BOOK, "Umbrella", da + "Umbrella", new ArrayList<>());
-		this.setEnergyPerUse(500);
-		List<String> lore = new ArrayList<>();
-		lore.add(gy + "Blocks the rain enchant");
-		lore.add(g + "Energy Cost : " + this.getEnergyPerUse());
-		lore.add(ChatColor.GREEN + "Success Rate : " + super.getRandomSuccessChance());
-		lore.add(ChatColor.RED + "Destroy Rate : " + super.getRandomDestroyChance());
-		lore.add(ChatColor.BLACK + "" + super.getRandomNumberLore());
-		im.setLore(lore);
-		im.setDisplayName(da + getBookName() + super.getRandomLevel(3));
-		is.setItemMeta(getItemMeta());
-		this.setItemStack(is);
-		this.setItemMeta(im);
-		this.setLore(lore);
-		List<Material> lm = new ArrayList<>();
-		lm.add(Material.DIAMOND_HELMET);
-		this.setApplicableItems(lm);
+		super(is, im, List.of(gy + "Blocks the rain enchant",
+				g + "Energy Cost : " + 500), 6, BookType.ENERGY_BOOK, "Umbrella", da + "Umbrella", List.of(Material.DIAMOND_HELMET), 3, 500);
 	}
 	
 

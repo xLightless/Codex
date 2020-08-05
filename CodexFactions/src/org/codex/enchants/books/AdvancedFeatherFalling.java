@@ -26,27 +26,10 @@ public class AdvancedFeatherFalling extends Book implements Listener {
 	private static HashMap<Player, Integer> b = new HashMap<>();
 
 	public AdvancedFeatherFalling() {
-		super(is, im, lore, 4, BookType.RARE_BOOK, "Advanced Feather Falling", gr + "Advanced Feather Falling",
-				new ArrayList<>());
-		List<String> lore = new ArrayList<>();
-		lore.add(gy + "This book protects you from fall damage and gives you health back");
-		lore.add(gy + "For example, if you take 10 hearts and have");
-		lore.add(gy + "Advanced Feather falling 5 you get back 1 heart");
-		lore.add(ChatColor.GREEN + "Success Rate : " + super.getRandomSuccessChance());
-		lore.add(ChatColor.RED + "Destroy Rate : " + super.getRandomDestroyChance());
-		lore.add(ChatColor.BLACK + "" + super.getRandomNumberLore());
-		im.setLore(lore);
-		im.setDisplayName(gr + getBookName() + " " + super.getRandomLevel(5));
-		is.setItemMeta(im);
-		this.setLore(lore);
-		this.setItemMeta(im);
-		this.setItemStack(is);
-		List<Material> m = new ArrayList<>();
-		m.add(Material.DIAMOND_BOOTS);
-		m.add(Material.IRON_BOOTS);
-		m.add(Material.GOLD_BOOTS);
-		this.setApplicableItems(m);
-
+		super(is, im, List.of(gy + "This book protects you from fall damage and gives you health back", 
+				gy + "For example, if you take 10 hearts and have",
+				gy + "Advanced Feather falling 5 you get back 1 heart"), 4, BookType.RARE_BOOK, "Advanced Feather Falling", gr + "Advanced Feather Falling",
+				List.of(Material.DIAMOND_BOOTS, Material.IRON_BOOTS, Material.GOLD_BOOTS), 5);
 	}
 
 	@Override
