@@ -35,7 +35,7 @@ public enum ClaimType {
 	public static Claim getClaim(int id, Chunk c) throws Throwable {
 		ClaimType ct = ClaimType.getClaimType(id);
 		Class<? extends Claim> c1 = ct.getClazz();
-		Claim c2 = 	(Claim) c1.getConstructors()[1].newInstance(c);
+		Claim c2 = 	(Claim) c1.getDeclaredConstructor(Chunk.class).newInstance(c);
 		c2.setChunk(c);
 		return c2;
 

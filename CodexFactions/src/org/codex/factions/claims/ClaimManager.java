@@ -31,7 +31,9 @@ public class ClaimManager implements Listener {
 		}
 		if(FactionsMain.getChunkOwner(e.getTo().getChunk()) != null){
 			FactionObject fac = FactionsMain.getChunkOwner(e.getTo().getChunk());
-			ClaimManager.formClaim(fac.getLand(), e.getTo().getChunk()).onEnter(e.getPlayer());
+			ClaimManager.formClaim(fac.getLand(),
+					e.getTo().getChunk())
+			.onEnter(e.getPlayer());
 		}
 	}
 	
