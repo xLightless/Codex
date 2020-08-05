@@ -501,7 +501,7 @@ public class FactionsMain extends JavaPlugin implements Listener {
 
 	public static Claim getClaim(int x, int z, String w) {
 		FactionObject fac = FactionsMain
-				.getFactionFromName(FactionsMain.ClaimedChunks.get(FactionsMain.chunkCoordsToLong(x, z)).get(w));
+				.getFactionFromName(FactionsMain.ClaimedChunks.get(FactionsMain.chunkCoordsToLong(x, z)).get(w).toUpperCase());
 		long l = FactionsMain.chunkCoordsToLong(x, z);
 		return FactionsMain.getChunkFromLong(l, fac.getLand().get(l).getVectorOne(), w);
 	}
