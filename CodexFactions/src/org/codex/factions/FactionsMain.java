@@ -503,7 +503,7 @@ public class FactionsMain extends JavaPlugin implements Listener {
 		FactionObject fac = FactionsMain
 				.getFactionFromName(FactionsMain.ClaimedChunks.get(FactionsMain.chunkCoordsToLong(x, z)).get(w).toUpperCase());
 		long l = FactionsMain.chunkCoordsToLong(x, z);
-		return FactionsMain.getChunkFromLong(l, fac.getLand().get(l).getVectorOne(), w);
+		return FactionsMain.getChunkFromLong(l, fac.getLand().get(l).getVectorOne() == null ? 0 : fac.getLand().get(l).getVectorOne(), w);
 	}
 
 	private void registerGlow() {

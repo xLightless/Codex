@@ -89,7 +89,7 @@ public class Chatter implements Execute, Listener {
 			for(byte i = r.getID(); i >=0; i--) 
 			for(String string: fac.getRelations().get(i)) {
 				FactionObject fac2 = FactionsMain.getFactionFromName(string);
-				fac2.broadcast(r.getColor() + facp.getTag() + p.getDisplayName() + " : " + e.getMessage());
+				fac2.broadcast(r.getColor() + facp.getTag() + p.getName() + r.getColor() + " : " + e.getMessage());
 			}
 			
 		}
