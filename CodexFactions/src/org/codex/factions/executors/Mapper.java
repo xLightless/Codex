@@ -55,9 +55,10 @@ public class Mapper implements Execute {
 			Map<Integer, String> message = new HashMap<>();
 			for (int i = 0; i < claimList.size(); i++) {
 				int row = (int) Math.floor(((double) i) / 10);
-				ClaimType t = claimList.get(i).getClaimType();
+				ClaimType t = claimList.get(i) == null ? ClaimType.NORMAL : claimList.get(i).getClaimType();
 				FactionObject fac2 = mappingList.get(i);
-				String s = t.getColor() == ChatColor.WHITE ? fac2.getRelationshipWith(fac).getColor() + finalMap.get(fac2)
+				
+				String s = t.getColor() == ChatColor.WHITE ? (fac2 == null ? ChatColor.WHITE : fac2.getRelationshipWith(fac).getColor()) + finalMap.get(fac2)
 				: t.getColor() + finalMap.get(fac2);
 				message.put(row,
 						message.containsKey(row) ? message.get(row) + "   " + s : s);
@@ -66,8 +67,11 @@ public class Mapper implements Execute {
 			for(int r: message.keySet()) 
 				p.sendMessage(message.get(r));
 			
-			for(FactionObject obj: finalMap.keySet()) 
+			for(FactionObject obj: finalMap.keySet()) {
+				if(obj == null) continue;
 				p.sendMessage(obj.getRelationshipWith(fac).getColor() + obj.getFactionName() + " is " + finalMap.get(obj));
+			}
+				
 			
 			
 
@@ -104,7 +108,7 @@ public class Mapper implements Execute {
 		List<Claim> list = new ArrayList<>();
 		for (int x = chunk.getX() - 5; x <= chunk.getX() + 5; x++)
 			for (int z = chunk.getZ() - 5; z <= chunk.getZ() + 5; z++) {
-				Claim claim = FactionsMain.getClaim(x, z, w.getName());
+				Claim claim = FactionsMain.getNullableClaim(x, z, w.getName());
 				list.add(claim);
 			}
 
