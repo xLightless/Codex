@@ -506,6 +506,18 @@ public class FactionsMain extends JavaPlugin implements Listener {
 		return FactionsMain.getChunkFromLong(l, fac.getLand().get(l).getVectorOne() == null ? 0 : fac.getLand().get(l).getVectorOne(), w);
 	}
 
+	public static Claim getNullableClaim(int x, int z, String w) {
+		FactionObject fac;
+		try {
+		 fac = FactionsMain
+				.getFactionFromName(FactionsMain.ClaimedChunks.get(FactionsMain.chunkCoordsToLong(x, z)).get(w).toUpperCase());
+		}catch(NullPointerException e) {
+			return null;
+		}
+		long l = FactionsMain.chunkCoordsToLong(x, z);
+		return FactionsMain.getChunkFromLong(l, fac.getLand().get(l).getVectorOne() == null ? 0 : fac.getLand().get(l).getVectorOne(), w);
+	}
+	
 	private void registerGlow() {
 		try {
 			Field f = Enchantment.class.getDeclaredField("acceptingNew");
