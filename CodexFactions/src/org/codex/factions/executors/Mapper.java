@@ -13,6 +13,7 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.codex.enchants.books.Book;
 import org.codex.factions.FactionObject;
 import org.codex.factions.FactionsMain;
 import org.codex.factions.Vector2D;
@@ -81,7 +82,7 @@ public class Mapper implements Execute {
 	private Vector2D<String, String[]> getNextValue(String[] chars) {
 		String returnable = chars[0];
 
-		List<String> list = List.of(chars);
+		List<String> list = Book.of(chars);
 		list.remove(0);
 		list.add(returnable);
 		chars = this.toArray(list); 

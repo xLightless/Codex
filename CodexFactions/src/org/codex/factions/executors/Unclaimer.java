@@ -39,7 +39,7 @@ public class Unclaimer implements Execute, Listener {
 			p.sendMessage(ChatColor.RED + "You are not in a faction");
 			return true;
 		}
-		if (fac == null ? false : fac.equals(facp.getFaction())) {
+		if (fac == null ? false : !fac.equals(facp.getFaction())) {
 			p.sendMessage(ChatColor.RED + "You do not own this claim");
 			return true;
 		} else if (facp.getRank().getLevel() < 2) {

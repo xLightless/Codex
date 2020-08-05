@@ -27,7 +27,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.codex.chunkbusters.ChunkBusterMain;
+import org.codex.chunkbuster.ChunkBusterMain;
 import org.codex.economy.EconomyMain;
 import org.codex.enchants.armorsets.ArmorSet;
 import org.codex.enchants.armorsets.CustomProtectionEnchantment;
@@ -94,6 +94,7 @@ import org.codex.factions.commands.RemoveHarvester;
 import org.codex.factions.commands.RenameCommand;
 import org.codex.factions.commands.TestCommand;
 import org.codex.factions.commands.WorldCommand;
+import org.codex.factions.executors.Chatter;
 import org.codex.factions.executors.Unclaimer;
 import org.codex.obsidiandestroyer.TNTHandler;
 import org.codex.packetmanager.PacketMain;
@@ -334,6 +335,7 @@ public class FactionsMain extends JavaPlugin implements Listener {
 		Bukkit.getServer().getPluginManager().registerEvents(new ClaimManager(), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new AuctionCommand(), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new Unclaimer(), this);
+		Bukkit.getServer().getPluginManager().registerEvents(new Chatter(), this);
 		
 		
 	}
