@@ -21,9 +21,9 @@ public class HealthBoost extends Book implements Listener {
 	private static final ChatColor gy = ChatColor.GRAY;
 
 	public HealthBoost() {
-		super(is, im, List.of(gy + "This book has the ability to give you ", gy + "extra health based on your level "),
+		super(is, im, Book.of(gy + "This book has the ability to give you ", gy + "extra health based on your level "),
 				4, BookType.LEGENDARY_BOOK, "Health Boost", dr + "Health Boost",
-				List.of(Material.DIAMOND_CHESTPLATE, Material.IRON_CHESTPLATE), 5);
+				Book.of(Material.DIAMOND_CHESTPLATE, Material.IRON_CHESTPLATE), 5);
 	}
 
 	@Override

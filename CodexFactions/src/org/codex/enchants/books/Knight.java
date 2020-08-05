@@ -23,8 +23,8 @@ public class Knight extends Book implements Listener {
 	private static HashMap<Player, Vector2D<Boolean, Integer>> map = new HashMap<>();
 
 	public Knight() {
-		super(is, im, List.of(gy + "Increases all OUTGOING sword damage"), 4, BookType.MYSTICAL_BOOK, "Knight",
-				red + "Knight", List.of(Material.DIAMOND_SWORD), 3);
+		super(is, im, Book.of(gy + "Increases all OUTGOING sword damage"), 4, BookType.MYSTICAL_BOOK, "Knight",
+				red + "Knight", Book.of(Material.DIAMOND_SWORD), 3);
 	}
 
 	@Override

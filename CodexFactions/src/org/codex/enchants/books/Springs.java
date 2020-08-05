@@ -18,9 +18,9 @@ public class Springs extends Book {
 	private static final ChatColor gy = ChatColor.GRAY;
 
 	public Springs() {
-		super(is, im, List.of(gy + "When applied to boots, the player gets extra jump boost."), 4,
+		super(is, im, Book.of(gy + "When applied to boots, the player gets extra jump boost."), 4,
 				BookType.MAJESTIC_BOOK, "Springs ", bl + "Springs",
-				List.of(Material.DIAMOND_BOOTS, Material.IRON_BOOTS, Material.GOLD_BOOTS), 6);
+				Book.of(Material.DIAMOND_BOOTS, Material.IRON_BOOTS, Material.GOLD_BOOTS), 6);
 	}
 
 	@Override

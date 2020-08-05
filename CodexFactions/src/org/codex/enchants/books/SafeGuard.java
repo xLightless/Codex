@@ -23,8 +23,8 @@ public class SafeGuard extends Book implements Listener {
 	private static HashMap<Player, HashMap<ArmorType, Integer>> map = new HashMap<>();
 
 	public SafeGuard() {
-		super(is, im, List.of(g + "This enchant has the ability to completely block a hit. This enchant is stackable"),
-				0, BookType.LEGENDARY_BOOK, "Safe Guard", c + "Safe Guard", List.of(Material.DIAMOND_HELMET,
+		super(is, im, Book.of(g + "This enchant has the ability to completely block a hit. This enchant is stackable"),
+				0, BookType.LEGENDARY_BOOK, "Safe Guard", c + "Safe Guard", Book.of(Material.DIAMOND_HELMET,
 						Material.DIAMOND_CHESTPLATE, Material.DIAMOND_LEGGINGS, Material.DIAMOND_BOOTS),
 				3);
 	}

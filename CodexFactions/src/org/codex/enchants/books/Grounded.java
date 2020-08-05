@@ -19,8 +19,8 @@ public class Grounded extends Book {
 	private static HashMap<Player, Integer> map = new HashMap<>();
 
 	public Grounded() {
-		super(is, im, List.of(g + "This enchant gives reduced knockback."), 6, BookType.QUANTUM_BOOK,
-				"Grounded", c + "Grounded", List.of(Material.DIAMOND_BOOTS, Material.IRON_BOOTS), 3);
+		super(is, im, Book.of(g + "This enchant gives reduced knockback."), 6, BookType.QUANTUM_BOOK,
+				"Grounded", c + "Grounded", Book.of(Material.DIAMOND_BOOTS, Material.IRON_BOOTS), 3);
 		// TODO Auto-generated constructor stub
 	}
 

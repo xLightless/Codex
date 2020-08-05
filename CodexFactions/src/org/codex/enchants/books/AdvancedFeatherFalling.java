@@ -26,10 +26,10 @@ public class AdvancedFeatherFalling extends Book implements Listener {
 	private static HashMap<Player, Integer> b = new HashMap<>();
 
 	public AdvancedFeatherFalling() {
-		super(is, im, List.of(gy + "This book protects you from fall damage and gives you health back", 
+		super(is, im, Book.of(gy + "This book protects you from fall damage and gives you health back", 
 				gy + "For example, if you take 10 hearts and have",
 				gy + "Advanced Feather falling 5 you get back 1 heart"), 4, BookType.RARE_BOOK, "Advanced Feather Falling", gr + "Advanced Feather Falling",
-				List.of(Material.DIAMOND_BOOTS, Material.IRON_BOOTS, Material.GOLD_BOOTS), 5);
+				Book.of(Material.DIAMOND_BOOTS, Material.IRON_BOOTS, Material.GOLD_BOOTS), 5);
 	}
 
 	@Override

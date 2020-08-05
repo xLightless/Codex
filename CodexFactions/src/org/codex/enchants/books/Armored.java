@@ -22,8 +22,8 @@ public class Armored extends Book {
 	private static final HashMap<Player, Vector2D<Boolean, Integer>> map = new HashMap<>();
 
 	public Armored() {
-		super(is, im, List.of(g + "Reduced all incoming SWORD damage"), 4, BookType.MAJESTIC_BOOK, "Armored ",
-				c + "Armored", List.of(Material.DIAMOND_CHESTPLATE, Material.IRON_CHESTPLATE), 4);
+		super(is, im, Book.of(g + "Reduced all incoming SWORD damage"), 4, BookType.MAJESTIC_BOOK, "Armored ",
+				c + "Armored", Book.of(Material.DIAMOND_CHESTPLATE, Material.IRON_CHESTPLATE), 4);
 	}
 
 	@Override

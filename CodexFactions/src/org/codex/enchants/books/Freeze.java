@@ -24,8 +24,8 @@ public class Freeze extends Book {
 	private static HashMap<Player, Integer> map = new HashMap<>();
 
 	public Freeze() {
-		super(is, im, List.of(gy + "Adds a chance to freeze a player for a short amount of time"), 4,
-				BookType.MAJESTIC_BOOK, "Freeze ", red + "Freeze", List.of(Material.DIAMOND_SWORD, Material.DIAMOND_AXE), 4);
+		super(is, im, Book.of(gy + "Adds a chance to freeze a player for a short amount of time"), 4,
+				BookType.MAJESTIC_BOOK, "Freeze ", red + "Freeze", Book.of(Material.DIAMOND_SWORD, Material.DIAMOND_AXE), 4);
 
 	}
 

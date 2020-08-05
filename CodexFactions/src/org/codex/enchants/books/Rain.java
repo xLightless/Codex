@@ -34,9 +34,9 @@ public class Rain extends Book {
 
 	public Rain(JavaPlugin plugin) {
 		super(is, im,
-				List.of(gy + "Everytime you are attacked there is a chance that natures rain will",
+				Book.of(gy + "Everytime you are attacked there is a chance that natures rain will",
 						gy + "Start to fall down and deal massive damage to people nearby"),
-				4, BookType.QUANTUM_BOOK, "Rain ", c + "Rain", List.of(Material.DIAMOND_HELMET), 2);
+				4, BookType.QUANTUM_BOOK, "Rain ", c + "Rain", Book.of(Material.DIAMOND_HELMET), 2);
 
 	}
 

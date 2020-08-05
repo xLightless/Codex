@@ -1,5 +1,6 @@
 package org.codex.enchants.books;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -382,4 +383,10 @@ public abstract class Book implements Listener {
 		return r.nextInt(j) <= d;
 	}
 
+	protected static <E> List<E> of(E... obj){
+		List<E> list = new ArrayList<>();
+		for(E e : obj)list.add(e);
+		return list;
+	}
+	
 }

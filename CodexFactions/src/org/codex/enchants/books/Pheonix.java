@@ -33,9 +33,9 @@ public class Pheonix extends EnergyBook implements Listener {
 
 	public Pheonix() {
 		super(is, im,
-				List.of(gy + "If you die when this enchant is applied,",
+				Book.of(gy + "If you die when this enchant is applied,",
 						gy + "you have a chance to be revived and live", g + "Energy Cost : " + (20 * 100)),
-				6, BookType.ENERGY_BOOK, "Pheonix", da + "Pheonix", List.of(Material.DIAMOND_HELMET), 3, 20 * 100);
+				6, BookType.ENERGY_BOOK, "Pheonix", da + "Pheonix", Book.of(Material.DIAMOND_HELMET), 3, 20 * 100);
 	}
 
 	@Override

@@ -30,8 +30,8 @@ public class Hardened extends Book implements Listener {
 	}
 
 	public Hardened() {
-		super(is, im, List.of(gy + "Unbreaking on crack"), 4, BookType.LEGENDARY_BOOK, "Hardened", p + "Hardened",
-				List.of(Material.DIAMOND_HELMET, Material.DIAMOND_CHESTPLATE, Material.DIAMOND_LEGGINGS,
+		super(is, im, Book.of(gy + "Unbreaking on crack"), 4, BookType.LEGENDARY_BOOK, "Hardened", p + "Hardened",
+				Book.of(Material.DIAMOND_HELMET, Material.DIAMOND_CHESTPLATE, Material.DIAMOND_LEGGINGS,
 						Material.DIAMOND_BOOTS, Material.IRON_HELMET, Material.IRON_CHESTPLATE, Material.IRON_LEGGINGS,
 						Material.IRON_BOOTS),
 				3);

@@ -29,9 +29,9 @@ public class Ferrite extends Book implements Listener {
 
 	public Ferrite() {
 		super(is, im,
-				List.of(gy + "This book has the ability to double ", gy + "the output of a broken block.",
+				Book.of(gy + "This book has the ability to double ", gy + "the output of a broken block.",
 						gy + "Higher levels add the chance for", gy + "even more to be added"),
-				5, BookType.MAJESTIC_BOOK, "Ferrite", bl + "Ferrite", List.of(Material.DIAMOND_PICKAXE, Material.IRON_PICKAXE), 4);
+				5, BookType.MAJESTIC_BOOK, "Ferrite", bl + "Ferrite", Book.of(Material.DIAMOND_PICKAXE, Material.IRON_PICKAXE), 4);
 	}
 
 	@Override

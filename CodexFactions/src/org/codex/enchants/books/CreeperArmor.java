@@ -26,8 +26,8 @@ public class CreeperArmor extends Book implements Listener {
 	private static HashMap<Player, Integer> b = new HashMap<>();
 
 	public CreeperArmor() {
-		super(is, im, List.of(gy + "This book stops all TNT damage"), 6, BookType.MYSTICAL_BOOK, "Creeper Armor",
-				dr + "Creeper Armor", List.of(Material.DIAMOND_LEGGINGS), 5);
+		super(is, im, Book.of(gy + "This book stops all TNT damage"), 6, BookType.MYSTICAL_BOOK, "Creeper Armor",
+				dr + "Creeper Armor", Book.of(Material.DIAMOND_LEGGINGS), 5);
 	}
 
 	@Override

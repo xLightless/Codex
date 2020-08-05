@@ -27,12 +27,12 @@ public class Vampire extends Book implements Listener {
 
 	public Vampire() {
 		super(is, im,
-				List.of(gy + "When you wield a sword with this enchant, ",
+				Book.of(gy + "When you wield a sword with this enchant, ",
 						gy + "you will be imbued with the power of the Vampire.",
 						gy + "When holding the item you will recieve a hunger for blood",
 						gy + "and additional damage. Lucky for you when you attack your ",
 						gy + "Hunger will be replenished"),
-				5, BookType.MAJESTIC_BOOK, "Vampire ", bl + "Vampire", List.of(Material.DIAMOND_SWORD, Material.DIAMOND_AXE), 3);
+				5, BookType.MAJESTIC_BOOK, "Vampire ", bl + "Vampire", Book.of(Material.DIAMOND_SWORD, Material.DIAMOND_AXE), 3);
 	
 	}
 

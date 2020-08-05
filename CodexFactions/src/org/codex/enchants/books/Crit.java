@@ -24,9 +24,9 @@ public class Crit extends Book {
 
 	public Crit() {
 		super(is, im,
-				List.of(g + "When attacking a play there is a slight chance to push the player in the air.",
+				Book.of(g + "When attacking a play there is a slight chance to push the player in the air.",
 						g + "This allows you to get a large crit streak on the player"),
-				4, BookType.LEGENDARY_BOOK, "Crit", c + "Crit", List.of(Material.DIAMOND_SWORD), 4);
+				4, BookType.LEGENDARY_BOOK, "Crit", c + "Crit", Book.of(Material.DIAMOND_SWORD), 4);
 	}
 
 	@Override

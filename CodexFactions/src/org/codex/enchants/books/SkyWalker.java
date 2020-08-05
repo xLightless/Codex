@@ -32,9 +32,9 @@ public class SkyWalker extends Book implements Listener {
 
 	public SkyWalker() {
 		super(is, im,
-				List.of(g + "When walking over an edge not in warzone,",
+				Book.of(g + "When walking over an edge not in warzone,",
 						" a block will spawn underneath you for a certain amount of time."),
-				0, BookType.LEGENDARY_BOOK, "Sky Walker", c + "Sky Walker", List.of(Material.CHAINMAIL_BOOTS,
+				0, BookType.LEGENDARY_BOOK, "Sky Walker", c + "Sky Walker", Book.of(Material.CHAINMAIL_BOOTS,
 						Material.LEATHER_BOOTS, Material.GOLD_BOOTS, Material.IRON_BOOTS, Material.DIAMOND_BOOTS),
 				3);
 	}

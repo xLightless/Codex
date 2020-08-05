@@ -23,8 +23,8 @@ public class Tank extends Book implements Listener {
 	private static final HashMap<Player, Vector2D<Boolean, Integer>> map = new HashMap<>();
 
 	public Tank() {
-		super(is, im, List.of(g + "Reduced all incoming AXE damage"), 5, BookType.MAJESTIC_BOOK, "Tank ", c + "Tank",
-				List.of(Material.DIAMOND_CHESTPLATE, Material.IRON_CHESTPLATE), 4);
+		super(is, im, Book.of(g + "Reduced all incoming AXE damage"), 5, BookType.MAJESTIC_BOOK, "Tank ", c + "Tank",
+				Book.of(Material.DIAMOND_CHESTPLATE, Material.IRON_CHESTPLATE), 4);
 	}
 
 	@Override

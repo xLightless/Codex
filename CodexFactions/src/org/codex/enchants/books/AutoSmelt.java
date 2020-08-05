@@ -23,10 +23,10 @@ public class AutoSmelt extends Book implements Listener {
 
 	public AutoSmelt() {
 		super(is, im,
-				List.of(gy + "This book has the ability to automaticly ", gy + "smelt any ore when you break it. ",
+				Book.of(gy + "This book has the ability to automaticly ", gy + "smelt any ore when you break it. ",
 						gy + "Higher levels add the chance for", gy + "multiple ingots to drop"),
 				4, BookType.COMMON_BOOK, "AutoSmelt", gy + "AutoSmelt",
-				List.of(Material.DIAMOND_PICKAXE, Material.IRON_PICKAXE), 3);
+				Book.of(Material.DIAMOND_PICKAXE, Material.IRON_PICKAXE), 3);
 	}
 
 	@Override

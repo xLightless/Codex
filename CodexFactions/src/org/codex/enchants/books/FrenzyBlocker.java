@@ -24,9 +24,9 @@ public class FrenzyBlocker extends Book implements Listener {
 	private static final HashMap<Player, Vector2D<Boolean, Integer>> map = new HashMap<>();
 
 	public FrenzyBlocker() {
-		super(is, im, List.of(g + "This enchant has the ability to block the addition of a frenzy stack"), 5,
+		super(is, im, Book.of(g + "This enchant has the ability to block the addition of a frenzy stack"), 5,
 				BookType.LEGENDARY_BOOK, "Frenzy Blocker", c + "Frenzy Blocker",
-				List.of(Material.DIAMOND_HELMET, Material.IRON_HELMET, Material.GOLD_HELMET), 4);
+				Book.of(Material.DIAMOND_HELMET, Material.IRON_HELMET, Material.GOLD_HELMET), 4);
 	}
 
 	@Override

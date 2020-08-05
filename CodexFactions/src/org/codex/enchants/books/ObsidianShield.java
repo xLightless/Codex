@@ -20,8 +20,8 @@ public class ObsidianShield extends Book {
 	private static final ChatColor gy = ChatColor.GRAY;
 
 	public ObsidianShield() {
-		super(is, im, List.of(gy + "When applied, you will be immune to fire"), 6, BookType.RARE_BOOK,
-				"Obsidian Shield", dp + "Obsidian Shield", List.of(Material.DIAMOND_LEGGINGS, Material.IRON_LEGGINGS), 1);
+		super(is, im, Book.of(gy + "When applied, you will be immune to fire"), 6, BookType.RARE_BOOK,
+				"Obsidian Shield", dp + "Obsidian Shield", Book.of(Material.DIAMOND_LEGGINGS, Material.IRON_LEGGINGS), 1);
 	}
 
 	@Override

@@ -30,8 +30,8 @@ public class Frenzy extends Book implements Listener {
 	private static HashMap<Player, Integer> decay = new HashMap<>();
 
 	public Frenzy() {
-		super(is, im, List.of(gy + "When attacking a player, your outgoing damage gets mutliplied"), 5,
-				BookType.MYSTICAL_BOOK, "Frenzy", dr + "Frenzy", List.of(Material.DIAMOND_AXE, Material.DIAMOND_SWORD), 6);
+		super(is, im, Book.of(gy + "When attacking a player, your outgoing damage gets mutliplied"), 5,
+				BookType.MYSTICAL_BOOK, "Frenzy", dr + "Frenzy", Book.of(Material.DIAMOND_AXE, Material.DIAMOND_SWORD), 6);
 	}
 
 	@Override

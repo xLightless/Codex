@@ -20,8 +20,8 @@ public class Gears extends Book {
 	private static final ChatColor gy = ChatColor.GRAY;
 
 	public Gears() {
-		super(is, im, List.of(gy + "When applied to boots, the player gets extra speed."), 5, BookType.LEGENDARY_BOOK,
-				"Gears ", dp + "Gears", List.of(Material.DIAMOND_BOOTS, Material.IRON_BOOTS), 3);
+		super(is, im, Book.of(gy + "When applied to boots, the player gets extra speed."), 5, BookType.LEGENDARY_BOOK,
+				"Gears ", dp + "Gears", Book.of(Material.DIAMOND_BOOTS, Material.IRON_BOOTS), 3);
 	}
 
 	@Override

@@ -25,8 +25,8 @@ public class Harvest extends Book implements Listener {
 
 	public Harvest() {
 		super(is, im,
-				List.of(gy + "When attacking a player, you have a chance to gain back a portion of the damage given."),
-				0, BookType.MYSTICAL_BOOK, "Harvest", dr + "Harvest", List.of(Material.DIAMOND_SWORD), 10);
+				Book.of(gy + "When attacking a player, you have a chance to gain back a portion of the damage given."),
+				0, BookType.MYSTICAL_BOOK, "Harvest", dr + "Harvest", Book.of(Material.DIAMOND_SWORD), 10);
 	}
 
 	@Override

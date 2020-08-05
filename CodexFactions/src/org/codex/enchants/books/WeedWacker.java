@@ -25,9 +25,9 @@ public class WeedWacker extends Book implements Listener {
 	private static HashMap<Player, Vector2D<Boolean, Integer>> b = new HashMap<>();
 
 	public WeedWacker() {
-		super(is, im, List.of(gy + "Ability to block a thorns attack"), 3, BookType.RARE_BOOK, "Weed Wacker ",
+		super(is, im, Book.of(gy + "Ability to block a thorns attack"), 3, BookType.RARE_BOOK, "Weed Wacker ",
 				green + "Weed Wacker",
-				List.of(Material.DIAMOND_LEGGINGS, Material.IRON_LEGGINGS, Material.GOLD_LEGGINGS), 2);
+				Book.of(Material.DIAMOND_LEGGINGS, Material.IRON_LEGGINGS, Material.GOLD_LEGGINGS), 2);
 		List<String> lore = new ArrayList<>();
 		lore.add(gy + "Ability to block a thorns attack");
 		lore.add(ChatColor.GREEN + "Success Rate : " + super.getRandomSuccessChance());

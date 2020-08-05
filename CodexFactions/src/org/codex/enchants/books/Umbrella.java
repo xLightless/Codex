@@ -28,8 +28,8 @@ public class Umbrella extends EnergyBook implements Listener{
 	
 	
 	public Umbrella() {
-		super(is, im, List.of(gy + "Blocks the rain enchant",
-				g + "Energy Cost : " + 500), 6, BookType.ENERGY_BOOK, "Umbrella", da + "Umbrella", List.of(Material.DIAMOND_HELMET), 3, 500);
+		super(is, im, Book.of(gy + "Blocks the rain enchant",
+				g + "Energy Cost : " + 500), 6, BookType.ENERGY_BOOK, "Umbrella", da + "Umbrella", Book.of(Material.DIAMOND_HELMET), 3, 500);
 	}
 	
 

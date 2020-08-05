@@ -27,9 +27,9 @@ public class Fangs extends Book implements Listener {
 
 	public Fangs() {
 		super(is, im,
-				List.of(g + "This sword enchant will inflict players with the bleed effect.",
+				Book.of(g + "This sword enchant will inflict players with the bleed effect.",
 						g + "They will lose damage over time and remain combat tagged"),
-				4, BookType.LEGENDARY_BOOK, "Fangs", c + "Fangs", List.of(Material.DIAMOND_SWORD, Material.DIAMOND_AXE),
+				4, BookType.LEGENDARY_BOOK, "Fangs", c + "Fangs", Book.of(Material.DIAMOND_SWORD, Material.DIAMOND_AXE),
 				5);
 	}
 

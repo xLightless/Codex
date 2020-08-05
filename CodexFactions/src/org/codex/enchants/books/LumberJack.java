@@ -23,8 +23,8 @@ public class LumberJack extends Book implements Listener {
 	private static HashMap<Player, Vector2D<Boolean, Integer>> map = new HashMap<>();
 
 	public LumberJack() {
-		super(is, im, List.of(gy + "Increases all OUTGOING axe damage"), 6, BookType.LEGENDARY_BOOK, "Lumber Jack",
-				red + "Lumber Jack", List.of(Material.DIAMOND_AXE), 3);
+		super(is, im, Book.of(gy + "Increases all OUTGOING axe damage"), 6, BookType.LEGENDARY_BOOK, "Lumber Jack",
+				red + "Lumber Jack", Book.of(Material.DIAMOND_AXE), 3);
 	}
 
 	@Override
