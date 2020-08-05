@@ -26,7 +26,7 @@ public class Mapper implements Execute {
 	public boolean onCommand(CommandSender sender, String[] args) {
 		if (sender instanceof Player) {
 
-			String[] chars = { "/", "\\", "|", "%", "&", "$", "(", ")", ":", "?", "}", "{", "]", "[", "#", "@", "!",
+			String[] chars = { "/", "\\", "%", "|", "&", "$", "(", ")", ":", "?", "}", "{", "]", "[", "#", "@", "!",
 					"+", "a", "=", "-", "_", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p",
 					"q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J",
 					"K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", ">", "<", "√", "ç",
@@ -54,14 +54,14 @@ public class Mapper implements Execute {
 			}
 			Map<Integer, String> message = new HashMap<>();
 			for (int i = 0; i < claimList.size(); i++) {
-				int row = (int) Math.floor(((double) i) / 10);
+				int row = (int) Math.floor(((double) i) / 11);
 				ClaimType t = claimList.get(i) == null ? ClaimType.NORMAL : claimList.get(i).getClaimType();
 				FactionObject fac2 = mappingList.get(i);
 				
 				String s = t.getColor() == ChatColor.WHITE ? (fac2 == null ? ChatColor.WHITE : fac2.getRelationshipWith(fac).getColor()) + finalMap.get(fac2)
 				: t.getColor() + finalMap.get(fac2);
 				message.put(row,
-						message.containsKey(row) ? message.get(row) + "   " + s : s);
+						message.containsKey(row) ? message.get(row) + " " + s : s);
 			}
 			p.sendMessage(ChatColor.AQUA + "----- Faction Map -----");
 			for(int r: message.keySet()) 
