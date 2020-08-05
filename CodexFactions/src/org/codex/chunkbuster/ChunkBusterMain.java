@@ -1,4 +1,4 @@
-package org.codex.chunkbusters;
+package org.codex.chunkbuster;
 
 import java.util.ArrayList;
 import java.util.List;

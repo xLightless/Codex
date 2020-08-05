@@ -27,7 +27,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.codex.chunkbusters.ChunkBusterMain;
+import org.codex.chunkbuster.ChunkBusterMain;
 import org.codex.economy.EconomyMain;
 import org.codex.enchants.armorsets.ArmorSet;
 import org.codex.enchants.armorsets.CustomProtectionEnchantment;

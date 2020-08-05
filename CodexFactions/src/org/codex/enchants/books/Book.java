@@ -383,7 +383,7 @@ public abstract class Book implements Listener {
 		return r.nextInt(j) <= d;
 	}
 
-	protected static <E> List<E> of(E... obj){
+	public static <E> List<E> of(E... obj){
 		List<E> list = new ArrayList<>();
 		for(E e : obj)list.add(e);
 		return list;
