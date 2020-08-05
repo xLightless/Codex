@@ -56,7 +56,7 @@ public abstract class Book implements Listener {
 		lore.add(ChatColor.BLACK + "" + this.getRandomNumberLore());
 		this.lore = lore;
 		this.itemMeta.setLore(lore);
-		this.itemMeta.setDisplayName(b.getChatColor() + this.getBookName() + " " + this.getRandomLevel(maxLevel));
+		this.itemMeta.setDisplayName(b.getChatColor() + bookName + " " + this.getRandomLevel(maxLevel));
 		this.itemStack.setItemMeta(itemMeta);
 		this.minArmorValue = minArmorValue;
 		this.bookType = b;
