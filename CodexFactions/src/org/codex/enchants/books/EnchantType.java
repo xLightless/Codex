@@ -58,7 +58,9 @@ public enum EnchantType {
 	
 	GROUNDED(new Grounded(), "GROUNDED", false),
 	
-	BLOCK(new Block(), "BLOCK", false);
+	BLOCK(new Block(), "BLOCK", false),
+	
+	BENE(new Bene(), "BENE", false);
 
 	private Book b;
 	private String name;

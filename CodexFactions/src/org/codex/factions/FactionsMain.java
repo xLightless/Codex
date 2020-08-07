@@ -39,6 +39,7 @@ import org.codex.enchants.books.AdvancedFeatherFalling;
 import org.codex.enchants.books.ArmorListener;
 import org.codex.enchants.books.Armored;
 import org.codex.enchants.books.AutoSmelt;
+import org.codex.enchants.books.Bene;
 import org.codex.enchants.books.Block;
 import org.codex.enchants.books.BookManager;
 import org.codex.enchants.books.CreeperArmor;
@@ -329,6 +330,7 @@ public class FactionsMain extends JavaPlugin implements Listener {
 		Bukkit.getServer().getPluginManager().registerEvents(new SkyWalker(), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new Grounded(), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new Block(), this);
+		Bukkit.getServer().getPluginManager().registerEvents(new Bene(), this);
 		ChunkBusterMain cb = new ChunkBusterMain();
 		getServer().getPluginManager().registerEvents(cb, this);
 
