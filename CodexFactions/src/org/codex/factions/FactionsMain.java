@@ -98,6 +98,7 @@ import org.codex.factions.executors.Chatter;
 import org.codex.factions.executors.Unclaimer;
 import org.codex.obsidiandestroyer.TNTHandler;
 import org.codex.packetmanager.PacketMain;
+import org.codex.spectateteleportblocker.SpectateTeleportMain;
 
 public class FactionsMain extends JavaPlugin implements Listener {
 	public static Map<String, FactionObject> Factions = new HashMap<>();
@@ -336,6 +337,7 @@ public class FactionsMain extends JavaPlugin implements Listener {
 		Bukkit.getServer().getPluginManager().registerEvents(new AuctionCommand(), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new Unclaimer(), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new Chatter(), this);
+		Bukkit.getServer().getPluginManager().registerEvents(new SpectateTeleportMain(), this);
 		
 		
 	}
