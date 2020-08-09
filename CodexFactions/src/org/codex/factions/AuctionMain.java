@@ -95,5 +95,4 @@ public class AuctionMain extends AuctionCommand {
 		
 	}
 	
-	
 }
