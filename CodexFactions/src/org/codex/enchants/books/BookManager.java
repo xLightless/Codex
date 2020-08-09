@@ -136,8 +136,9 @@ public class BookManager implements Listener {
 				nl = new ArrayList<String>();
 			}
 			
-			for (EnchantType e2 : getAllEnchantTypes()) {
 
+			for (EnchantType e2 : getAllEnchantTypes()) {
+				if(EnchantType.getEnchantClass(e2).getItemStack().getType().equals(cu.getType()))continue;
 				if ((cu.getItemMeta().getDisplayName().contains(EnchantType.getEnchantClass(e2).getBookName())
 						|| cu.getItemMeta().getLore().equals(EnchantType.getEnchantClass(e2).getLore()))) {
 					Book b = EnchantType.getEnchantClass(e2);
