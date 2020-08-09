@@ -135,9 +135,7 @@ public class BookManager implements Listener {
 			if (nl == null) {
 				nl = new ArrayList<String>();
 			}
-			if (!(cu.getType() == Material.BOOK))
-				return;
-
+			
 			for (EnchantType e2 : getAllEnchantTypes()) {
 
 				if ((cu.getItemMeta().getDisplayName().contains(EnchantType.getEnchantClass(e2).getBookName())
