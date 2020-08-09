@@ -48,13 +48,12 @@ public class Grounded extends Book implements Listener {
 
 		Player p = (Player) e.getEntity();
 		double level = map.get(p);
-		
+		Vector pVec = p.getVelocity();
 		
 		Bukkit.getScheduler().scheduleAsyncDelayedTask(FactionsMain.getMain(), new Runnable() {
 
 			@Override
 			public void run() {
-				Vector pVec = p.getVelocity();
 				p.setVelocity(pVec.multiply(1D - (level / 10)));
 			}
 			
