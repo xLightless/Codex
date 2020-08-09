@@ -5,6 +5,7 @@ import java.util.HashMap;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -12,7 +13,7 @@ import org.bukkit.util.Vector;
 
 import net.md_5.bungee.api.ChatColor;
 
-public class Grounded extends Book {
+public class Grounded extends Book implements Listener {
 
 	private static ItemStack is = new ItemStack(Material.BOOK);
 	private static ItemMeta im = is.getItemMeta();
