@@ -44,10 +44,10 @@ public class Grounded extends Book implements Listener {
 			return;
 
 		Player p = (Player) e.getEntity();
-		int level = map.get(p);
+		double level = map.get(p);
 		Vector pVec = p.getVelocity();
-
-		p.setVelocity(pVec.multiply(1 - (level / 10)));
+		
+		p.setVelocity(pVec.multiply(1D - (level / 10)));
 		
 		return;
 
