@@ -2,6 +2,7 @@ package org.codex.enchants.books;
 
 import java.util.HashMap;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -10,6 +11,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.util.Vector;
+import org.codex.factions.FactionsMain;
 
 import net.md_5.bungee.api.ChatColor;
 
@@ -38,6 +40,7 @@ public class Grounded extends Book implements Listener {
 		map.remove(p);
 	}
 
+	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onPlayerKnockBack(EntityDamageEvent e) {
 		if (!map.containsKey(e.getEntity()))
@@ -45,9 +48,18 @@ public class Grounded extends Book implements Listener {
 
 		Player p = (Player) e.getEntity();
 		double level = map.get(p);
-		Vector pVec = p.getVelocity();
 		
-		p.setVelocity(pVec.multiply(1D - (level / 10)));
+		
+		Bukkit.getScheduler().scheduleAsyncDelayedTask(FactionsMain.getMain(), new Runnable() {
+
+			@Override
+			public void run() {
+				Vector pVec = p.getVelocity();
+				p.setVelocity(pVec.multiply(1D - (level / 10)));
+			}
+			
+		}, 1);
+		
 		
 		return;
 
