@@ -65,6 +65,11 @@ public class FactionPlayer implements Serializable{
 	public void setTag(String tag) {
 		this.tag = tag;
 	}
+
+	public boolean hasPermission(FactionObject fac, FactionPermissions blockBreak) {
+		//TODO: along with permissions
+		return false;
+	}
 	
 	
 }

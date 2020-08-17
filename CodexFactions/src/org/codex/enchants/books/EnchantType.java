@@ -3,7 +3,7 @@ package org.codex.enchants.books;
 import org.codex.factions.FactionsMain;
 
 public enum EnchantType {
-	
+
 	AUTOSMELT(new AutoSmelt(), "AUTOSMELT", false),
 
 	ADVANCED_FEATHER_FALLING(new AdvancedFeatherFalling(), "ADVANCED_FEATHER_FALLING", false),
@@ -49,18 +49,20 @@ public enum EnchantType {
 	FREEZE(new Freeze(), "FREEZE", false),
 
 	HARVEST(new Harvest(), "HARVEST", false),
-	
+
 	CRIT(new Crit(), "CRIT", false),
-	
+
 	SAFE_GUARD(new SafeGuard(), "SAFE_GUARD", false),
-	
+
 	SKY_WALKER(new SkyWalker(), "SKY_WALKER", false),
-	
+
 	GROUNDED(new Grounded(), "GROUNDED", false),
-	
+
 	BLOCK(new Block(), "BLOCK", false),
-	
-	BENE(new Bene(), "BENE", false);
+
+	BENE(new Bene(), "BENE", false),
+
+	REACH(new Reach(), "REACH", false);
 
 	private Book b;
 	private String name;
@@ -74,8 +76,7 @@ public enum EnchantType {
 	private Book b() {
 		return b;
 	}
-	
-	
+
 	private String n() {
 		return name;
 	}
@@ -89,7 +90,8 @@ public enum EnchantType {
 				new Rain(FactionsMain.getMain()), new Hardened(), new Armored(), new Tank(), new FrenzyBlocker(),
 				new Frenzy(), new Knight(), new LumberJack(), new Vampire(), new Gears(), new HealthBoost(),
 				new AdvancedFeatherFalling(), new ObsidianShield(), new Springs(), new Ferrite(), new CreeperArmor(),
-				new Pheonix(), new Harvest(), new Grounded(), new Block(), new Crit(), new SafeGuard(), new SkyWalker()};
+				new Pheonix(), new Harvest(), new Reach(), new Grounded(), new Block(), new Crit(), new SafeGuard(),
+				new SkyWalker() };
 
 		return bArray;
 	}
@@ -104,13 +106,13 @@ public enum EnchantType {
 		throw new NullPointerException();
 
 	}
-	
+
 	/**
-	 * checks if it supports multiple stacks 
-	 * Meant to stop dupe glitch
+	 * checks if it supports multiple stacks Meant to stop dupe glitch
+	 * 
 	 * @return
 	 */
-	
+
 	public boolean canStack() {
 		return s;
 	}

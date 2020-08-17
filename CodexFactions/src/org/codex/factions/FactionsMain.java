@@ -61,6 +61,7 @@ import org.codex.enchants.books.LumberJack;
 import org.codex.enchants.books.ObsidianShield;
 import org.codex.enchants.books.Pheonix;
 import org.codex.enchants.books.Rain;
+import org.codex.enchants.books.ReachModifier;
 import org.codex.enchants.books.SafeGuard;
 import org.codex.enchants.books.SkyWalker;
 import org.codex.enchants.books.Springs;
@@ -332,6 +333,7 @@ public class FactionsMain extends JavaPlugin implements Listener {
 		Bukkit.getServer().getPluginManager().registerEvents(new Grounded(), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new Block(), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new Bene(), this);
+		Bukkit.getServer().getPluginManager().registerEvents(new ReachModifier(), this);
 		ChunkBusterMain cb = new ChunkBusterMain();
 		getServer().getPluginManager().registerEvents(cb, this);
 

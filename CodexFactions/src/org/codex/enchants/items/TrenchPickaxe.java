@@ -6,6 +6,7 @@ import java.util.List;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -13,6 +14,10 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.codex.enchants.books.Book;
 import org.codex.enchants.books.BookManager;
+import org.codex.factions.FactionObject;
+import org.codex.factions.FactionPermissions;
+import org.codex.factions.FactionPlayer;
+import org.codex.factions.FactionsMain;
 import org.codex.factions.Glow;
 
 import net.md_5.bungee.api.ChatColor;
@@ -71,13 +76,13 @@ public class TrenchPickaxe extends CustomItem<BlockBreakEvent> {
 		try {
 			destroyRegion(e.getBlock().getLocation(),
 					BookManager.getNumberFromNumeral(p.getItemInHand().getItemMeta().getDisplayName().split(" ")[2]),
-					p.getWorld(), p.getLocation().getBlockY(), p.getItemInHand());
+					p.getWorld(), p.getLocation().getBlockY(), p.getItemInHand(), p);
 		} catch (Throwable e1) {
 			e1.printStackTrace();
 		}
 	}
 
-	public void destroyRegion(Location pos, int radius, World w, int playerY, ItemStack is) {
+	public void destroyRegion(Location pos, int radius, World w, int playerY, ItemStack is, Player p) {
 		int offset = playerY > pos.getBlockY() ? 0 : playerY - (playerY - radius);
 		for (int minx = pos.getBlockX() - radius; minx <= pos.getBlockX() + radius; minx++) {
 			for (int miny = playerY - radius + offset; miny <= playerY + radius + offset; miny++) {
@@ -85,9 +90,44 @@ public class TrenchPickaxe extends CustomItem<BlockBreakEvent> {
 					if (miny < 1) {
 						continue;
 					}
-					w.getBlockAt(minx, miny, minz).setType(Material.AIR, false);
+					Block b = w.getBlockAt(minx, miny, minz);
+					FactionObject fac = FactionsMain.getChunkOwner(b.getChunk());
+					FactionObject fac2;
+					FactionPlayer facp;
+					try {
+						fac2 = FactionsMain.getPlayerFaction(p.getUniqueId());
+						facp = FactionsMain.getPlayer(p.getUniqueId());
+					} catch (Throwable e) {
+						facp = null;
+						fac2 = null;
+					}
+					if(fac == null ? true : fac.equals(fac2) || facp == null ? false : facp.hasPermission(fac, FactionPermissions.BLOCK_BREAK) )continue;
+					for(ItemStack drop: b.getDrops()) {
+						if(isInvalid(drop))continue;
+						if(!p.getInventory().contains(Material.AIR)) {
+							w.dropItem(p.getLocation(), drop);
+							continue;
+						}
+						p.getInventory().addItem(drop);
+					}
+					
+					b.setType(Material.AIR, false);
+					
 				}
 			}
+		}
+	}
+
+	private boolean isInvalid(ItemStack drop) {
+		switch(drop.getType()) {
+		case BEDROCK:
+			return true;
+		case LAVA:
+			return true;
+		case WATER:
+			return true;
+		default:
+			return false;
 		}
 	}
 
