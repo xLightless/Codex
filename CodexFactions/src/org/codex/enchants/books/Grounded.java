@@ -40,7 +40,7 @@ public class Grounded extends Book implements Listener {
 		map.remove(p);
 	}
 
-	@SuppressWarnings("deprecation")
+
 	@EventHandler
 	public void onPlayerKnockBack(EntityDamageEvent e) {
 		if (!map.containsKey(e.getEntity()))
@@ -48,16 +48,8 @@ public class Grounded extends Book implements Listener {
 
 		Player p = (Player) e.getEntity();
 		double level = map.get(p);
-		Vector pVec = p.getVelocity();
 		
-		Bukkit.getScheduler().scheduleAsyncDelayedTask(FactionsMain.getMain(), new Runnable() {
-
-			@Override
-			public void run() {
-				p.setVelocity(pVec.multiply(1D - (level / 10)));
-			}
-			
-		}, 1);
+	
 		
 		
 		return;

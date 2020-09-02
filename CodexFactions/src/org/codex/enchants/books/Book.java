@@ -20,7 +20,7 @@ import org.codex.factions.Vector2D;
 
 import net.md_5.bungee.api.ChatColor;
 
-public abstract class Book implements Listener {
+public abstract class Book implements Listener{
 
 	protected static final String COMMON = BookType.COMMON_BOOK.getChatColor();
 	protected static final String RARE = BookType.RARE_BOOK.getChatColor();
@@ -383,6 +383,7 @@ public abstract class Book implements Listener {
 		return r.nextInt(j) <= d;
 	}
 
+	@SafeVarargs
 	public static <E> List<E> of(E... obj){
 		List<E> list = new ArrayList<>();
 		for(E e : obj)list.add(e);

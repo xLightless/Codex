@@ -116,11 +116,13 @@ public class FactionsMain extends JavaPlugin implements Listener {
 	 * 
 	 */
 	public static Map<Long, HashMap<String, String>> ClaimedChunks = new HashMap<>();
+	public static Map<Integer, ItemStack> auctionHouse = new HashMap<>();
 	private static Set<String> worlds = new HashSet<>();
 	private static File FactionsData;
 	private static File PlayersData;
 	private static File claimedData;
 	private static File worldData;
+	private static File auctionData;
 	private static FactionsMain main;
 	private static EconomyMain ecoMain;
 
@@ -130,7 +132,7 @@ public class FactionsMain extends JavaPlugin implements Listener {
 
 	@SuppressWarnings("unchecked")
 	private static void loadData() {
-
+		auctionHouse = (Map<Integer, ItemStack>) FactionsMain.loadData(auctionData) == null ?  new HashMap<>() : (Map<Integer, ItemStack>) FactionsMain.loadData(auctionData);
 		Factions = (Map<String, FactionObject>) FactionsMain.loadData(FactionsData) == null ? new HashMap<>() : (Map<String, FactionObject>) FactionsMain.loadData(FactionsData);
 		Players = (Map<UUID, FactionPlayer>) FactionsMain.loadData(PlayersData) == null ? new HashMap<>() : (Map<UUID, FactionPlayer>) FactionsMain.loadData(PlayersData);
 		ClaimedChunks = (Map<Long, HashMap<String, String>>) FactionsMain.loadData(claimedData) == null ? new HashMap<>() : (Map<Long, HashMap<String, String>>) FactionsMain.loadData(claimedData)  ;
@@ -161,6 +163,7 @@ public class FactionsMain extends JavaPlugin implements Listener {
 		FactionsMain.save(PlayersData, Players);
 		FactionsMain.save(claimedData, ClaimedChunks);
 		FactionsMain.save(worldData, worlds);
+		FactionsMain.save(auctionData, auctionHouse);
 		EconomyMain.saveMoney();
 	}
 
@@ -211,8 +214,8 @@ public class FactionsMain extends JavaPlugin implements Listener {
 		posx = posx << 32;
 		long result = posx | posz;
 		if(ClaimedChunks == null)return null;
-		if (ClaimedChunks.containsKey(result)) {
-			return Factions.get(ClaimedChunks.get(result).get(name).toUpperCase());
+		if (ClaimedChunks.containsKey(result) ? ClaimedChunks.get(result) == null ? false : true : false) {
+			return ClaimedChunks.get(result).get(name) == null ? null : Factions.get(ClaimedChunks.get(result).get(name).toUpperCase());
 		} else {
 			return null;
 		}
@@ -296,6 +299,8 @@ public class FactionsMain extends JavaPlugin implements Listener {
 		getCommand("block36").setExecutor(new CustomCannoningMain());
 	}
 
+	
+	
 	private void loadEvents() {
 
 		Bukkit.getServer().getPluginManager().registerEvents(new FactionsListener(), this);
@@ -512,21 +517,26 @@ public class FactionsMain extends JavaPlugin implements Listener {
 	}
 
 	public static Claim getClaim(int x, int z, String w) {
-		FactionObject fac = FactionsMain
-				.getFactionFromName(FactionsMain.ClaimedChunks.get(FactionsMain.chunkCoordsToLong(x, z)).get(w).toUpperCase());
 		long l = FactionsMain.chunkCoordsToLong(x, z);
-		return FactionsMain.getChunkFromLong(l, fac.getLand().get(l).getVectorOne() == null ? 0 : fac.getLand().get(l).getVectorOne(), w);
+		FactionObject fac = FactionsMain
+				.getFactionFromName(String.valueOf(FactionsMain.ClaimedChunks.get(l)
+						.get(w))
+						.toUpperCase());
+	
+		return FactionsMain.getChunkFromLong(l, 
+				fac.getLand().get(l).getVectorOne() == null ? 0 : fac.getLand().get(l).getVectorOne(), w);
 	}
 
 	public static Claim getNullableClaim(int x, int z, String w) {
+		long l = FactionsMain.chunkCoordsToLong(x, z);
 		FactionObject fac;
 		try {
 		 fac = FactionsMain
-				.getFactionFromName(FactionsMain.ClaimedChunks.get(FactionsMain.chunkCoordsToLong(x, z)).get(w).toUpperCase());
+				.getFactionFromName(FactionsMain.ClaimedChunks.get(l).get(w).toUpperCase());
 		}catch(NullPointerException e) {
 			return null;
 		}
-		long l = FactionsMain.chunkCoordsToLong(x, z);
+		
 		return FactionsMain.getChunkFromLong(l, fac.getLand().get(l).getVectorOne() == null ? 0 : fac.getLand().get(l).getVectorOne(), w);
 	}
 	
