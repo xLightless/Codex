@@ -76,6 +76,7 @@ import org.codex.enchants.energy.EnergyHarvester;
 import org.codex.enchants.items.RepairCrystal;
 import org.codex.enchants.items.TrenchPickaxe;
 import org.codex.enchants.leveling.Levels;
+import org.codex.factions.auctions.AuctionEvents;
 import org.codex.factions.claims.Claim;
 import org.codex.factions.claims.ClaimManager;
 import org.codex.factions.claims.ClaimType;

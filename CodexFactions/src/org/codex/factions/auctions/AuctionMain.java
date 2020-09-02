@@ -1,17 +1,11 @@
-package org.codex.factions;
+package org.codex.factions.auctions;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Listener;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 import net.md_5.bungee.api.ChatColor;
 
@@ -36,7 +30,7 @@ public class AuctionMain {
 		return inv;	
 	}
 
-	public void addItem (Player p, ItemStack is) {
+	public void addItem(Player p, ItemStack is) {
 		
 		Inventory ahInv = this.getFirstEmptyInventory(0);
 		ahInv.addItem(is);

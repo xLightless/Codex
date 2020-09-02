@@ -1,4 +1,4 @@
-package org.codex.factions;
+package org.codex.factions.auctions;
 
 import org.bukkit.event.Listener;
 
