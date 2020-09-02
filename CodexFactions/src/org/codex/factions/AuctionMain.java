@@ -83,15 +83,14 @@ public class AuctionMain extends AuctionCommand {
 	
 	@EventHandler
 	public void onButtonClick (InventoryClickEvent e) {
-
-		Inventory ahMain = null;
-		Player player = (Player) e.getClickedInventory();
 		
+		Player player = (Player) e.getClickedInventory() ;
+		Inventory ahMain = null;
+
 		if (player.getOpenInventory() == ahMain) {
-			
+			Bukkit.broadcastMessage(" ah event testerino");
 		}
 
 		
 	}
-	
 }

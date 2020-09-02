@@ -352,7 +352,6 @@ public class FactionsMain extends JavaPlugin implements Listener {
 		Bukkit.getServer().getPluginManager().registerEvents(new Chatter(), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new SpectateTeleportMain(), this);
 		
-		
 	}
 
 	private void loadConstructors() {
