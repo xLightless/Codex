@@ -342,7 +342,7 @@ public class FactionsMain extends JavaPlugin implements Listener {
 		Bukkit.getServer().getPluginManager().registerEvents(new PhantomArmorSet(), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new PacketMain(getServer()), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new ClaimManager(), this);
-		Bukkit.getServer().getPluginManager().registerEvents(new AuctionCommand(), this);
+		Bukkit.getServer().getPluginManager().registerEvents(new AuctionMain(), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new Unclaimer(), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new Chatter(), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new SpectateTeleportMain(), this);
