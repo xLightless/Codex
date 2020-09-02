@@ -69,3 +69,5 @@ commands:
         description: withdraws a money note.
   block36:
         description: Gives the Player a custom Raiding Block.
+  printer:
+        description: Lets the Player create instances of Blocks for Printing.
