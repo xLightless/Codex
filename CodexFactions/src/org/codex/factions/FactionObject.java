@@ -22,8 +22,8 @@ public class FactionObject implements Serializable {
 	private UUID Leader;
 	private Set<UUID> Players = new HashSet<>();
 	private Set<UUID> alts = new HashSet<>();
-	private Map<Byte, Set<String>> relations = new HashMap<>();
-	private Map<Long, Vector2D<Integer, String>> claimedLand = new HashMap<>();
+	private Map<Byte, Set<String>> relations;
+	private Map<Long, Vector2D<Integer, String>> claimedLand;
 	private double value = 0D;
 	private int pocketClaims = 0;
 
@@ -32,6 +32,8 @@ public class FactionObject implements Serializable {
 	}
 
 	public FactionObject(String name, UUID uUID) {
+		this.claimedLand = new HashMap<>();
+		this.relations = new HashMap<>();
 		this.setFactionName(name);
 		this.Leader = uUID;
 		Players.add(uUID);

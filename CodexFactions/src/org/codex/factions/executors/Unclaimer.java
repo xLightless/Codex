@@ -46,7 +46,7 @@ public class Unclaimer implements Execute, Listener {
 			p.sendMessage(ChatColor.RED + "You are not of high enough rank to unclaim");
 			return true;
 		}
-		Claim claim = FactionsMain.getClaim(c.getX(), c.getZ(), c.getWorld().toString());
+		Claim claim = FactionsMain.getClaim(c.getX(), c.getZ(), c.getWorld().getName());
 
 		switch (claim.getClaimType()) {
 
