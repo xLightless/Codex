@@ -9,11 +9,14 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.inventory.ItemStack;
 
-public class AuctionEvents implements Listener {
+import org.codex.vaults.PlayerVault;
+
+public class AuctionMainEvents implements Listener {
 	
 	public AuctionMain auctionMain;
+	public PlayerVault pv;
 	
-	public AuctionEvents(AuctionMain main) {
+	public AuctionMainEvents(AuctionMain main) {
 		auctionMain = main;
 	}
 	
@@ -21,6 +24,8 @@ public class AuctionEvents implements Listener {
 	public void onPlayerClick(InventoryClickEvent e) {
 		
 		if (!(e.getWhoClicked() instanceof Player)) return;
+		if (e.getWhoClicked() == null) return;
+		if (e.getCurrentItem() == null || e.getCurrentItem().getType().equals(Material.AIR)) return;
 		Player p = (Player) e.getWhoClicked();
 		if (!(e.getClickedInventory().getTitle() == AuctionMain.title)) return;
 		if ((e.getWhoClicked() instanceof Player) && (e.getClickedInventory().getTitle() == AuctionMain.title)) {
@@ -42,6 +47,12 @@ public class AuctionEvents implements Listener {
 				return;
 			}
 			
+			if (is.equals(AuctionItem.PLAYER_VAULTS.getItemStack())) {
+				p.closeInventory();
+				p.openInventory(pv.getInventory());
+				return;
+			}
+			
 			e.setCancelled(true);
 			}
 		}
@@ -50,6 +61,7 @@ public class AuctionEvents implements Listener {
 	public void onPlayerDrag(InventoryDragEvent e) {
 		
 		if (!(e.getWhoClicked() instanceof Player)) return;
+		if (e.getWhoClicked() == null) return;
 		if (!(e.getInventory().getTitle() == AuctionMain.title)) return;
 		if ((e.getWhoClicked() instanceof Player) && (e.getInventory().getTitle() == AuctionMain.title)) {
 			e.setCancelled(true);

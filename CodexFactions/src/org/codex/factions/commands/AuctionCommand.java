@@ -39,7 +39,9 @@ public class AuctionCommand implements CommandExecutor {
 						break;
 					case "sell":
 						am.addItem(p, new ItemStack(Material.STONE));
+						am.addItem(p, new ItemStack(Material.BED));
 						default:
+							
 							sender.sendMessage(ChatColor.RED + "Invalid Usage. Type /ah help.");
 				}
 				

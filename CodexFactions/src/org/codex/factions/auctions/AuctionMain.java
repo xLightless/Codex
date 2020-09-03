@@ -31,7 +31,7 @@ public class AuctionMain {
 		Inventory inv = Bukkit.createInventory(null, 54, title);
 		inv.setItem(45, AuctionItem.COLLECTION.getItemStack());
 		inv.setItem(50, AuctionItem.NEXT_PAGE.getItemStack());
-		inv.setItem(48, AuctionItem.PREVIOUS_PAGE.getItemStack());
+		inv.setItem(48, AuctionItem.PREVIOUS_PAGE.getItemStack()); //48
 		inv.setItem(49, AuctionItem.REFRESH_AUCTION.getItemStack());
 		inv.setItem(53, AuctionItem.PLAYER_VAULTS.getItemStack());
 
