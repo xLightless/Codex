@@ -77,6 +77,7 @@ import org.codex.enchants.items.RepairCrystal;
 import org.codex.enchants.items.TrenchPickaxe;
 import org.codex.enchants.leveling.Levels;
 import org.codex.factions.auctions.AuctionEvents;
+import org.codex.factions.auctions.AuctionMain;
 import org.codex.factions.claims.Claim;
 import org.codex.factions.claims.ClaimManager;
 import org.codex.factions.claims.ClaimType;
@@ -126,6 +127,7 @@ public class FactionsMain extends JavaPlugin implements Listener {
 	private static File auctionData;
 	private static FactionsMain main;
 	private static EconomyMain ecoMain;
+	private static AuctionMain aucMain = new AuctionMain();
 
 	public FactionsMain() {
 		// getServer().getPluginManager().enablePlugin(new ChunkBusterMain());
@@ -292,7 +294,7 @@ public class FactionsMain extends JavaPlugin implements Listener {
 		getCommand("giveitem").setExecutor(new GiveItem());
 		getCommand("cenchant").setExecutor(new CustomEnchant());
 		getCommand("world").setExecutor(new WorldCommand());
-		getCommand("ah").setExecutor(new AuctionCommand());
+		getCommand("ah").setExecutor(new AuctionCommand(aucMain));
 		getCommand("eco").setExecutor(new EconomyCommand());
 		getCommand("pay").setExecutor(new PayCommand());
 		getCommand("wild").setExecutor(new RandomTeleportCommand());
@@ -348,7 +350,7 @@ public class FactionsMain extends JavaPlugin implements Listener {
 		Bukkit.getServer().getPluginManager().registerEvents(new PhantomArmorSet(), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new PacketMain(getServer()), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new ClaimManager(), this);
-		Bukkit.getServer().getPluginManager().registerEvents(new AuctionEvents(), this);
+		Bukkit.getServer().getPluginManager().registerEvents(new AuctionEvents(aucMain), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new Unclaimer(), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new Chatter(), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new SpectateTeleportMain(), this);
@@ -395,6 +397,7 @@ public class FactionsMain extends JavaPlugin implements Listener {
 			PlayersData = new File("plugins/CodexFactions/pdata.txt");
 			claimedData = new File("plugins/CodexFactions/cdata.txt");
 			worldData = new File("plugins/CodexMain/worlds.txt");
+			auctionData = new File("plugins/CodexMain/adata.txt");
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
