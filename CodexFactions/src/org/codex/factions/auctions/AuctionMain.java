@@ -1,7 +1,6 @@
 package org.codex.factions.auctions;
 
 import java.util.HashMap;
-import java.util.Map;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -14,13 +13,22 @@ public class AuctionMain {
 
 	public static HashMap<Integer, Inventory> inv = new HashMap<>(); // Ah Slot/Inventory
 	public static HashMap<ItemStack, Player> pdata = new HashMap<>(); //
-	public static String title = ChatColor.AQUA + "Auction House";
-	public static ItemStack nextPage;
-	public static ItemStack prevPage;
-	public static Map<Player, Integer> viewers = new HashMap<>();
+	public static final String TITLE = ChatColor.AQUA + "Auction House";
+	public HashMap<Player, Integer> viewers = new HashMap<>();
+  
+	public AuctionMain(HashMap<Player, Integer> viewers) {
+		this.viewers = viewers;
+	}
+	
+	
+	public HashMap<Player, Integer> getViewers() {
+		return viewers;
+	}
 
+	public AuctionMain() {
+	}
+	
 	public Inventory getAuctionInventory(int i) {
-
 		Inventory ahInv = inv.containsKey(i) ? inv.get(i) : this.createInventory();
 		inv.put(i, ahInv);
 		return ahInv;
@@ -28,7 +36,7 @@ public class AuctionMain {
 
 	public Inventory createInventory() {
 
-		Inventory inv = Bukkit.createInventory(null, 54, title);
+		Inventory inv = Bukkit.createInventory(null, 54, TITLE);
 		inv.setItem(45, AuctionItem.COLLECTION.getItemStack());
 		inv.setItem(50, AuctionItem.NEXT_PAGE.getItemStack());
 		inv.setItem(48, AuctionItem.PREVIOUS_PAGE.getItemStack());
@@ -63,11 +71,15 @@ public class AuctionMain {
 
 	public void openInventory(Player p) {
 		viewers.put(p, 0);
+		p.closeInventory();
 		p.openInventory(this.getAuctionInventory(0));
+		this.getInventoryForPlayer(p);
+		Bukkit.broadcastMessage(viewers + "");
 	}
 
 	public int getInventoryForPlayer(Player p) {
-		return viewers.get(p);
+		Bukkit.broadcastMessage(getViewers() + "");
+		return getViewers().get(p);
 	}
 
 	public void changeInventoryPlayer(int i, Player p) {

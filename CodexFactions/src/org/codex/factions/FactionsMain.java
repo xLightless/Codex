@@ -127,7 +127,8 @@ public class FactionsMain extends JavaPlugin implements Listener {
 	private static File auctionData;
 	private static FactionsMain main;
 	private static EconomyMain ecoMain;
-	private static AuctionMain aucMain = new AuctionMain();
+	public static HashMap<Player, Integer> viewers = new HashMap<>();
+	private AuctionMain aucMain = new AuctionMain(viewers);
 
 	public FactionsMain() {
 		// getServer().getPluginManager().enablePlugin(new ChunkBusterMain());

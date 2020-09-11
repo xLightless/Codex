@@ -1,7 +1,5 @@
 package org.codex.enchants.books;
 
-import java.util.List;
-
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
