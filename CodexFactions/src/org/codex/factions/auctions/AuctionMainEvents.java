@@ -1,7 +1,5 @@
 package org.codex.factions.auctions;
 
-import java.util.HashMap;
-
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -11,10 +9,13 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.inventory.ItemStack;
 
-public class AuctionEvents implements Listener {
+import org.codex.vaults.PlayerVault;
+
+public class AuctionMainEvents implements Listener {
 	
-	public static AuctionMain auctionMain;
-	public AuctionEvents(AuctionMain main) {
+	public AuctionMain auctionMain;
+	
+	public AuctionMainEvents(AuctionMain main) {
 		auctionMain = main;
 	}
 	
@@ -22,8 +23,11 @@ public class AuctionEvents implements Listener {
 	public void onPlayerClick(InventoryClickEvent e) {
 		
 		if (!(e.getWhoClicked() instanceof Player)) return;
+		if (e.getWhoClicked() == null) return;
+		if (e.getCurrentItem() == null || e.getCurrentItem().getType().equals(Material.AIR)) return;
 		Player p = (Player) e.getWhoClicked();
 		if (!(e.getClickedInventory().getTitle() == AuctionMain.TITLE)) return;
+		if ((e.getWhoClicked() instanceof Player) && (e.getClickedInventory().getTitle() == AuctionMain.TITLE)) {
 			ItemStack is = e.getCurrentItem();
 			if (is == null ? true : is.getType().equals(Material.AIR))
 			return;
@@ -33,25 +37,29 @@ public class AuctionEvents implements Listener {
 				int i = auctionMain.getInventoryForPlayer(p) + 1;
 				p.openInventory(auctionMain.getAuctionInventory(i));
 				auctionMain.changeInventoryPlayer(i, p);
-				e.setCancelled(true);
 				return;
 			}else if (is.equals(AuctionItem.PREVIOUS_PAGE.getItemStack())) {
 				p.closeInventory();
 				int i = auctionMain.getInventoryForPlayer(p) - 1 == 0 ? 0 : auctionMain.getInventoryForPlayer(p);
 				p.openInventory(auctionMain.getAuctionInventory(i));
 				auctionMain.changeInventoryPlayer(i, p);
-				e.setCancelled(true);
+				return;
+			}
+			
+			if (is.equals(AuctionItem.PLAYER_VAULTS.getItemStack())) {
+				p.closeInventory();
 				return;
 			}
 			
 			e.setCancelled(true);
-			
+			}
 		}
 
 	@EventHandler
 	public void onPlayerDrag(InventoryDragEvent e) {
 		
 		if (!(e.getWhoClicked() instanceof Player)) return;
+		if (e.getWhoClicked() == null) return;
 		if (!(e.getInventory().getTitle() == AuctionMain.TITLE)) return;
 		if ((e.getWhoClicked() instanceof Player) && (e.getInventory().getTitle() == AuctionMain.TITLE)) {
 			e.setCancelled(true);

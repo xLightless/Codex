@@ -1,6 +1,5 @@
 package org.codex.factions.commands;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -41,8 +40,10 @@ public class AuctionCommand implements CommandExecutor {
 						break;
 					case "sell":
 						am.addItem(p, new ItemStack(Material.STONE));
+						am.addItem(p, new ItemStack(Material.BED));
 						break;
 						default:
+							
 							sender.sendMessage(ChatColor.RED + "Invalid Usage. Type /ah help.");
 				}
 				

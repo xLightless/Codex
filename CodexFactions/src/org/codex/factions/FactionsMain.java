@@ -76,7 +76,7 @@ import org.codex.enchants.energy.EnergyHarvester;
 import org.codex.enchants.items.RepairCrystal;
 import org.codex.enchants.items.TrenchPickaxe;
 import org.codex.enchants.leveling.Levels;
-import org.codex.factions.auctions.AuctionEvents;
+import org.codex.factions.auctions.AuctionMainEvents;
 import org.codex.factions.auctions.AuctionMain;
 import org.codex.factions.claims.Claim;
 import org.codex.factions.claims.ClaimManager;
@@ -351,7 +351,7 @@ public class FactionsMain extends JavaPlugin implements Listener {
 		Bukkit.getServer().getPluginManager().registerEvents(new PhantomArmorSet(), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new PacketMain(getServer()), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new ClaimManager(), this);
-		Bukkit.getServer().getPluginManager().registerEvents(new AuctionEvents(aucMain), this);
+		Bukkit.getServer().getPluginManager().registerEvents(new AuctionMainEvents(aucMain), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new Unclaimer(), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new Chatter(), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new SpectateTeleportMain(), this);
