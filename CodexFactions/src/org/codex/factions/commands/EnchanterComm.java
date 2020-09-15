@@ -68,6 +68,7 @@ public class EnchanterComm implements CommandExecutor, Listener{
 	
 	private Inventory getEnchanterInventory(Player p) {
 		Inventory i =  Bukkit.getServer().createInventory(p, 9, e);
+		ItemStack bookAndQuill = new ItemStack(Material.BOOK_AND_QUILL);
 		for (int x = 0; x < 5; x++) {
 		ItemStack book = new ItemStack(Material.BOOK);
         ItemMeta metbook = book.getItemMeta();
@@ -104,6 +105,7 @@ public class EnchanterComm implements CommandExecutor, Listener{
 		i.setItem(x+2, book);
 		
 		}
+		i.setItem(8, bookAndQuill);
 		
 		return i;
 	}

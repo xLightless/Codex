@@ -7,6 +7,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -40,6 +41,7 @@ public class TrenchPickaxe extends CustomItem<BlockBreakEvent> {
 		ItemStack is = new ItemStack(this.getMaterial());
 		ItemMeta im = is.getItemMeta();
 		im.addEnchant(new Glow(40), 1, true);
+		im.addEnchant(Enchantment.DIG_SPEED, 6, true);
 		im.setDisplayName(ChatColor.RESET + "" + ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Trench Pickaxe "
 				+ Book.getRomanNumeral(number));
 		List<String> lore = new ArrayList<>();

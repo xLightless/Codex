@@ -25,12 +25,12 @@ public class AuctionMainEvents implements Listener {
 	
 	@EventHandler
 	public void onPlayerClick(InventoryClickEvent e) {
-		if(e.getInventory().getTitle() == AuctionMain.TITLE)e.setCancelled(true);;
+		if(e.getInventory().getTitle().contains(AuctionMain.TITLE))e.setCancelled(true);;
 		if (!(e.getWhoClicked() instanceof Player)) return;
 		if (e.getWhoClicked() == null) return;
 		if (e.getCurrentItem() == null || e.getCurrentItem().getType().equals(Material.AIR)) return;
 		Player p = (Player) e.getWhoClicked();
-		if (!(e.getClickedInventory().getTitle() == AuctionMain.TITLE)) return;
+		if (!(e.getClickedInventory().getTitle().contains(AuctionMain.TITLE))) return;
 			ItemStack is = e.getCurrentItem();
 			if (is == null ? true : is.getType().equals(Material.AIR))
 			return;
@@ -66,8 +66,8 @@ public class AuctionMainEvents implements Listener {
 		
 		if (!(e.getWhoClicked() instanceof Player)) return;
 		if (e.getWhoClicked() == null) return;
-		if (!(e.getInventory().getTitle() == AuctionMain.TITLE)) return;
-		if ((e.getWhoClicked() instanceof Player) && (e.getInventory().getTitle() == AuctionMain.TITLE)) {
+		if (!(e.getInventory().getTitle().contains(AuctionMain.TITLE))) return;
+		if ((e.getWhoClicked() instanceof Player) && (e.getInventory().getTitle().contains(AuctionMain.TITLE))) {
 			e.setCancelled(true);
 			}
 		}
@@ -75,7 +75,7 @@ public class AuctionMainEvents implements Listener {
 	@EventHandler
 	public void onInventoryClose(InventoryCloseEvent e) {
 	
-		if (e.getInventory().getTitle() == AuctionMain.TITLE) {
+		if (e.getInventory().getTitle().contains(AuctionMain.TITLE)) {
 			if(!set.contains(e.getPlayer()))
 				auctionMain.viewers.remove(e.getPlayer());
 			else

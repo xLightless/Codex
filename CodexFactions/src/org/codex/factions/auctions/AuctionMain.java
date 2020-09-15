@@ -29,14 +29,14 @@ public class AuctionMain {
 	}
 	
 	public Inventory getAuctionInventory(int i) {
-		Inventory ahInv = inv.containsKey(i) ? inv.get(i) : this.createInventory();
+		Inventory ahInv = inv.containsKey(i) ? inv.get(i) : this.createInventory(i);
 		inv.put(i, ahInv);
 		return ahInv;
 	}
 
-	public Inventory createInventory() {
+	public Inventory createInventory(int i) {
 
-		Inventory inv = Bukkit.createInventory(null, 54, TITLE);
+		Inventory inv = Bukkit.createInventory(null, 54, TITLE + " selection : " + i);
 		inv.setItem(45, AuctionItem.COLLECTION.getItemStack());
 		inv.setItem(50, AuctionItem.NEXT_PAGE.getItemStack());
 		inv.setItem(48, AuctionItem.PREVIOUS_PAGE.getItemStack()); //48
@@ -73,7 +73,6 @@ public class AuctionMain {
 		viewers.put(p, 0);
 		p.closeInventory();
 		p.openInventory(this.getAuctionInventory(0));
-		this.getInventoryForPlayer(p);
 	}
 
 	public int getInventoryForPlayer(Player p) {
