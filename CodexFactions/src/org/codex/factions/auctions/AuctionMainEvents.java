@@ -1,5 +1,8 @@
 package org.codex.factions.auctions;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -9,11 +12,12 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.inventory.ItemStack;
 
-import org.codex.vaults.PlayerVault;
+import net.md_5.bungee.api.ChatColor;
 
 public class AuctionMainEvents implements Listener {
 	
 	public AuctionMain auctionMain;
+	public Set<Player> set = new HashSet<>();
 	
 	public AuctionMainEvents(AuctionMain main) {
 		auctionMain = main;
@@ -21,38 +25,40 @@ public class AuctionMainEvents implements Listener {
 	
 	@EventHandler
 	public void onPlayerClick(InventoryClickEvent e) {
-		
+		if(e.getInventory().getTitle() == AuctionMain.TITLE)e.setCancelled(true);;
 		if (!(e.getWhoClicked() instanceof Player)) return;
 		if (e.getWhoClicked() == null) return;
 		if (e.getCurrentItem() == null || e.getCurrentItem().getType().equals(Material.AIR)) return;
 		Player p = (Player) e.getWhoClicked();
 		if (!(e.getClickedInventory().getTitle() == AuctionMain.TITLE)) return;
-		if ((e.getWhoClicked() instanceof Player) && (e.getClickedInventory().getTitle() == AuctionMain.TITLE)) {
 			ItemStack is = e.getCurrentItem();
 			if (is == null ? true : is.getType().equals(Material.AIR))
 			return;
 			
 			if (is.equals(AuctionItem.NEXT_PAGE.getItemStack())) {
+				set.add(p);
 				p.closeInventory();
 				int i = auctionMain.getInventoryForPlayer(p) + 1;
 				p.openInventory(auctionMain.getAuctionInventory(i));
 				auctionMain.changeInventoryPlayer(i, p);
-				return;
+				p.sendMessage(ChatColor.GOLD + "You have moved to auction house " + i);
 			}else if (is.equals(AuctionItem.PREVIOUS_PAGE.getItemStack())) {
+				set.add(p);
 				p.closeInventory();
-				int i = auctionMain.getInventoryForPlayer(p) - 1 == 0 ? 0 : auctionMain.getInventoryForPlayer(p);
+				int i = auctionMain.getInventoryForPlayer(p) - 1 <= 0 ? 0 : auctionMain.getInventoryForPlayer(p) - 1;
 				p.openInventory(auctionMain.getAuctionInventory(i));
 				auctionMain.changeInventoryPlayer(i, p);
-				return;
+				p.sendMessage(ChatColor.GOLD + "You have moved to auction house " + i);
 			}
 			
-			if (is.equals(AuctionItem.PLAYER_VAULTS.getItemStack())) {
+			else if (is.equals(AuctionItem.PLAYER_VAULTS.getItemStack())) {
+				set.add(p);
 				p.closeInventory();
-				return;
+				
 			}
 			
 			e.setCancelled(true);
-			}
+			
 		}
 
 	@EventHandler
@@ -68,8 +74,15 @@ public class AuctionMainEvents implements Listener {
 	
 	@EventHandler
 	public void onInventoryClose(InventoryCloseEvent e) {
+	
+		if (e.getInventory().getTitle() == AuctionMain.TITLE) {
+			if(!set.contains(e.getPlayer()))
+				auctionMain.viewers.remove(e.getPlayer());
+			else
+				set.remove(e.getPlayer());
 		
-		if (e.getInventory().getTitle() == AuctionMain.TITLE) auctionMain.viewers.remove(e.getPlayer());
+			
+		}
 		
 		}
 	}

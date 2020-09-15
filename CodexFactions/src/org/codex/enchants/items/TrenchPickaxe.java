@@ -101,7 +101,7 @@ public class TrenchPickaxe extends CustomItem<BlockBreakEvent> {
 						facp = null;
 						fac2 = null;
 					}
-					if(fac == null ? true : fac.equals(fac2) || facp == null ? false : facp.hasPermission(fac, FactionPermissions.BLOCK_BREAK) )continue;
+					if(fac == null ? false : fac.equals(fac2) || facp == null ? false : facp.hasPermission(fac, FactionPermissions.BLOCK_BREAK) )continue;
 					for(ItemStack drop: b.getDrops()) {
 						if(isInvalid(drop))continue;
 						if(!p.getInventory().contains(Material.AIR)) {

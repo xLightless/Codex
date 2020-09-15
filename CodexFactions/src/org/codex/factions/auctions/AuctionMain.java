@@ -49,14 +49,14 @@ public class AuctionMain {
 	public void addItem(Player p, ItemStack is) {
 
 		Inventory ahInv = this.getFirstEmptyInventory(0);
-		ahInv.addItem(is);
+		ahInv.setItem(ahInv.firstEmpty(), is);
 		inv.put(this.getFirstEmptyInventorySlot(0), ahInv);
 	}
 
 	public Inventory getFirstEmptyInventory(int i) {
 
 		int empty = this.getAuctionInventory(i).firstEmpty();
-
+		
 		return empty == -1 || empty >= 45 ? getFirstEmptyInventory(i + 1) : this.getAuctionInventory(i);
 
 	}
@@ -74,16 +74,17 @@ public class AuctionMain {
 		p.closeInventory();
 		p.openInventory(this.getAuctionInventory(0));
 		this.getInventoryForPlayer(p);
-		Bukkit.broadcastMessage(viewers + "");
 	}
 
 	public int getInventoryForPlayer(Player p) {
-		Bukkit.broadcastMessage(getViewers() + "");
 		return getViewers().get(p);
 	}
 
 	public void changeInventoryPlayer(int i, Player p) {
-		viewers.put(p, viewers.containsKey(p) ? viewers.get(p) + i : i); 
+		viewers.put(p, i); 
 	}
 	
+	public void addInventoryPlayer(int i, Player p) {
+		viewers.put(p, viewers.containsKey(p) ? viewers.get(p) + i : i); 
+	}
 }
