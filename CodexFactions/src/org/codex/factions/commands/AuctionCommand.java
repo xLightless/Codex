@@ -1,13 +1,11 @@
 package org.codex.factions.commands;
 
-import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 import org.codex.factions.auctions.AuctionMain;
+import org.codex.factions.executors.auction.Sell;
 
 import net.md_5.bungee.api.ChatColor;
 
@@ -30,7 +28,6 @@ public class AuctionCommand implements CommandExecutor {
 			
 			if (args.length == 0) {
 				am.openInventory(p);
-				Bukkit.broadcastMessage(am + "");
 			}
 			
 			if (args.length != 0) {
@@ -40,7 +37,7 @@ public class AuctionCommand implements CommandExecutor {
 						p.sendMessage("not yet");
 						break;
 					case "sell":
-						am.addItem(p, new ItemStack(Material.STONE));
+						new Sell().onCommand(sender, args);
 						break;
 						default:
 							
