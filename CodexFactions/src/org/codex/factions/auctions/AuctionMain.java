@@ -49,8 +49,9 @@ public class AuctionMain {
 	public void addItem(Player p, ItemStack is) {
 
 		Inventory ahInv = this.getFirstEmptyInventory(0);
+		int slot = this.getFirstEmptyInventorySlot(0);
 		ahInv.setItem(ahInv.firstEmpty(), is);
-		inv.put(this.getFirstEmptyInventorySlot(0), ahInv);
+		inv.put(slot, ahInv);
 	}
 
 	public Inventory getFirstEmptyInventory(int i) {

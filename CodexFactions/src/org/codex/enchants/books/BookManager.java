@@ -575,7 +575,7 @@ public class BookManager implements Listener {
 		}
 	}
 
-	private static boolean isWeapon(Material type) {
+	public static boolean isWeapon(Material type) {
 		switch (type) {
 		case DIAMOND_SWORD:
 			return true;
