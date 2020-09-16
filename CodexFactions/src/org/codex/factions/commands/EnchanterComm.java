@@ -69,6 +69,14 @@ public class EnchanterComm implements CommandExecutor, Listener{
 	private Inventory getEnchanterInventory(Player p) {
 		Inventory i =  Bukkit.getServer().createInventory(p, 9, e);
 		ItemStack bookAndQuill = new ItemStack(Material.BOOK_AND_QUILL);
+		ItemMeta ems = bookAndQuill.getItemMeta();
+		List<String> eml= new ArrayList<>();
+		ems.setDisplayName(ChatColor.AQUA + "Enchantments Menu");
+		eml.add("Click to open enchantments menu");
+		ems.setLore(eml);
+		bookAndQuill.setItemMeta(ems);
+		
+		
 		for (int x = 0; x < 5; x++) {
 		ItemStack book = new ItemStack(Material.BOOK);
         ItemMeta metbook = book.getItemMeta();

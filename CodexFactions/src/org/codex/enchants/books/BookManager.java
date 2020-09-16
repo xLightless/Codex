@@ -17,8 +17,10 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
@@ -80,7 +82,6 @@ public class BookManager implements Listener {
 		if (e.getAction().equals(Action.RIGHT_CLICK_AIR) || e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
 			if (it == null || it.getType() == Material.AIR || it.getItemMeta() == null)
 				return;
-
 			else if (it.getItemMeta().equals(cb.getItemMeta())) {
 				p.getInventory().addItem(this.getRandomBook(BookType.COMMON_BOOK).getItemStack());
 				p.getInventory().removeItem(cb);
@@ -118,7 +119,7 @@ public class BookManager implements Listener {
 			return;
 		}
 
-	}
+		}
 
 	@EventHandler
 	public void onBookApply(InventoryClickEvent e) {

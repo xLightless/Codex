@@ -18,7 +18,9 @@ public enum BookType{
 	
 	QUANTUM_BOOK(ChatColor.YELLOW),
 	
-	GODLY_BOOK(ChatColor.DARK_RED);
+	GODLY_BOOK(ChatColor.DARK_RED),
+	
+	ENCHANTS_MENU_ITEMSTACK(ChatColor.GOLD);
 	
 	private String color;
 	
@@ -33,6 +35,4 @@ public enum BookType{
 	public String getChatColor() {
 		return color;
 	}
-	
-	
 }
