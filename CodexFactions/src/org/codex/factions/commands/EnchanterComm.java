@@ -119,7 +119,7 @@ public class EnchanterComm implements CommandExecutor, Listener{
 	}
 	
 	@EventHandler
-    private void inventoryClick(InventoryClickEvent e)
+    private void inventoryClick(InventoryClickEvent e) //add enchanter menu drag event
     {
 		
 		Player p = (Player) e.getWhoClicked();
@@ -162,14 +162,17 @@ public class EnchanterComm implements CommandExecutor, Listener{
                 	   return;
                    }
             	  
-               }else {
+               }else if((ci.getType().equals(Material.BOOK_AND_QUILL))){
+            	   Inventory emInv = Bukkit.createInventory(null, 54, ChatColor.AQUA + "Click an Item for Enchants:");
+            	   p.closeInventory();
+            	   p.openInventory(emInv);
+            	   emInv.addItem(new ItemStack(Material.STONE));
             	   return;
                }
-
-               
-		}
+		} else if ((e.getWhoClicked() instanceof Player && e.getClickedInventory().getTitle().equals(ChatColor.AQUA + "Click an Item for Enchants:"))) {
+     	   e.setCancelled(true);
+        }
     }
-	
 	
 	public ItemStack getEnchantedBook(BookType book) {
 				
