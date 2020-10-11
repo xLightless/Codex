@@ -18,6 +18,7 @@ import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Material;
+import org.bukkit.block.Chest;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.enchantments.Enchantment;
@@ -41,6 +42,7 @@ import org.codex.enchants.books.Armored;
 import org.codex.enchants.books.AutoSmelt;
 import org.codex.enchants.books.Bene;
 import org.codex.enchants.books.Block;
+import org.codex.enchants.books.Book;
 import org.codex.enchants.books.BookManager;
 import org.codex.enchants.books.CreeperArmor;
 import org.codex.enchants.books.Crit;
@@ -76,8 +78,8 @@ import org.codex.enchants.energy.EnergyHarvester;
 import org.codex.enchants.items.RepairCrystal;
 import org.codex.enchants.items.TrenchPickaxe;
 import org.codex.enchants.leveling.Levels;
-import org.codex.factions.auctions.AuctionMainEvents;
 import org.codex.factions.auctions.AuctionMain;
+import org.codex.factions.auctions.AuctionMainEvents;
 import org.codex.factions.claims.Claim;
 import org.codex.factions.claims.ClaimManager;
 import org.codex.factions.claims.ClaimType;
@@ -120,11 +122,13 @@ public class FactionsMain extends JavaPlugin implements Listener {
 	public static Map<Long, HashMap<String, String>> ClaimedChunks = new HashMap<>();
 	public static Map<Integer, ItemStack> auctionHouse = new HashMap<>();
 	private static Set<String> worlds = new HashSet<>();
+	private static Map<Long, List<Chest>> collect = new HashMap<>();
 	private static File FactionsData;
 	private static File PlayersData;
 	private static File claimedData;
 	private static File worldData;
 	private static File auctionData;
+	private static File collectionData;
 	private static FactionsMain main;
 	private static EconomyMain ecoMain;
 	public static HashMap<Player, Integer> viewers = new HashMap<>();
@@ -141,6 +145,7 @@ public class FactionsMain extends JavaPlugin implements Listener {
 		Players = (Map<UUID, FactionPlayer>) FactionsMain.loadData(PlayersData) == null ? new HashMap<>() : (Map<UUID, FactionPlayer>) FactionsMain.loadData(PlayersData);
 		ClaimedChunks = (Map<Long, HashMap<String, String>>) FactionsMain.loadData(claimedData) == null ? new HashMap<>() : (Map<Long, HashMap<String, String>>) FactionsMain.loadData(claimedData)  ;
 		worlds = (Set<String>) FactionsMain.loadData(worldData) == null ? new HashSet<>() : (Set<String>) FactionsMain.loadData(worldData) ;
+		collect = (Map<Long, List<Chest>>) FactionsMain.loadData(collectionData) == null ? new HashMap<>() : (Map<Long, List<Chest>>) FactionsMain.loadData(collectionData);
 		EconomyMain.loadMoney();
 	}
 
@@ -168,6 +173,7 @@ public class FactionsMain extends JavaPlugin implements Listener {
 		FactionsMain.save(claimedData, ClaimedChunks);
 		FactionsMain.save(worldData, worlds);
 		FactionsMain.save(auctionData, auctionHouse);
+		FactionsMain.save(collectionData, collect);
 		EconomyMain.saveMoney();
 	}
 
@@ -399,6 +405,7 @@ public class FactionsMain extends JavaPlugin implements Listener {
 			claimedData = new File("plugins/CodexFactions/cdata.txt");
 			worldData = new File("plugins/CodexMain/worlds.txt");
 			auctionData = new File("plugins/CodexMain/adata.txt");
+			collectionData = new File("plugins/CodexMain/collect.txt");
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
@@ -607,5 +614,35 @@ public class FactionsMain extends JavaPlugin implements Listener {
 	public static void addWorld(String name) {
 		worlds.add(name);
 	}
+	
+	public static void addChest(Chest b) {
+		Chunk c = b.getChunk();
+		long l = FactionsMain.chunkCoordsToLong(c.getX(), c.getZ());
+		collect.put(l, collect.containsKey(l) ? addList(collect.get(l), b) : Book.of(b));
+	}
+	
+	public static <T> List<T> addList(List<T> l, T t) {
+		l.add(t);
+		return l;
+	}
+	
+	public static void removeChest(Chest b) {
+		Chunk c = b.getChunk();
+		long l = FactionsMain.chunkCoordsToLong(c.getX(), c.getZ());
+		if(collect.containsKey(l) ? collect.get(l).contains(b) : false) {
+			List<Chest> ls = collect.get(l);
+			ls.remove(b);
+			collect.put(l, ls);
+			
+		}
+	}
+	
+	public static Chest getChest(Chunk c, int startInt){
+		long l = FactionsMain.chunkCoordsToLong(c.getX(), c.getZ());
+		return collect.containsKey(l) ? collect.get(l).get(startInt).getBlockInventory().firstEmpty() == -1 ? getChest(c, startInt+1) : collect.get(l).get(startInt) : null;
+	}
+	
+
+	
 
 }

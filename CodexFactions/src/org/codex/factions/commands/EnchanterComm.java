@@ -169,7 +169,7 @@ public class EnchanterComm implements CommandExecutor, Listener{
             	   emInv.addItem(new ItemStack(Material.STONE));
             	   return;
                }
-		} else if ((e.getWhoClicked() instanceof Player && e.getClickedInventory().getTitle().equals(ChatColor.AQUA + "Click an Item for Enchants:"))) {
+		} else if ((e.getView().getTitle().equals(ChatColor.AQUA + "Click an Item for Enchants:"))) {
      	   e.setCancelled(true);
         }
     }

@@ -2,7 +2,7 @@ package org.codex.enchants.books;
 
 public enum ArmorType implements NonStackableItemType{
 
-	HELMET, CHESTPLATE, LEGGINGS, BOOTS, ELYTRA;
+	HELMET, CHESTPLATE, LEGGINGS, BOOTS;
 	
 	public static int getDiamondArmorValue(ArmorType t) {
 		switch(t) {

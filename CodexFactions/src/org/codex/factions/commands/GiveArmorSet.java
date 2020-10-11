@@ -4,6 +4,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.codex.enchants.armorsets.ArmorSet;
 import org.codex.enchants.armorsets.EnderArmorSet;
 import org.codex.enchants.armorsets.NetherArmorSet;
 import org.codex.enchants.armorsets.PhantomArmorSet;
@@ -22,19 +23,26 @@ public class GiveArmorSet implements CommandExecutor{
 		}
 		Player p = (Player) sender;
 		if(arg3.length == 2) {
+			ArmorSet as;
 			switch(arg3[0].toLowerCase()) {
 			case "nether" :
-				NetherArmorSet nas = new NetherArmorSet();
-				p.getInventory().addItem(nas.getItemStack(ArmorType.value(arg3[1].toUpperCase())));
+				as = new NetherArmorSet();
 				break;
 			case "ender":
-				EnderArmorSet eas = new EnderArmorSet();
-				p.getInventory().addItem(eas.getItemStack(ArmorType.value(arg3[1].toUpperCase())));
+				as = new EnderArmorSet();
 				break;
 			case "phantom":
-				PhantomArmorSet pas = new PhantomArmorSet();
-				p.getInventory().addItem(pas.getItemStack(ArmorType.value(arg3[1].toUpperCase())));
+				as = new PhantomArmorSet();
+			default:
+				as = new NetherArmorSet();
 			}
+			if(arg3[1].toUpperCase().equals("ALL")) {
+				for(ArmorType t : ArmorType.values())p.getInventory().addItem(as.getItemStack(t));
+				p.sendMessage(ChatColor.GREEN + "items have been added");
+				return true;
+			}
+			p.getInventory().addItem(as.getItemStack(ArmorType.value(arg3[1].toUpperCase())));
+			p.sendMessage(ChatColor.GREEN + "items have been added");
 		}else {
 			p.sendMessage(ChatColor.RED + "Please enter in this format /giveset [SET] [ARMOR TYPE]");
 		}

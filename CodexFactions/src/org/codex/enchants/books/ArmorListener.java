@@ -55,11 +55,7 @@ public class ArmorListener implements Listener {
 								&& p.getInventory().getBoots().getType() == Material.AIR) {
 							Bukkit.getServer().getPluginManager().callEvent(
 									new ArmorEquipEvent(p, EquipMethod.SHIFT_CLICK, ArmorType.BOOTS, cu, ci));
-						} else if (getArmorType(ci.getType()) == ArmorType.ELYTRA
-								&& p.getInventory().getChestplate().getType() == Material.AIR) {
-							Bukkit.getServer().getPluginManager().callEvent(
-									new ArmorEquipEvent(p, EquipMethod.SHIFT_CLICK, ArmorType.ELYTRA, cu, ci));
-						}
+						} 
 					} catch (NullPointerException e2) {
 						if (getArmorType(ci.getType()) == ArmorType.HELMET) {
 							Bukkit.getServer().getPluginManager().callEvent(
@@ -73,10 +69,7 @@ public class ArmorListener implements Listener {
 						} else if (getArmorType(ci.getType()) == ArmorType.BOOTS) {
 							Bukkit.getServer().getPluginManager().callEvent(
 									new ArmorEquipEvent(p, EquipMethod.SHIFT_CLICK, ArmorType.BOOTS, cu, ci));
-						} else if (getArmorType(ci.getType()) == ArmorType.ELYTRA) {
-							Bukkit.getServer().getPluginManager().callEvent(
-									new ArmorEquipEvent(p, EquipMethod.SHIFT_CLICK, ArmorType.ELYTRA, cu, ci));
-						}
+						} 
 					}
 				} else if (BookManager.checkWeapon(ci)) {
 
@@ -117,9 +110,6 @@ public class ArmorListener implements Listener {
 					} else if (getArmorType(nci.getType()) == ArmorType.BOOTS && e.getSlot() == 36) {
 						Bukkit.getServer().getPluginManager()
 								.callEvent(new ArmorEquipEvent(p, EquipMethod.HOTBAR_SWAP, ArmorType.BOOTS, cu, nci));
-					} else if (getArmorType(nci.getType()) == ArmorType.ELYTRA && e.getSlot() == 38) {
-						Bukkit.getServer().getPluginManager()
-								.callEvent(new ArmorEquipEvent(p, EquipMethod.HOTBAR_SWAP, ArmorType.ELYTRA, cu, ci));
 					}
 				}
 				if (isArmor(ci.getType()) && e.getSlotType() == SlotType.ARMOR) {
@@ -172,9 +162,6 @@ public class ArmorListener implements Listener {
 					} else if (getArmorType(cu.getType()) == ArmorType.BOOTS && e.getSlot() == 36) {
 						Bukkit.getServer().getPluginManager()
 								.callEvent(new ArmorEquipEvent(p, EquipMethod.PICK_DROP, ArmorType.BOOTS, ci, cu));
-					} else if (getArmorType(cu.getType()) == ArmorType.ELYTRA && e.getSlot() == 38) {
-						Bukkit.getServer().getPluginManager()
-								.callEvent(new ArmorEquipEvent(p, EquipMethod.PICK_DROP, ArmorType.ELYTRA, ci, cu));
 					}
 
 				} else if (BookManager.checkWeapon(cu)) {
@@ -332,9 +319,6 @@ public class ArmorListener implements Listener {
 			} else if (getArmorType(ci.getType()) == ArmorType.BOOTS) {
 				Bukkit.getServer().getPluginManager()
 						.callEvent(new ArmorUnequipEvent(p, EquipMethod.SHIFT_CLICK, ArmorType.BOOTS, ci));
-			} else if (getArmorType(ci.getType()) == ArmorType.ELYTRA) {
-				Bukkit.getServer().getPluginManager()
-						.callEvent(new ArmorUnequipEvent(p, EquipMethod.SHIFT_CLICK, ArmorType.ELYTRA, ci));
 			}
 		} else if (BookManager.checkWeapon(ci)) {
 			Bukkit.getServer().getPluginManager()
@@ -403,11 +387,7 @@ public class ArmorListener implements Listener {
 						&& p.getInventory().getBoots().getType() == Material.AIR) {
 					Bukkit.getServer().getPluginManager()
 							.callEvent(new ArmorEquipEvent(p, EquipMethod.APPLY, ArmorType.BOOTS, cu, is));
-				} else if (getArmorType(is.getType()) == ArmorType.ELYTRA
-						&& p.getInventory().getChestplate().getType() == Material.AIR) {
-					Bukkit.getServer().getPluginManager()
-							.callEvent(new ArmorEquipEvent(p, EquipMethod.APPLY, ArmorType.ELYTRA, cu, is));
-				}
+				} 
 			} catch (NullPointerException e2) {
 				if (getArmorType(is.getType()) == ArmorType.HELMET) {
 					Bukkit.getServer().getPluginManager()
@@ -421,10 +401,7 @@ public class ArmorListener implements Listener {
 				} else if (getArmorType(is.getType()) == ArmorType.BOOTS) {
 					Bukkit.getServer().getPluginManager()
 							.callEvent(new ArmorEquipEvent(p, EquipMethod.APPLY, ArmorType.BOOTS, cu, is));
-				} else if (getArmorType(is.getType()) == ArmorType.ELYTRA) {
-					Bukkit.getServer().getPluginManager()
-							.callEvent(new ArmorEquipEvent(p, EquipMethod.APPLY, ArmorType.ELYTRA, cu, is));
-				}
+				} 
 			}
 		}
 
@@ -456,9 +433,6 @@ public class ArmorListener implements Listener {
 					} else if (getArmorType(m) == ArmorType.HELMET && p.getInventory().getArmorContents()[3] == null) {
 						Bukkit.getServer().getPluginManager().callEvent(new ArmorEquipEvent(p, EquipMethod.DISPENSER,
 								ArmorType.HELMET, new ItemStack(Material.AIR), is));
-					} else if (getArmorType(m) == ArmorType.ELYTRA && p.getInventory().getArmorContents()[2] == null) {
-						Bukkit.getServer().getPluginManager().callEvent(new ArmorEquipEvent(p, EquipMethod.DISPENSER,
-								ArmorType.ELYTRA, new ItemStack(Material.AIR), is));
 					}
 				} catch (NullPointerException e1) {
 					e.setCancelled(true);
@@ -633,8 +607,6 @@ public class ArmorListener implements Listener {
 			return 1;
 		case BOOTS:
 			return 0;
-		case ELYTRA:
-			return 2;
 		default:
 			break;
 

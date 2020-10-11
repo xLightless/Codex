@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -94,18 +95,44 @@ public abstract class CustomItem<E extends Event> implements Listener{
 		return new Vector2D<>(true, is);
 	}
 	
+	@EventHandler
 	public void onCustomItemPlace(BlockPlaceEvent e) {
 		Player p = e.getPlayer();
 		for(CustomItemType t: CustomItemType.values()) {
 		if(t.getItem().isItem(p.getItemInHand())) {
+			if(t.isPlaceable()) {
+				blockPlace(e);
+				continue;
+			}
 			e.setCancelled(true);
 			p.sendMessage(ChatColor.RED + "You cannot place that");
 		}
-			
 		}
+	}
+	
+	public void blockPlace(BlockPlaceEvent e) {
+		return;
 	}
 
 	
+	@EventHandler
+	public void onCustomItemBreak(BlockBreakEvent e) {
+		Player p = e.getPlayer();
+		for(CustomItemType t: CustomItemType.values()) {
+		if(t.getItem().isItem(p.getItemInHand())) {
+			if(t.isBreakable()) {
+				blockBreak(e);
+				continue;
+			}
+			e.setCancelled(true);
+			p.sendMessage(ChatColor.RED + "You cannot break that");
+		}
+		}
+	}
+
+	public void blockBreak(BlockBreakEvent e) {
+		return;	
+	}
 	
 	
 	
